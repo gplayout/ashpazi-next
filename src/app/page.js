@@ -1,18 +1,17 @@
 import { supabase } from '@/lib/supabase';
-import RecipeCard from '@/components/RecipeCard';
 import { ChefHat } from 'lucide-react';
+import RecipeFeed from '@/components/RecipeFeed';
 
 // Revalidate every 60 seconds (ISR)
 export const revalidate = 60;
 
 export default async function Home() {
-  // Fetch data on the server
-  // Fetch top 50 recipes for now
+  // Fetch initial data (Page 1)
   const { data: recipes, error } = await supabase
     .from('recipes')
     .select('*')
-    .limit(50)
-    .order('created_at', { ascending: false });
+    .order('created_at', { ascending: false })
+    .limit(24); // Match the pagination limit
 
   if (error) {
     console.error("Supabase Fetch Error:", error);
@@ -33,24 +32,9 @@ export default async function Home() {
         </p>
       </section>
 
-      {/* Recipe Grid */}
+      {/* Recipe Feed (Infinite Scroll) */}
       <section className="container mx-auto px-4 md:px-6">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-bold">Latest Recipes</h2>
-          <span className="text-sm text-muted-foreground">{recipes?.length || 0} recipes found</span>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {recipes?.map((recipe) => (
-            <RecipeCard key={recipe.id} recipe={recipe} />
-          ))}
-        </div>
-
-        {(!recipes || recipes.length === 0) && (
-          <div className="text-center py-20 text-muted-foreground">
-            No recipes found. Check database connection.
-          </div>
-        )}
+        <RecipeFeed initialRecipes={recipes || []} />
       </section>
     </main>
   );

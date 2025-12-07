@@ -1,0 +1,32 @@
+LOGS: Database Verification (Random Sample)
+--------------------------------------------
+Target: 5 Random Recipes
+Check: Instructions Format (String vs Array)
+
+1. Recipe: پاستا با خامه و گوجه‌فرنگی
+   - Status: ✅ FIXED
+   - Format: Array (5 Steps)
+   - Sample: "مرحله 1: در یک قابلمه بزرگ..."
+
+2. Recipe: کیک مرغ
+   - Status: ✅ FIXED
+   - Format: Array (7 Steps)
+   - Sample: "مرحله 1: سینه‌مرغ را..."
+
+3. Recipe: کنسومه برنج
+   - Status: ✅ FIXED
+   - Format: Array (4 Steps)
+   - Sample: "مرحله 1: تخم مرغ ها را..."
+
+4. Recipe: ماکارونی با ماهی
+   - Status: ✅ FIXED
+   - Format: Array (5 Steps)
+   - Sample: "گام 1: یک قابلمه نسبتاً بزرگ..."
+
+5. Recipe: کوکو میگو با گشنیز و جعفری
+   - Status: ✅ FIXED
+   - Format: Array (10 Steps)
+   - Sample: "مرحله 1: میگو را چرخ کنید..."
+
+CONCLUSION: The database has been successfully updated.
+The frontend might be caching old data. Force refresh or clear cache to see changes.
