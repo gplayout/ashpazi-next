@@ -14,23 +14,28 @@ const parseEnv = (key) => {
 const SUPABASE_URL = parseEnv('NEXT_PUBLIC_SUPABASE_URL');
 const SUPABASE_KEY = parseEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY');
 // Using the working key provided by user
-const OPENAI_API_KEY = "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";
+const OPENAI_API_KEY = parseEnv('OPENAI_API_KEY');
 
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
+
+async function run() {
+    const { data: recipes, error } = await supabase
         .from('recipes')
-    .select('*')
-    .order('id', { ascending: true })
-    .range(0, 2000);
+        .select('*')
+        .order('id', { ascending: true })
+        .range(1000, 2999); // Phase 2: Resume from 1000
 
-if (error) { console.error(error); return; }
+    if (error) { console.error(error); return; }
 
-console.log(`Auditing TEXT for ${recipes.length} recipes with Cultural Expertise...`);
+    console.log(`Auditing TEXT for ${recipes.length} recipes with Cultural Expertise...`);
 
-// Process in parallel chunks of 5 for speed (Text is faster than image)
-const chunkSize = 5;
-for (let i = 0; i < recipes.length; i += chunkSize) {
-    const chunk = recipes.slice(i, i + chunkSize);
-    await Promise.all(chunk.map(processRecipe));
-}
+    // Process in parallel chunks of 5 for speed (Text is faster than image)
+    const chunkSize = 5;
+    for (let i = 0; i < recipes.length; i += chunkSize) {
+        const chunk = recipes.slice(i, i + chunkSize);
+        await Promise.all(chunk.map(processRecipe));
+    }
 }
 
 async function processRecipe(recipe) {
@@ -42,16 +47,29 @@ async function processRecipe(recipe) {
             messages: [
                 {
                     role: "system",
-                    content: `You are a Grand Master Chef and Culinary Historian specializing in the Persianate world (Iran, Afghanistan, Tajikistan).
-                    Task: Revise this recipe metadata to be culturally accurate, professional, and appetizing.
+                    content: `You are a Grand Master Chef and Culinary Historian specializing in the Persianate world.
+                    Task: Revise and STRUCTURIZE this recipe for a BILINGUAL database (Strict Farsi vs Strict English).
                     
-                    Rules:
-                    1. **Name**: Format as "Farsi Name (English Name)". Example: "Ghormeh Sabzi (Persian Herb Stew)".
-                    2. **Instructions**: Clean up the text. Remove any "posted by" or generic blog fluff. Keep it purely instructional and professional.
-                    3. **Authenticity**: If it's an Afghan dish (e.g. Qabili Palau) or Tajik dish, respect its origin.
+                    INPUT ISSUES: Data is messy, mixed languages, or raw text blocks.
                     
-                    Input JSON: { name, ingredients, instructions (if available) }
-                    Output JSON: { name, ingredients (array), description (short appetizing summary) }`
+                    REQUIREMENTS:
+                    1. **Farsi Version (Strict)**: 
+                       - Name: Pure Farsi (e.g., "قورمه سبزی"). NO English characters.
+                       - Ingredients/Instructions: Pure Farsi.
+                    2. **English Version (Strict)**: 
+                       - Name: English Name + (Transliterated Name). e.g., "Persian Herb Stew (Ghormeh Sabzi)".
+                       - Cultural Adaptation: Explain ingredients like an American food writer would (e.g., "Dried Limes (Limoo Amani) - adds a sour punch").
+                       - NO Farsi characters in English fields.
+                    
+                    OUTPUT JSON:
+                    { 
+                      name_fa, 
+                      name_en, 
+                      ingredients_fa (array), 
+                      ingredients_en (array),
+                      instructions_fa (array),
+                      instructions_en (array)
+                    }`
                 },
                 {
                     role: "user",
@@ -71,11 +89,14 @@ async function processRecipe(recipe) {
         const { error } = await supabase
             .from('recipes')
             .update({
-                name: refined.name,
-                ingredients: refined.ingredients,
-                // description: refined.description // We might not have this column, let's check schema. 
-                // Assuming we only update name/ingredients for now to be safe, or if 'instructions' allows text update.
-                // Let's stick to safe updates: Name & Ingredients are core.
+                name: refined.name_fa, // Default column becomes Strict Farsi
+                name_en: refined.name_en,
+
+                ingredients: refined.ingredients_fa, // Default column becomes Strict Farsi
+                ingredients_en: refined.ingredients_en,
+
+                instructions: refined.instructions_fa, // Default column becomes Strict Farsi
+                instructions_en: refined.instructions_en
             })
             .eq('id', recipe.id);
 

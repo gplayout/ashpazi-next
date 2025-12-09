@@ -2,6 +2,10 @@ import { Geist, Geist_Mono, Vazirmatn } from "next/font/google";
 import "./globals.css";
 import Link from 'next/link';
 import AuthButton from "@/components/AuthButton";
+import { LanguageProvider } from "@/context/LanguageContext";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { Analytics } from "@vercel/analytics/next";
+import { Search } from "lucide-react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,23 +31,30 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" dir="ltr">
+    <html lang="fa" dir="rtl">
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${vazirmatn.variable} antialiased font-sans bg-background text-foreground`}
       >
-        <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <div className="container flex h-14 max-w-screen-2xl items-center justify-between px-4">
-            <Link href="/" className="mr-6 flex items-center space-x-2">
-              <span className="font-bold text-xl text-amber-600">Zaffaron</span>
-            </Link>
-            <div className="flex items-center space-x-2">
-              <AuthButton />
+        <LanguageProvider>
+          <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="container flex h-14 max-w-screen-2xl items-center justify-between px-4">
+              <Link href="/" className="mr-6 flex items-center space-x-2">
+                <span className="font-bold text-xl text-amber-600">Zaffaron</span>
+              </Link>
+              <div className="flex items-center space-x-2 gap-1">
+                <Link href="/search" className="p-2 rounded-full hover:bg-muted transition-colors">
+                  <Search size={20} className="text-muted-foreground hover:text-foreground" />
+                </Link>
+                <LanguageSwitcher />
+                <AuthButton />
+              </div>
             </div>
-          </div>
-        </header>
-        <main className="min-h-screen">
-          {children}
-        </main>
+          </header>
+          <main className="min-h-screen">
+            {children}
+          </main>
+        </LanguageProvider>
+        <Analytics />
       </body>
     </html>
   );

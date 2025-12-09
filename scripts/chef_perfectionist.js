@@ -2,32 +2,34 @@ const { createClient } = require('@supabase/supabase-js');
 const OpenAI = require("openai");
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../.env.local') });
 
-// 1. Load Keys
-const envPath = path.resolve(__dirname, '../.env.local');
-const envContent = fs.readFileSync(envPath, 'utf-8');
-const parseEnv = (key) => {
-    const match = envContent.match(new RegExp(`${key}=(.*)`));
-    return match ? match[1] : null;
-};
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY;
+const SERPER_API_KEY = process.env.SERPER_API_KEY;
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY || process.env.VITE_OPENAI_API_KEY;
 
-const SUPABASE_URL = parseEnv('NEXT_PUBLIC_SUPABASE_URL');
-const SUPABASE_KEY = parseEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY');
-const SERPER_API_KEY = parseEnv('SERPER_API_KEY') || '28fcdced1f014a656a1aeab9d892902ec465be0b';
-const OPENAI_API_KEY = "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";
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
 
+async function run() {
+    console.log("Starting Image Agent...");
+    if (!OPENAI_API_KEY) { console.error("Missing OpenAI Key"); return; }
+
+    // Test Mode: Limit to 5 recipes to save costs during verification
+    const { data: recipes, error } = await supabase
         .from('recipes')
-    .select('*')
-    .order('id', { ascending: true })
-    .range(0, 2000);
+        .select('*')
+        .order('id', { ascending: true })
+        .range(1000, 2000); // Phase 2: The rest of the recipes
 
-if (error) { console.error(error); return; }
+    if (error) { console.error(error); return; }
 
-console.log(`Auditing ${recipes.length} recipes with STRICT standards (Score 8+/10)...`);
+    console.log(`Auditing ${recipes.length} recipes with STRICT standards (Score 8+/10)...`);
 
-for (const recipe of recipes) {
-    await processRecipe(recipe);
-}
+    for (const recipe of recipes) {
+        await processRecipe(recipe);
+    }
 }
 
 async function processRecipe(recipe) {
@@ -83,12 +85,21 @@ async function scoreImage(dishName, imageUrl) {
                     role: "user",
                     content: [
                         {
-                            type: "text", text: `Rate this food photo for a high-end cookbook featuring "${dishName}". 
-                        Criteria: 
-                        1. Authentic to "${dishName}".
-                        2. High Resolution & Sharp focus.
-                        3. Appetizing lighting.
-                        4. NO Text overlays.
+                            type: "text", text: `Rate this food photo for a premium cookbook featuring "${dishName}". 
+                        
+                        CRITICAL REJECTION CRITERIA (Score 0 if ANY match):
+                        - Contains ANY visible text, watermarks, or logos.
+                        - Contains people, faces, or hands.
+                        - Blurry, low resolution, or amateur lighting.
+                        - Collage or multiple images combined.
+                        
+                        SCORING (0-10):
+                        - 0: Text/Watermark/People/Blurry.
+                        - 1-4: Edible but amateur.
+                        - 5-7: Decent blog quality.
+                        - 8-9: Professional, clean, appetizing (KEEP THIS).
+                        - 10: Michelin-star masterpiece.
+                        
                         Return ONLY a single number 0-10.` },
                         { type: "image_url", image_url: { url: imageUrl } }
                     ]
@@ -98,6 +109,7 @@ async function scoreImage(dishName, imageUrl) {
         });
         const text = response.choices[0].message.content;
         const score = parseInt(text.match(/\d+/)?.[0] || "0");
+        console.log(`   🤖 Vision Verdict: ${score}/10`);
         return score;
     } catch (e) {
         return 0; // Error = Fail
@@ -105,12 +117,13 @@ async function scoreImage(dishName, imageUrl) {
 }
 
 async function findRealImage(queryName) {
-    const query = `Authentic Persian food ${queryName} close up professional photography`;
+    // excluded: pinterest, stock sites with watermarks often
+    const query = `Authentic Persian food "${queryName}" professional photography -text -logo -watermark`;
     try {
         const res = await fetch('https://google.serper.dev/images', {
             method: 'POST',
             headers: { 'X-API-KEY': SERPER_API_KEY, 'Content-Type': 'application/json' },
-            body: JSON.stringify({ q: query })
+            body: JSON.stringify({ q: query, num: 3 }) // Get top 3 to pick best? For now just 1
         });
         const data = await res.json();
         // Return first valid result? Or check top 3?
@@ -126,7 +139,7 @@ async function generateImage(dishName, ingredients) {
         const prompt = `Professional food photography of Authentic Persian ${dishName}. 
         Ingredients visible: ${JSON.stringify(ingredients).slice(0, 100)}.
         Style: Michelin star plating, macro shot, natural sunlight, 8k resolution, shallow depth of field. 
-        NO text, NO watermark. Hyper-realistic.`;
+        CRITICAL: NO TEXT, NO WATERMARKS, NO PEOPLE, NO HANDS. Just the food on a beautiful plate.`;
 
         const response = await openai.images.generate({
             model: "dall-e-3",

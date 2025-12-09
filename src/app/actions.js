@@ -8,7 +8,7 @@ export async function fetchRecipes(page = 1, limit = 24) {
 
     const { data, error } = await supabase
         .from('recipes')
-        .select('*')
+        .select('*, recipe_translations(*)')
         .order('created_at', { ascending: false })
         .range(from, to);
 
