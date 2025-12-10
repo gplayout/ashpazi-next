@@ -11,11 +11,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { getUiLabel } from '@/utils/dictionaries';
 
 const DIFFICULTY_OPTIONS = ['Easy', 'Medium', 'Hard'];
-const TIME_OPTIONS = [
-    { label: 'Quick (< 30 min)', max: 30 },
-    { label: 'Medium (30-60 min)', min: 30, max: 60 },
-    { label: 'Long (> 60 min)', min: 60 },
-];
+const TIME_OPTIONS = ['time_quick', 'time_medium', 'time_long'];
 const CATEGORY_OPTIONS = ['Rice', 'Stew', 'Kebab', 'Soup', 'Dessert', 'Salad', 'Appetizer'];
 
 export default function SearchPage() {
@@ -103,7 +99,7 @@ export default function SearchPage() {
                             <div>
                                 <h4 className="text-sm font-medium mb-2 flex items-center gap-2">
                                     <Flame size={16} className="text-orange-500" />
-                                    Difficulty
+                                    {getUiLabel('difficulty', language)}
                                 </h4>
                                 <div className="flex flex-wrap gap-2">
                                     {DIFFICULTY_OPTIONS.map((opt) => (
@@ -126,7 +122,7 @@ export default function SearchPage() {
                             <div>
                                 <h4 className="text-sm font-medium mb-2 flex items-center gap-2">
                                     <Clock size={16} className="text-amber-600" />
-                                    Cooking Time
+                                    {getUiLabel('cooking_time', language)}
                                 </h4>
                                 <div className="flex flex-wrap gap-2">
                                     {TIME_OPTIONS.map((opt, idx) => (
@@ -139,7 +135,7 @@ export default function SearchPage() {
                                                 timeRange: f.timeRange === idx ? null : idx
                                             }))}
                                         >
-                                            {opt.label}
+                                            {getUiLabel(opt, language)}
                                         </Badge>
                                     ))}
                                 </div>
@@ -149,7 +145,7 @@ export default function SearchPage() {
                             <div>
                                 <h4 className="text-sm font-medium mb-2 flex items-center gap-2">
                                     <ChefHat size={16} className="text-purple-500" />
-                                    Category
+                                    {getUiLabel('category', language)}
                                 </h4>
                                 <div className="flex flex-wrap gap-2">
                                     {CATEGORY_OPTIONS.map((opt) => (
@@ -162,7 +158,7 @@ export default function SearchPage() {
                                                 category: f.category === opt ? null : opt
                                             }))}
                                         >
-                                            {opt}
+                                            {getUiLabel(opt, language)}
                                         </Badge>
                                     ))}
                                 </div>
@@ -172,7 +168,7 @@ export default function SearchPage() {
                             {hasActiveFilters && (
                                 <Button variant="ghost" size="sm" onClick={clearFilters} className="text-muted-foreground">
                                     <X size={16} className="mr-1" />
-                                    Clear Filters
+                                    {getUiLabel('clear_filters', language)}
                                 </Button>
                             )}
                         </div>
@@ -185,7 +181,7 @@ export default function SearchPage() {
                 {results.length > 0 ? (
                     <>
                         <p className="text-sm text-muted-foreground mb-6">
-                            Found {results.length} {results.length === 1 ? 'recipe' : 'recipes'}
+                            {results.length} {getUiLabel('found_recipes', language)}
                         </p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                             {results.map((recipe) => (
@@ -196,11 +192,11 @@ export default function SearchPage() {
                 ) : (
                     <div className="text-center py-20">
                         {query.length >= 2 || hasActiveFilters ? (
-                            <p className="text-muted-foreground">No recipes found. Try different keywords or filters.</p>
+                            <p className="text-muted-foreground">{getUiLabel('no_results', language)}</p>
                         ) : (
                             <div className="space-y-4">
                                 <Search size={48} className="mx-auto text-muted-foreground/30" />
-                                <p className="text-muted-foreground">Start typing to search for recipes...</p>
+                                <p className="text-muted-foreground">{getUiLabel('start_typing', language)}</p>
                             </div>
                         )}
                     </div>
@@ -209,3 +205,4 @@ export default function SearchPage() {
         </main>
     );
 }
+
