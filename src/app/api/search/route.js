@@ -19,7 +19,7 @@ export async function GET(request) {
         );
 
         const { searchParams } = new URL(request.url);
-        const q = searchParams.get('q');
+        const q = searchParams.get('q') || '';
         const difficulty = searchParams.get('difficulty');
         const timeIndex = searchParams.get('time');
         const category = searchParams.get('category');
@@ -30,9 +30,9 @@ export async function GET(request) {
             .order('created_at', { ascending: false })
             .limit(50);
 
-        // Text search
-        if (q) {
-            query = query.or(`name.ilike.%${q}%,description.ilike.%${q}%`);
+        // Text search - simple ilike on name only (most reliable)
+        if (q && q.length >= 2) {
+            query = query.ilike('name', `%${q}%`);
         }
 
         // Difficulty filter
@@ -41,16 +41,15 @@ export async function GET(request) {
         }
 
         // Time filter
-        if (timeIndex !== null && timeIndex !== undefined) {
+        if (timeIndex !== null && timeIndex !== undefined && timeIndex !== '') {
             const range = TIME_RANGES[parseInt(timeIndex)];
             if (range) {
-                const totalTime = 'prep_time_minutes'; // Simplified: using prep time
                 if (range.max && !range.min) {
-                    query = query.lte(totalTime, range.max);
+                    query = query.lte('prep_time_minutes', range.max);
                 } else if (range.min && !range.max) {
-                    query = query.gte(totalTime, range.min);
+                    query = query.gte('prep_time_minutes', range.min);
                 } else if (range.min && range.max) {
-                    query = query.gte(totalTime, range.min).lte(totalTime, range.max);
+                    query = query.gte('prep_time_minutes', range.min).lte('prep_time_minutes', range.max);
                 }
             }
         }
@@ -64,13 +63,14 @@ export async function GET(request) {
 
         if (error) {
             console.error('Search error:', error);
-            return NextResponse.json({ recipes: [], error: error.message }, { status: 500 });
+            return NextResponse.json({ recipes: [], error: error.message }, { status: 200 });
         }
 
         return NextResponse.json({ recipes: data || [] });
 
     } catch (error) {
         console.error('Search API error:', error);
-        return NextResponse.json({ recipes: [], error: error.message }, { status: 500 });
+        return NextResponse.json({ recipes: [], error: error.message }, { status: 200 });
     }
 }
+
