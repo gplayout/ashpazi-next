@@ -1,16 +1,38 @@
 {
     "name": "Zaffaron | Global Cuisine",
     "short_name": "Zaffaron",
-    "description": "The world's most advanced AI cooking platform.",
+    "description": "The world's most advanced AI cooking platform. Experience Persian cuisine.",
     "start_url": "/",
+    "scope": "/",
     "display": "standalone",
+    "orientation": "portrait-primary",
     "background_color": "#ffffff",
     "theme_color": "#0d9488",
+    "categories": [
+        "food",
+        "lifestyle",
+        "utilities"
+    ],
     "icons": [
         {
             "src": "/icon.png",
             "sizes": "1024x1024",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/icon.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icon.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
         }
-    ]
+    ],
+    "screenshots": [],
+    "prefer_related_applications": false
 }
