@@ -7,9 +7,12 @@ export const dynamic = 'force-dynamic';
 export async function POST(request) {
     try {
         // Lazy initialization - only runs when endpoint is called
-        const openai = new OpenAI({
-            apiKey: process.env.OPENAI_API_KEY,
-        });
+        // Check both possible env var names
+        const apiKey = process.env.OPENAI_API_KEY || process.env.VITE_OPENAI_API_KEY;
+        if (!apiKey) {
+            return NextResponse.json({ error: 'OpenAI API key not configured' }, { status: 500 });
+        }
+        const openai = new OpenAI({ apiKey });
 
         const { image } = await request.json();
 
