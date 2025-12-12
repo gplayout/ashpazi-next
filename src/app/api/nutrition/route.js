@@ -1,3 +1,4 @@
+import OpenAI from 'openai';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
@@ -54,23 +55,17 @@ export async function POST(request) {
             return NextResponse.json({ error: 'Google API key missing' }, { status: 500 });
         }
 
-        const genAI = new GoogleGenerativeAI(googleKey);
-        const model = genAI.getGenerativeModel({
-            model: "gemini-flash-lite-latest",
-            generationConfig: { responseMimeType: "application/json" } // JSON Mode
-        });
+        // Initialize OpenAI (Unlimited quota compared to Gemini)
+        const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY || process.env.VITE_OPENAI_API_KEY });
+
+        // Remove Gemini Init
+        // const genAI = new GoogleGenerativeAI(googleKey);...
 
         const langMap = { fa: 'Persian', es: 'Spanish', en: 'English' };
         const targetLang = langMap[language] || 'English';
 
-        const prompt = `
-You are Chef Zaffaron, an expert Nutritionist.
-Analyze this recipe and return a JSON Object.
-
-Recipe: ${title}
-Ingredients: ${JSON.stringify(ingredients)}
-
-Target Language: ${targetLang}
+        const systemPrompt = `You are Chef Zaffaron, an expert Nutritionist.
+Analyze the following recipe and return a valid JSON Object.
 
 JSON Schema:
 {
@@ -86,10 +81,22 @@ Rules:
 2. TRANSLATE ALL VALUES (except keys) to ${targetLang}.
 3. 'macros' values should be like "24g" (or equivalent in target language).
 4. 'chef_insight': A brief customized tip about the health or history of this dish.
+5. JSON ONLY. No markdown formatting.
 `;
 
-        const result = await model.generateContent(prompt);
-        const newData = JSON.parse(result.response.text());
+        const userPrompt = `Recipe: ${title}\nIngredients: ${JSON.stringify(ingredients)}`;
+
+        const completion = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: userPrompt }
+            ],
+            response_format: { type: "json_object" },
+            temperature: 0.7,
+        });
+
+        const newData = JSON.parse(completion.choices[0].message.content);
 
         // 4. Save to Database
         if (supabase) {

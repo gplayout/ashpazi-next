@@ -19,8 +19,8 @@ export async function POST(request) {
 
         const openai = new OpenAI({ apiKey: openaiKey });
         const genAI = new GoogleGenerativeAI(googleKey);
-        // Using gemini-flash-lite-latest (Verified as UNLIMITED on this key)
-        const model = genAI.getGenerativeModel({ model: "gemini-flash-lite-latest" });
+        // Switched to gemini-flash-latest for better quota (Lite limit hit 20/day)
+        const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
         const { audio, language = 'en', recipeContext } = await request.json();
 
@@ -42,7 +42,8 @@ export async function POST(request) {
         const userText = transcription.text;
         console.log(`User (${language}): ${userText}`);
 
-        // --- Step 2: Intelligence (Gemini Flash - Google) ---
+        // --- Step 2: Intelligence (OpenAI GPT-4o-mini) ---
+        // Migrated from Gemini to avoid 20/day quota limits
 
         let promptStyle = "";
         let voicePreset = "alloy";
@@ -85,23 +86,23 @@ CRITICAL RULES:
 2. Always include a quick "Pro Tip".
 3. Be energetic.`;
 
+        let userMessage = userText;
         if (recipeContext) {
-            systemPrompt += `
-Recipe Context:
-Title: ${recipeContext.title}
-Ingredients: ${JSON.stringify(recipeContext.ingredients)}
-Instructions: ${JSON.stringify(recipeContext.instructions)}
-
-User Question: "${userText}"`;
-        } else {
-            systemPrompt += `\nUser Question: "${userText}"`;
+            systemPrompt += `\n\nRecipe Context:\nTitle: ${recipeContext.title}\nIngredients: ${JSON.stringify(recipeContext.ingredients)}\nInstructions: ${JSON.stringify(recipeContext.instructions)}`;
         }
 
-        // Generate Content
-        const result = await model.generateContent(systemPrompt);
-        const replyText = result.response.text();
+        // Generate Content using OpenAI
+        const completion = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: userMessage }
+            ],
+            max_tokens: 150,
+        });
 
-        console.log(`Chef (Gemini): ${replyText}`);
+        const replyText = completion.choices[0].message.content;
+        console.log(`Chef (OpenAI): ${replyText}`);
 
         // --- Step 3: Text to Speech (TTS - OpenAI) ---
         const mp3 = await openai.audio.speech.create({
