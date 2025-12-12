@@ -153,6 +153,8 @@ export default function ChefAssistant({ recipeContext }) {
 
         try {
             audioPlayerRef.current.src = pendingAudioBlobRef.current;
+            console.log("▶️ Manually Triggering Play on:", pendingAudioBlobRef.current);
+
             audioPlayerRef.current.play()
                 .then(() => {
                     console.log("✅ Manual Play Success");
@@ -161,10 +163,12 @@ export default function ChefAssistant({ recipeContext }) {
                 })
                 .catch(e => {
                     console.error("Manual Play Failed:", e);
-                    alert("Tap again to play!");
+                    // CRITICAL DEBUG: Show error to user
+                    alert(`Playback Error: ${e.message} (State: ${audioPlayerRef.current.readyState})`);
                 });
         } catch (e) {
             console.error(e);
+            alert(`Setup Error: ${e.message}`);
         }
     };
 
