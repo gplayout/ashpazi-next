@@ -94,6 +94,10 @@ export default function ChefAssistant({ recipeContext }) {
         };
     }, []);
 
+    // State for manual playback trigger
+    const [isAudioReady, setIsAudioReady] = useState(false);
+    const pendingAudioBlobRef = useRef(null);
+
     const processAudio = async (audioBlob) => {
         try {
             const reader = new FileReader();
@@ -118,10 +122,22 @@ export default function ChefAssistant({ recipeContext }) {
                 const data = await response.json();
 
                 if (data.audio) {
-                    setAudioResponse(data.audio);
                     setTranscript(data.text);
-                    playResponse(data.audio);
-                    setState('speaking');
+
+                    // --- CHANGED: Don't Auto-Play. Stage for Manual Play ---
+                    // Convert to Blob immediately
+                    const byteCharacters = atob(data.audio);
+                    const byteNumbers = new Array(byteCharacters.length);
+                    for (let i = 0; i < byteCharacters.length; i++) {
+                        byteNumbers[i] = byteCharacters.charCodeAt(i);
+                    }
+                    const byteArray = new Uint8Array(byteNumbers);
+                    const blob = new Blob([byteArray], { type: 'audio/mpeg' });
+
+                    pendingAudioBlobRef.current = URL.createObjectURL(blob);
+                    setIsAudioReady(true); // Triggers UI Button
+                    setState('speaking'); // Show visualizer (optional) or 'idle'
+
                 } else {
                     setState('idle');
                 }
@@ -129,6 +145,26 @@ export default function ChefAssistant({ recipeContext }) {
         } catch (error) {
             console.error('API Error:', error);
             setState('idle');
+        }
+    };
+
+    const playPendingAudio = () => {
+        if (!audioPlayerRef.current || !pendingAudioBlobRef.current) return;
+
+        try {
+            audioPlayerRef.current.src = pendingAudioBlobRef.current;
+            audioPlayerRef.current.play()
+                .then(() => {
+                    console.log("✅ Manual Play Success");
+                    setIsAudioReady(false); // Hide button
+                    setState('speaking');
+                })
+                .catch(e => {
+                    console.error("Manual Play Failed:", e);
+                    alert("Tap again to play!");
+                });
+        } catch (e) {
+            console.error(e);
         }
     };
 
@@ -209,6 +245,16 @@ export default function ChefAssistant({ recipeContext }) {
                     >
                         <ChefHat className="w-8 h-8 text-white group-hover:rotate-12 transition-transform" />
                         <span className="sr-only">Ask Chef</span>
+                    </motion.button>
+                ) : isAudioReady ? (
+                    <motion.button
+                        key="play"
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="group flex items-center justify-center w-16 h-16 bg-green-500 rounded-full shadow-lg animate-pulse"
+                        onClick={playPendingAudio}
+                    >
+                        <Volume2 className="w-8 h-8 text-white" />
                     </motion.button>
                 ) : (
                     <motion.div
