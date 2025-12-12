@@ -132,7 +132,7 @@ export default function ChefAssistant({ recipeContext }) {
         }
     };
 
-    const playResponse = (base64Audio) => {
+    const playResponse = async (base64Audio) => {
         if (!audioPlayerRef.current) {
             console.error("❌ Audio Player Ref is NULL");
             return;
@@ -141,11 +141,28 @@ export default function ChefAssistant({ recipeContext }) {
         console.log(`🔊 Receiving Audio: ${base64Audio.length} chars`);
 
         try {
-            // Use correct MIME type
-            const audioSrc = `data:audio/mpeg;base64,${base64Audio}`;
-            audioPlayerRef.current.src = audioSrc;
+            // Convert Base64 to Blob (Better for Mobile Memory)
+            const byteCharacters = atob(base64Audio);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], { type: 'audio/mpeg' });
+            const blobUrl = URL.createObjectURL(blob);
+
+            console.log("🔗 Blob URL Created:", blobUrl);
+            audioPlayerRef.current.src = blobUrl;
 
             console.log("▶️ Attempting Play...");
+
+            // Wait for 'canplaythrough' to ensure mobile is ready
+            await new Promise((resolve) => {
+                audioPlayerRef.current.oncanplaythrough = resolve;
+                // Timeout fallback in case event doesn't fire
+                setTimeout(resolve, 1000);
+            });
+
             const playPromise = audioPlayerRef.current.play();
 
             if (playPromise !== undefined) {
@@ -153,15 +170,15 @@ export default function ChefAssistant({ recipeContext }) {
                     .then(() => console.log("✅ Playback Started Successfully"))
                     .catch(error => {
                         console.error("❌ Audio Playback Failed:", error);
-                        // Fallback: Notify user if blocked
                         if (error.name === 'NotAllowedError') {
-                            alert("Please click anywhere to enable audio playback.");
+                            alert("Please tap anywhere to enable audio.");
                         }
                         setState('idle');
                     });
             }
         } catch (e) {
             console.error("❌ Audio Setup Critical Fail:", e);
+            setState('idle');
         }
     };
 
