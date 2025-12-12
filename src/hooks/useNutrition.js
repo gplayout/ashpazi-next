@@ -8,13 +8,31 @@ export function useNutrition(recipe) {
 
     useEffect(() => {
         const title = recipe.name || recipe.title;
+
+        // 1. Check Local DB Data (Optimization)
+        if (recipe.nutrition_info && recipe.nutrition_info[language]) {
+            const localData = recipe.nutrition_info[language];
+
+            // Normalize 'macro_nutrients' to 'macros' (Fix for Schema Mismatch)
+            if (localData.macro_nutrients && !localData.macros) {
+                localData.macros = localData.macro_nutrients;
+            }
+
+            console.log("⚡ Nutrition (Local):", localData);
+            setNutritionData(localData);
+            setLoading(false);
+            return;
+        }
+
         if (!title) {
             setLoading(false);
             return;
         }
 
+        // 2. Fetch from API (Fallback)
         const fetchNutrition = async () => {
             try {
+                // ... same fetch logic ...
                 const res = await fetch('/api/nutrition', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -24,11 +42,14 @@ export function useNutrition(recipe) {
                         language
                     })
                 });
-                if (!res.ok) {
-                    console.error('Fetch failed:', res.status);
-                    throw new Error('Failed to fetch');
-                }
+                if (!res.ok) throw new Error('Failed to fetch');
                 const result = await res.json();
+
+                // Normalization here too just in case
+                if (result.macro_nutrients && !result.macros) {
+                    result.macros = result.macro_nutrients;
+                }
+
                 setNutritionData(result);
             } catch (err) {
                 console.error('Nutrition Hook Error:', err);
@@ -39,7 +60,7 @@ export function useNutrition(recipe) {
         };
 
         fetchNutrition();
-    }, [recipe.name, recipe.title, language]);
+    }, [recipe, language]); // Added recipe dependency
 
     return { nutritionData, loading };
 }
