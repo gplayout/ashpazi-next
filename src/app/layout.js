@@ -30,6 +30,8 @@ export const metadata = {
   manifest: "/manifest.json",
 };
 
+import ChefAssistant from "@/components/ChefAssistant"; // [NEW] Restore Chat
+
 export default function RootLayout({ children }) {
   return (
     <html suppressHydrationWarning>
@@ -41,11 +43,11 @@ export default function RootLayout({ children }) {
             <div className="container flex h-14 max-w-screen-2xl items-center justify-between px-4">
               <Link href="/" className="mr-6 flex items-center space-x-2 gap-2">
                 <Image
-                  src="/icon.png"
+                  src="/logo_vector.svg"
                   alt="Zaffaron Logo"
                   width={32}
                   height={32}
-                  className="rounded-full"
+                  className="rounded-full bg-white"
                 />
                 <span className="font-bold text-xl text-amber-600">Zaffaron</span>
               </Link>
@@ -61,9 +63,10 @@ export default function RootLayout({ children }) {
           <main className="min-h-screen pb-16">
             {children}
             <footer className="w-full py-4 text-center text-xs text-muted-foreground opacity-50">
-              v2.5.1 (Latest) - {new Date().toLocaleDateString('fa-IR')}
+              v2.5.2 (Latest) - {new Date().toLocaleDateString('fa-IR')}
             </footer>
           </main>
+          <ChefAssistant />
         </LanguageProvider>
         <Analytics />
       </body>
