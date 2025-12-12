@@ -100,14 +100,14 @@ export default function ChefAssistant({ recipeContext }) {
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: 100, scale: 0.95 }}
+                        initial={{ opacity: 0, y: 50, scale: 0.9 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 50, scale: 0.95 }}
+                        exit={{ opacity: 0, y: 50, scale: 0.9 }}
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        className="fixed bottom-6 right-6 z-50 w-[90vw] md:w-[400px] h-[500px] max-h-[80vh] bg-background border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+                        className="fixed bottom-4 right-4 z-50 w-[calc(100vw-32px)] max-w-[350px] md:max-w-[380px] h-[60vh] md:h-[500px] bg-background border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden"
                     >
                         {/* Header */}
-                        <div className="p-4 bg-gradient-to-r from-amber-500 to-orange-600 flex items-center justify-between text-white shadow-md z-10">
+                        <div className="p-3 bg-gradient-to-r from-amber-500 to-orange-600 flex items-center justify-between text-white shadow-md z-10">
                             <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center border border-white/30">
                                     <span className="text-xl">👨‍🍳</span>
@@ -142,8 +142,8 @@ export default function ChefAssistant({ recipeContext }) {
                                 >
                                     <div
                                         className={`max-w-[80%] p-3 rounded-2xl text-sm leading-relaxed shadow-sm ${m.role === 'user'
-                                                ? 'bg-primary text-primary-foreground rounded-br-none'
-                                                : 'bg-card border border-border text-foreground rounded-bl-none'
+                                            ? 'bg-primary text-primary-foreground rounded-br-none'
+                                            : 'bg-card border border-border text-foreground rounded-bl-none'
                                             }`}
                                     >
                                         {m.content}

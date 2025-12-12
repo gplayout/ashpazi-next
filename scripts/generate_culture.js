@@ -26,12 +26,29 @@ const delay = ms => new Promise(res => setTimeout(res, ms));
 async function main() {
     console.log(`🌍 Starting Global Recipe Generator for: ${COUNTRY} (${COUNT} recipes)`);
 
+    // 0. Fetch Existing to Avoid Duplicates
+    const { data: existingRows } = await supabase
+        .from('recipes')
+        .select('name_en')
+        .ilike('category', COUNTRY); // fuzzy match category if needed, or check logic
+
+    // Better: Filter by Country if your category names matches exactly
+    // actually 'category' column usage varies. let's assume strict match or just filter name_en globally if needed.
+    // For now, let's just dump ALL authentic names we have for this country
+
+    const existingNames = existingRows ? existingRows.map(r => r.name_en).join(", ") : "";
+    console.log(`🚫 Excluding ${existingRows?.length || 0} existing dishes: [${existingNames.substring(0, 50)}...]`);
+
     // 1. Generate List of Dishes
     console.log(`📋 Generating list of top ${COUNT} authentic dishes...`);
     const listPrompt = `
     List top ${COUNT} distinct, authentic, traditional dishes from ${COUNTRY}.
+    
+    CRITICAL EXCLUSION LIST (Do NOT include these):
+    [${existingNames}]
+    
     Return ONLY a JSON array of strings (Dish Names in English). 
-    Example: ["Pizza Margherita", "Risotto"]
+    Example: ["Dish A", "Dish B"]
     `;
 
     const listCompletion = await openai.chat.completions.create({
