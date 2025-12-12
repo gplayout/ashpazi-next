@@ -27,11 +27,27 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: '**.supabase.co', // Allow Supabase Storage
+        hostname: 'images.unsplash.com',
       },
       {
         protocol: 'https',
-        hostname: 'images.unsplash.com',
+        hostname: 'oaidalle.openai.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'oaidalleapiprodscus.blob.core.windows.net',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.blob.core.windows.net',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.bing.net',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.duckduckgo.com', // SafeSearch images often redirect
       }
     ],
   },
