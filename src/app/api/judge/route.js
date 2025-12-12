@@ -1,37 +1,61 @@
-import OpenAI from 'openai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
 
-// Force dynamic rendering (don't try to build statically)
+// Force dynamic rendering
 export const dynamic = 'force-dynamic';
 
 export async function POST(request) {
     try {
-        // Lazy initialization - only runs when endpoint is called
-        // Check both possible env var names
-        const apiKey = process.env.OPENAI_API_KEY || process.env.VITE_OPENAI_API_KEY;
-        if (!apiKey) {
-            return NextResponse.json({ error: 'OpenAI API key not configured' }, { status: 500 });
+        const googleKey = process.env.GOOGLE_API_KEY;
+        if (!googleKey) {
+            return NextResponse.json({ error: 'Google API key not configured' }, { status: 500 });
         }
-        const openai = new OpenAI({ apiKey });
 
         const { image, language = 'en' } = await request.json();
 
-        const langMap = { fa: 'Persian', es: 'Spanish', en: 'English' };
+        const langMap = { fa: 'Persian (Farsi)', es: 'Spanish (Mexican)', en: 'English' };
         const targetLang = langMap[language] || 'English';
 
         if (!image) {
             return NextResponse.json({ error: 'No image provided' }, { status: 400 });
         }
 
-        const response = await openai.chat.completions.create({
-            model: "gpt-4o",
-            messages: [
-                {
-                    role: "system",
-                    content: `You are Chef Judge, an expert culinary critic for Zaffaron, a Persian cuisine platform.
+        // Convert Data URL to standard Base64 for Gemini
+        const matches = image.match(/^data:(.+);base64,(.+)$/);
+        if (!matches || matches.length !== 3) {
+            return NextResponse.json({ error: 'Invalid image format' }, { status: 400 });
+        }
+        const mimeType = matches[1];
+        const base64Data = matches[2];
+
+        // Init Gemini
+        const genAI = new GoogleGenerativeAI(googleKey);
+        const model = genAI.getGenerativeModel({
+            model: "gemini-flash-lite-latest",
+            generationConfig: { responseMimeType: "application/json" }
+        });
+
+        let promptPersona = "You are Chef Judge, an expert Michelin Star culinary critic for Zaffaron.";
+
+        if (language === 'fa') {
+            promptPersona += `
+DIALECT RULE: Speak in "Polite Conversational Persian" (Mohavere Mohtaramane). 
+- Use "e" for "Ast" (e.g. "Aliye" not "Ali Ast").
+- Use "ro" for "ra".
+- But keep vocabulary polite ("Befarmaid", "Aziz").
+- NO street slang ("Eyval" prohibited).
+`;
+        } else if (language === 'es') {
+            promptPersona += `
+DIALECT RULE: Speak in warm, encouraging Mexican Spanish.
+`;
+        }
+
+        const prompt = `
+${promptPersona}
 
 Your task is to rate a user's home-cooked dish photo. Be encouraging but honest.
-RESPOND ENTIRELY IN ${targetLang.toUpperCase()}.
+RESPOND ENTIRELY IN ${targetLang}.
 
 Evaluate based on:
 1. Plating and presentation (30%)
@@ -39,37 +63,22 @@ Evaluate based on:
 3. Portion and composition (20%)
 4. Overall appetizing factor (20%)
 
-OUTPUT JSON:
+OUTPUT JSON Schema:
 {
     "score": <number 1-10>,
     "feedback": "2-3 sentences about the dish's presentation in ${targetLang}",
     "tips": ["tip1", "tip2"] in ${targetLang} or [],
     "encouragement": "A motivating closing statement in ${targetLang}"
-}`
-                },
-                {
-                    role: "user",
-                    content: [
-                        {
-                            type: "image_url",
-                            image_url: {
-                                url: image,
-                                detail: "low"
-                            }
-                        },
-                        {
-                            type: "text",
-                            text: "Please rate this dish."
-                        }
-                    ]
-                }
-            ],
-            response_format: { type: "json_object" },
-            max_tokens: 500,
-        });
+}
+`;
 
-        const result = JSON.parse(response.choices[0].message.content);
-        return NextResponse.json(result);
+        const result = await model.generateContent([
+            prompt,
+            { inlineData: { data: base64Data, mimeType: mimeType } }
+        ]);
+
+        const json = JSON.parse(result.response.text());
+        return NextResponse.json(json);
 
     } catch (error) {
         console.error('Judge API error:', error);
@@ -79,4 +88,3 @@ OUTPUT JSON:
         );
     }
 }
-

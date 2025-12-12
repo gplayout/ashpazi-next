@@ -1,44 +1,54 @@
-import OpenAI from 'openai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-// Force dynamic rendering (don't try to build statically)
+// Force dynamic rendering
 export const dynamic = 'force-dynamic';
 
 export async function POST(request) {
     try {
-        // Lazy initialization - only runs when endpoint is called
-        // Check both possible env var names
-        const apiKey = process.env.OPENAI_API_KEY || process.env.VITE_OPENAI_API_KEY;
-        if (!apiKey) {
-            return NextResponse.json({ error: 'OpenAI API key not configured' }, { status: 500 });
+        const googleKey = process.env.GOOGLE_API_KEY;
+        if (!googleKey) {
+            return NextResponse.json({ error: 'Google API key not configured' }, { status: 500 });
         }
-        const openai = new OpenAI({ apiKey });
+
         const supabase = createClient(
             process.env.NEXT_PUBLIC_SUPABASE_URL,
-            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+            process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
         );
 
         const { image, language = 'en' } = await request.json();
 
-        const langMap = { fa: 'Persian', es: 'Spanish', en: 'English' };
+        const langMap = { fa: 'Persian (Farsi)', es: 'Spanish', en: 'English' };
         const targetLang = langMap[language] || 'English';
 
         if (!image) {
             return NextResponse.json({ error: 'No image provided' }, { status: 400 });
         }
 
-        // Step 1: Detect ingredients using Vision API
-        const visionResponse = await openai.chat.completions.create({
-            model: "gpt-4o",
-            messages: [
-                {
-                    role: "system",
-                    content: `You are an ingredient detection AI for Zaffaron cooking app.
+        // Convert Data URL to standard Base64 for Gemini
+        const matches = image.match(/^data:(.+);base64,(.+)$/);
+        if (!matches || matches.length !== 3) {
+            return NextResponse.json({ error: 'Invalid image format' }, { status: 400 });
+        }
+        const mimeType = matches[1];
+        const base64Data = matches[2];
 
+        // Init Gemini
+        const genAI = new GoogleGenerativeAI(googleKey);
+        const model = genAI.getGenerativeModel({
+            model: "gemini-flash-lite-latest",
+            generationConfig: { responseMimeType: "application/json" }
+        });
+
+        // Step 1: Detect ingredients using Vision API
+        const prompt = `
+You are an ingredient detection AI for Zaffaron cooking app.
 Analyze the image of a fridge or ingredients and identify all visible food items.
 
-OUTPUT JSON:
+Target Language: ${targetLang}
+
+OUTPUT JSON Schema:
 {
     "ingredients": ["localized_name1", "localized_name2"],
     "search_terms": ["english_name1", "english_name2"],
@@ -46,33 +56,20 @@ OUTPUT JSON:
 }
 
 Rules:
-1. "ingredients": List items in ${targetLang.toUpperCase()}.
+1. "ingredients": List items in ${targetLang}.
 2. "search_terms": List corresponding items in ENGLISH (for database search).
-3. "notes": Write in ${targetLang}.
-4. Be specific: "eggs", "tomatoes". Only clearly visible items.`
-                },
-                {
-                    role: "user",
-                    content: [
-                        {
-                            type: "image_url",
-                            image_url: {
-                                url: image,
-                                detail: "low"
-                            }
-                        },
-                        {
-                            type: "text",
-                            text: "What ingredients do you see?"
-                        }
-                    ]
-                }
-            ],
-            response_format: { type: "json_object" },
-            max_tokens: 300,
-        });
+3. "notes": Write in ${targetLang}. Use a polite, helpful tone.
+   - If Farsi: Use "Polite Conversational" (Mohavere Mohtaramane). e.g. "Be nazar miad..." instead of "Be nazar miayad".
+4. Be specific: "eggs", "tomatoes" -> "tokhme morgh", "goje farangi". Only clearly visible items.
+`;
 
-        const detected = JSON.parse(visionResponse.choices[0].message.content);
+        const result = await model.generateContent([
+            prompt,
+            { inlineData: { data: base64Data, mimeType: mimeType } }
+        ]);
+
+        const detected = JSON.parse(result.response.text());
+
         // Display ingredients (Localized)
         const ingredients = detected.ingredients || [];
         // Search ingredients (English)
@@ -87,10 +84,9 @@ Rules:
         }
 
         // Step 2: Search for matching recipes
-        // Strategy: Use ILIKE to find recipes containing any of the detected ingredients
         let recipes = [];
 
-        // Build a search query - look for recipes containing any detected ingredient (using English search terms)
+        // Build a search query - look for recipes containing any detected ingredient
         for (const term of searchTerms.slice(0, 5)) { // Limit to top 5 ingredients
             const { data, error } = await supabase
                 .from('recipes')
