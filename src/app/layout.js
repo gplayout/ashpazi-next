@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
                   alt="Zaffaron Logo"
                   width={32}
                   height={32}
-                  className="rounded-full mix-blend-multiply dark:mix-blend-screen"
+                  className="rounded-full"
                 />
                 <span className="font-bold text-xl text-amber-600">Zaffaron</span>
               </Link>
