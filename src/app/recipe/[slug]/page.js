@@ -3,8 +3,8 @@ import { getRecipeBySlug } from '@/lib/data';
 import RecipeDetailClient from '@/components/RecipeDetailClient';
 import JsonLdScript from '@/components/JsonLdScript';
 
-// ISR: Revalidate every 1 hour
-export const revalidate = 3600;
+// ISR: Force Dynamic for Debugging (0)
+export const revalidate = 0;
 
 // SEO Metadata Generation
 export async function generateMetadata({ params }) {

@@ -3,8 +3,8 @@ import { ChefHat } from 'lucide-react';
 import RecipeFeed from '@/components/RecipeFeed';
 import Hero from '@/components/Hero';
 
-// ISR: Revalidate every 1 hour
-export const revalidate = 3600;
+// ISR: Force Dynamic for Debugging (0)
+export const revalidate = 0;
 
 export default async function Home() {
   // Fetch initial data (Page 1)
