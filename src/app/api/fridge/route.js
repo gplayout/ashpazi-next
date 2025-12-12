@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import OpenAI from 'openai';
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
@@ -7,9 +7,9 @@ export const dynamic = 'force-dynamic';
 
 export async function POST(request) {
     try {
-        const googleKey = process.env.GOOGLE_API_KEY;
-        if (!googleKey) {
-            return NextResponse.json({ error: 'Google API key not configured' }, { status: 500 });
+        const apiKey = process.env.OPENAI_API_KEY || process.env.VITE_OPENAI_API_KEY;
+        if (!apiKey) {
+            return NextResponse.json({ error: 'OpenAI API key not configured' }, { status: 500 });
         }
 
         const supabase = createClient(
@@ -26,25 +26,15 @@ export async function POST(request) {
             return NextResponse.json({ error: 'No image provided' }, { status: 400 });
         }
 
-        // Convert Data URL to standard Base64 for Gemini
-        const matches = image.match(/^data:(.+);base64,(.+)$/);
-        if (!matches || matches.length !== 3) {
-            return NextResponse.json({ error: 'Invalid image format' }, { status: 400 });
-        }
-        const mimeType = matches[1];
-        const base64Data = matches[2];
+        // OpenAI: Accepts Data URL directly usually, but let's pass the URL if it's base64 data uri is fine in content
+        // We will pass: { type: "image_url", image_url: { url: image } }
 
-        // Init Gemini
-        const genAI = new GoogleGenerativeAI(googleKey);
-        const model = genAI.getGenerativeModel({
-            model: "gemini-flash-lite-latest",
-            generationConfig: { responseMimeType: "application/json" }
-        });
+        // Init OpenAI
+        const openai = new OpenAI({ apiKey });
 
         // Step 1: Detect ingredients using Vision API
-        const prompt = `
-You are an ingredient detection AI for Zaffaron cooking app.
-Analyze the image of a fridge or ingredients and identify all visible food items.
+        const systemPrompt = `You are an ingredient detection AI for Zaffaron cooking app.
+Analyze the fridge/ingredients image.
 
 Target Language: ${targetLang}
 
@@ -52,23 +42,33 @@ OUTPUT JSON Schema:
 {
     "ingredients": ["localized_name1", "localized_name2"],
     "search_terms": ["english_name1", "english_name2"],
-    "notes": "Optional observation about freshness or quantity in ${targetLang}"
+    "notes": "Optional observation in ${targetLang}"
 }
 
 Rules:
 1. "ingredients": List items in ${targetLang}.
-2. "search_terms": List corresponding items in ENGLISH (for database search).
-3. "notes": Write in ${targetLang}. Use a polite, helpful tone.
-   - If Farsi: Use "Polite Conversational" (Mohavere Mohtaramane). e.g. "Be nazar miad..." instead of "Be nazar miayad".
-4. Be specific: "eggs", "tomatoes" -> "tokhme morgh", "goje farangi". Only clearly visible items.
+2. "search_terms": List corresponding items in ENGLISH.
+3. "notes": Write in ${targetLang}. Use a polite tone.
+4. JSON ONLY.
 `;
 
-        const result = await model.generateContent([
-            prompt,
-            { inlineData: { data: base64Data, mimeType: mimeType } }
-        ]);
+        const completion = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [
+                { role: "system", content: systemPrompt },
+                {
+                    role: "user",
+                    content: [
+                        { type: "text", text: "Identify these ingredients:" },
+                        { type: "image_url", image_url: { url: image } }
+                    ]
+                }
+            ],
+            response_format: { type: "json_object" },
+            max_tokens: 300
+        });
 
-        const detected = JSON.parse(result.response.text());
+        const detected = JSON.parse(completion.choices[0].message.content);
 
         // Display ingredients (Localized)
         const ingredients = detected.ingredients || [];
@@ -86,8 +86,8 @@ Rules:
         // Step 2: Search for matching recipes
         let recipes = [];
 
-        // Build a search query - look for recipes containing any detected ingredient
-        for (const term of searchTerms.slice(0, 5)) { // Limit to top 5 ingredients
+        // Build a search query
+        for (const term of searchTerms.slice(0, 5)) {
             const { data, error } = await supabase
                 .from('recipes')
                 .select('*, recipe_translations(*)')

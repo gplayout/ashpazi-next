@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import OpenAI from 'openai';
 import { NextResponse } from 'next/server';
 
 // Force dynamic rendering
@@ -6,9 +6,9 @@ export const dynamic = 'force-dynamic';
 
 export async function POST(request) {
     try {
-        const googleKey = process.env.GOOGLE_API_KEY;
-        if (!googleKey) {
-            return NextResponse.json({ error: 'Google API key not configured' }, { status: 500 });
+        const apiKey = process.env.OPENAI_API_KEY || process.env.VITE_OPENAI_API_KEY;
+        if (!apiKey) {
+            return NextResponse.json({ error: 'OpenAI API key not configured' }, { status: 500 });
         }
 
         const { image, language = 'en' } = await request.json();
@@ -20,20 +20,8 @@ export async function POST(request) {
             return NextResponse.json({ error: 'No image provided' }, { status: 400 });
         }
 
-        // Convert Data URL to standard Base64 for Gemini
-        const matches = image.match(/^data:(.+);base64,(.+)$/);
-        if (!matches || matches.length !== 3) {
-            return NextResponse.json({ error: 'Invalid image format' }, { status: 400 });
-        }
-        const mimeType = matches[1];
-        const base64Data = matches[2];
-
-        // Init Gemini
-        const genAI = new GoogleGenerativeAI(googleKey);
-        const model = genAI.getGenerativeModel({
-            model: "gemini-flash-lite-latest",
-            generationConfig: { responseMimeType: "application/json" }
-        });
+        // Init OpenAI
+        const openai = new OpenAI({ apiKey });
 
         let promptPersona = "You are Chef Judge, an expert Michelin Star culinary critic for Zaffaron.";
 
@@ -46,12 +34,10 @@ DIALECT RULE: Speak in "Polite Conversational Persian" (Mohavere Mohtaramane).
 - NO street slang ("Eyval" prohibited).
 `;
         } else if (language === 'es') {
-            promptPersona += `
-DIALECT RULE: Speak in warm, encouraging Mexican Spanish.
-`;
+            promptPersona += `\nDIALECT RULE: Speak in warm, encouraging Mexican Spanish.\n`;
         }
 
-        const prompt = `
+        const systemPrompt = `
 ${promptPersona}
 
 Your task is to rate a user's home-cooked dish photo. Be encouraging but honest.
@@ -72,12 +58,23 @@ OUTPUT JSON Schema:
 }
 `;
 
-        const result = await model.generateContent([
-            prompt,
-            { inlineData: { data: base64Data, mimeType: mimeType } }
-        ]);
+        const completion = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [
+                { role: "system", content: systemPrompt },
+                {
+                    role: "user",
+                    content: [
+                        { type: "text", text: "Judge my dish!" },
+                        { type: "image_url", image_url: { url: image } }
+                    ]
+                }
+            ],
+            response_format: { type: "json_object" },
+            max_tokens: 300
+        });
 
-        const json = JSON.parse(result.response.text());
+        const json = JSON.parse(completion.choices[0].message.content);
         return NextResponse.json(json);
 
     } catch (error) {
