@@ -206,23 +206,25 @@ export default function RecipeDetailClient({ recipe }) {
                 {/* Sidebar: Ingredients & Nutrition Details */}
                 <aside className="space-y-8">
                     <div className="bg-card border border-border rounded-2xl p-6 shadow-sm sticky top-8">
-                        <h2 className={`text-2xl font-bold mb-6 flex items-center gap-2 ${language === 'fa' ? 'flex-row-reverse' : ''}`}>
-                            <span className="text-primary">●</span> {getUiLabel('ingredients', language)}
-                        </h2>
-                        <ul className="space-y-3">
-                            {displayIngredients && displayIngredients.length > 0 ? (
-                                displayIngredients.map((ing, idx) => (
-                                    <li key={idx} className={`flex items-start gap-3 text-muted-foreground hover:text-foreground transition-colors p-2 rounded-lg hover:bg-muted/50 ${language === 'fa' ? 'flex-row-reverse text-right' : 'text-left'}`}>
-                                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
-                                        <span className="leading-relaxed">{language === 'fa' ? toPersianDigits(ing) : ing}</span>
-                                    </li>
-                                ))
-                            ) : (
-                                <p className="text-muted-foreground italic text-center">
-                                    {getUiLabel('ingredients_embedded', language)}
-                                </p>
-                            )}
-                        </ul>
+                        <div dir={language === 'fa' ? 'rtl' : 'ltr'}>
+                            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                                <span className="text-primary">●</span> {getUiLabel('ingredients', language)}
+                            </h2>
+                            <ul className="space-y-3">
+                                {displayIngredients && displayIngredients.length > 0 ? (
+                                    displayIngredients.map((ing, idx) => (
+                                        <li key={idx} className="flex items-start gap-3 text-muted-foreground hover:text-foreground transition-colors p-2 rounded-lg hover:bg-muted/50">
+                                            <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
+                                            <span className="leading-relaxed">{language === 'fa' ? toPersianDigits(ing) : ing}</span>
+                                        </li>
+                                    ))
+                                ) : (
+                                    <p className="text-muted-foreground italic text-center">
+                                        {getUiLabel('ingredients_embedded', language)}
+                                    </p>
+                                )}
+                            </ul>
+                        </div>
 
                         {/* Action Button */}
                         <Button
