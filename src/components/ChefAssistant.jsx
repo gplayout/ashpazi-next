@@ -1,358 +1,189 @@
-'use client';
-
-import { useState, useRef, useEffect } from 'react';
-import { Mic, MicOff, Loader2, Volume2, X, ChefHat, Sparkles } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useLanguage } from '@/context/LanguageContext';
-import { getUiLabel } from '@/utils/dictionaries';
+"use client";
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { MessageSquare, X, Send, User, ChevronDown } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
+import { Button } from '@/components/ui/button';
 
 export default function ChefAssistant({ recipeContext }) {
-    const { language } = useLanguage();
-    // States: idle, listening, processing, speaking
-    const [state, setState] = useState('idle');
-    const [audioResponse, setAudioResponse] = useState(null);
-    const [transcript, setTranscript] = useState('');
+    const { language, t } = useLanguage();
 
-    // Refs
-    const mediaRecorderRef = useRef(null);
-    const audioChunksRef = useRef([]);
-    const audioPlayerRef = useRef(null);
+    // UI State
+    const [isOpen, setIsOpen] = useState(false);
+    const [messages, setMessages] = useState([]);
+    const [inputText, setInputText] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
-    // Audio Visualizer Bar variants
-    const barVariants = {
-        idle: { height: 4 },
-        active: {
-            height: [8, 24, 8],
-            transition: { repeat: Infinity, duration: 0.5 }
-        }
-    };
+    // Refs for scrolling
+    const scrollRef = useRef(null);
 
-    const [timeLeft, setTimeLeft] = useState(30);
-    const timerRef = useRef(null);
-
-    // Unlock audio context on user interaction (Mobile Safari/Chrome fix)
-    const unlockAudio = () => {
-        if (audioPlayerRef.current) {
-            audioPlayerRef.current.src = '';
-            audioPlayerRef.current.load();
-        }
-    };
-
-    const startRecording = async () => {
-        unlockAudio(); // <--- CRITICAL: "Bless" the audio element immediately
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            mediaRecorderRef.current = new MediaRecorder(stream);
-            audioChunksRef.current = [];
-
-            mediaRecorderRef.current.ondataavailable = (event) => {
-                if (event.data.size > 0) audioChunksRef.current.push(event.data);
-            };
-
-            mediaRecorderRef.current.onstop = async () => {
-                const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
-                await processAudio(audioBlob);
-            };
-
-            mediaRecorderRef.current.start();
-            setState('listening');
-            setAudioResponse(null);
-
-            // Start 30s countdown
-            setTimeLeft(30);
-            if (timerRef.current) clearInterval(timerRef.current);
-            timerRef.current = setInterval(() => {
-                setTimeLeft((prev) => {
-                    if (prev <= 1) {
-                        stopRecording();
-                        return 0;
-                    }
-                    return prev - 1;
-                });
-            }, 1000);
-
-        } catch (error) {
-            console.error('Mic Error:', error);
-            alert('Microphone access denied');
-        }
-    };
-
-    const stopRecording = () => {
-        if (timerRef.current) clearInterval(timerRef.current);
-        if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
-            mediaRecorderRef.current.stop();
-            setState('processing');
-            mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
-        }
-    };
-
-    // Cleanup timer on unmount
+    // Initial greeting trigger
     useEffect(() => {
-        return () => {
-            if (timerRef.current) clearInterval(timerRef.current);
-        };
-    }, []);
+        if (isOpen && messages.length === 0) {
+            const greeting = language === 'fa'
+                ? "سلام! من سرآشپز میرو هستم. چطور می‌تونم کمکت کنم؟ 👨‍🍳"
+                : "Hello! I'm Chef Miro. How can I help you with your cooking today? 👨‍🍳";
 
-    // State for manual playback trigger
-    const [isAudioReady, setIsAudioReady] = useState(false);
-    const pendingAudioBlobRef = useRef(null);
-
-    const processAudio = async (audioBlob) => {
-        try {
-            const reader = new FileReader();
-            reader.readAsDataURL(audioBlob);
-            reader.onloadend = async () => {
-                const base64Audio = reader.result.split(',')[1];
-
-                const response = await fetch('/api/assistant', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        audio: base64Audio,
-                        language,
-                        recipeContext: recipeContext ? {
-                            title: recipeContext.title,
-                            ingredients: recipeContext.ingredients,
-                            instructions: recipeContext.instructions
-                        } : null
-                    }),
-                });
-
-                const data = await response.json();
-
-                if (data.audio) {
-                    setTranscript(data.text);
-
-                    // --- CHANGED: Don't Auto-Play. Stage for Manual Play ---
-                    // Convert to Blob immediately
-                    const byteCharacters = atob(data.audio);
-                    const byteNumbers = new Array(byteCharacters.length);
-                    for (let i = 0; i < byteCharacters.length; i++) {
-                        byteNumbers[i] = byteCharacters.charCodeAt(i);
-                    }
-                    const byteArray = new Uint8Array(byteNumbers);
-                    const blob = new Blob([byteArray], { type: 'audio/mpeg' });
-
-                    pendingAudioBlobRef.current = URL.createObjectURL(blob);
-                    setIsAudioReady(true); // Triggers UI Button
-                    setState('speaking'); // Show visualizer (optional) or 'idle'
-
-                } else {
-                    setState('idle');
-                }
-            };
-        } catch (error) {
-            console.error('API Error:', error);
-            setState('idle');
+            setMessages([{ role: 'assistant', content: greeting }]);
         }
-    };
+    }, [isOpen, language]);
 
-    const playPendingAudio = () => {
-        if (!audioPlayerRef.current || !pendingAudioBlobRef.current) return;
+    // Auto-scroll to bottom
+    useEffect(() => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+        }
+    }, [messages, isOpen]);
+
+    const handleSend = async () => {
+        if (!inputText.trim() || isLoading) return;
+
+        const userMsg = { role: 'user', content: inputText };
+        setMessages(prev => [...prev, userMsg]);
+        setInputText('');
+        setIsLoading(true);
 
         try {
-            audioPlayerRef.current.src = pendingAudioBlobRef.current;
-            console.log("▶️ Manually Triggering Play on:", pendingAudioBlobRef.current);
-
-            audioPlayerRef.current.play()
-                .then(() => {
-                    console.log("✅ Manual Play Success");
-                    setIsAudioReady(false); // Hide button
-                    setState('speaking');
-                })
-                .catch(e => {
-                    console.error("Manual Play Failed:", e);
-                    // CRITICAL DEBUG: Show error to user
-                    alert(`Playback Error: ${e.message} (State: ${audioPlayerRef.current.readyState})`);
-                });
-        } catch (e) {
-            console.error(e);
-            alert(`Setup Error: ${e.message}`);
-        }
-    };
-
-    const playResponse = async (base64Audio) => {
-        if (!audioPlayerRef.current) {
-            console.error("❌ Audio Player Ref is NULL");
-            return;
-        }
-
-        console.log(`🔊 Receiving Audio: ${base64Audio.length} chars`);
-
-        try {
-            // Convert Base64 to Blob (Better for Mobile Memory)
-            const byteCharacters = atob(base64Audio);
-            const byteNumbers = new Array(byteCharacters.length);
-            for (let i = 0; i < byteCharacters.length; i++) {
-                byteNumbers[i] = byteCharacters.charCodeAt(i);
-            }
-            const byteArray = new Uint8Array(byteNumbers);
-            const blob = new Blob([byteArray], { type: 'audio/mpeg' });
-            const blobUrl = URL.createObjectURL(blob);
-
-            console.log("🔗 Blob URL Created:", blobUrl);
-            audioPlayerRef.current.src = blobUrl;
-
-            console.log("▶️ Attempting Play...");
-
-            // Wait for 'canplaythrough' to ensure mobile is ready
-            await new Promise((resolve) => {
-                audioPlayerRef.current.oncanplaythrough = resolve;
-                // Timeout fallback in case event doesn't fire
-                setTimeout(resolve, 1000);
+            const response = await fetch('/api/assistant', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message: userMsg.content,
+                    messages: messages, // Send history
+                    recipeContext: recipeContext // Context awareness
+                }),
             });
 
-            const playPromise = audioPlayerRef.current.play();
+            const data = await response.json();
 
-            if (playPromise !== undefined) {
-                playPromise
-                    .then(() => console.log("✅ Playback Started Successfully"))
-                    .catch(error => {
-                        console.error("❌ Audio Playback Failed:", error);
-                        if (error.name === 'NotAllowedError') {
-                            alert("Please tap anywhere to enable audio.");
-                        }
-                        setState('idle');
-                    });
+            if (data.text) {
+                setMessages(prev => [...prev, { role: 'assistant', content: data.text }]);
             }
-        } catch (e) {
-            console.error("❌ Audio Setup Critical Fail:", e);
-            setState('idle');
+
+        } catch (error) {
+            console.error('Chat Error:', error);
+            setMessages(prev => [...prev, { role: 'assistant', content: "Sorry, I'm having trouble connecting to the kitchen server! 🍳" }]);
+        } finally {
+            setIsLoading(false);
         }
     };
 
-    // Auto-stop recording removed to allow user to speak freely
-    // User must manually click stop
-    /*
-    useEffect(() => {
-        let timer;
-        if (state === 'listening') {
-            timer = setTimeout(() => stopRecording(), 8000);
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleSend();
         }
-        return () => clearTimeout(timer);
-    }, [state]);
-    */
+    };
 
     return (
-        <div className="fixed bottom-6 right-6 z-[60] flex flex-col items-end">
-            <AnimatePresence mode="wait">
-                {state === 'idle' ? (
+        <>
+            {/* Floating Trigger Button */}
+            <AnimatePresence>
+                {!isOpen && (
                     <motion.button
-                        key="idle"
-                        layoutId="island"
-                        initial={{ scale: 0.8, opacity: 0 }}
+                        initial={{ scale: 0, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
-                        exit={{ scale: 0.8, opacity: 0 }}
-                        onClick={startRecording}
-                        className="group flex items-center justify-center w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full shadow-lg hover:shadow-amber-500/50 transition-all hover:scale-110 active:scale-95"
+                        exit={{ scale: 0, opacity: 0 }}
+                        onClick={() => setIsOpen(true)}
+                        className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full shadow-xl hover:shadow-orange-500/50 flex items-center justify-center transition-transform hover:scale-105 active:scale-95"
                     >
-                        <ChefHat className="w-8 h-8 text-white group-hover:rotate-12 transition-transform" />
-                        <span className="sr-only">Ask Chef</span>
+                        <MessageSquare className="w-8 h-8 text-white fill-white/20" />
+                        <span className="absolute -top-1 -right-1 flex h-4 w-4">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-4 w-4 bg-green-500"></span>
+                        </span>
                     </motion.button>
-                ) : isAudioReady ? (
-                    <motion.button
-                        key="play"
-                        initial={{ scale: 0.8, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        className="group flex items-center justify-center w-16 h-16 bg-green-500 rounded-full shadow-lg animate-pulse"
-                        onClick={playPendingAudio}
-                    >
-                        <Volume2 className="w-8 h-8 text-white" />
-                    </motion.button>
-                ) : (
+                )}
+            </AnimatePresence>
+
+            {/* Chat Window */}
+            <AnimatePresence>
+                {isOpen && (
                     <motion.div
-                        key="active"
-                        layoutId="island"
-                        initial={{ opacity: 0, borderRadius: 32 }}
-                        animate={{ opacity: 1, width: 'auto', minWidth: 300 }}
-                        exit={{ opacity: 0 }}
-                        className="bg-zinc-950/90 backdrop-blur-xl border border-white/10 p-4 rounded-3xl shadow-2xl flex flex-col gap-4 max-w-[90vw] md:max-w-md"
+                        initial={{ opacity: 0, y: 100, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 50, scale: 0.95 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                        className="fixed bottom-6 right-6 z-50 w-[90vw] md:w-[400px] h-[500px] max-h-[80vh] bg-background border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden"
                     >
-                        {/* Header: Chef Avatar & Status */}
-                        <div className="flex items-center justify-between gap-4">
+                        {/* Header */}
+                        <div className="p-4 bg-gradient-to-r from-amber-500 to-orange-600 flex items-center justify-between text-white shadow-md z-10">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-inner">
-                                    <ChefHat size={20} className="text-white" />
+                                <div className="w-10 h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center border border-white/30">
+                                    <span className="text-xl">👨‍🍳</span>
                                 </div>
                                 <div>
-                                    <h4 className="font-bold text-white text-sm">Chef Zaffaron</h4>
-                                    <div className="flex items-center gap-1.5 h-4">
-                                        {/* Dynamic Status Text */}
-                                        <span className="text-xs text-zinc-400 font-medium tracking-wide min-w-[60px]">
-                                            {state === 'listening' ? (
-                                                <span className="text-red-400 font-bold tabular-nums">
-                                                    00:{timeLeft.toString().padStart(2, '0')}
-                                                </span>
-                                            ) : (
-                                                <>
-                                                    {state === 'processing' && getUiLabel('assistant_processing', language)}
-                                                    {state === 'speaking' && getUiLabel('assistant_speaking', language)}
-                                                </>
-                                            )}
-                                        </span>
-                                        {/* Mini Visualizer */}
-                                        {(state === 'listening' || state === 'speaking') && (
-                                            <div className="flex gap-0.5 items-center h-3 ml-2">
-                                                {[1, 2, 3, 4].map(i => (
-                                                    <motion.div
-                                                        key={i}
-                                                        variants={barVariants}
-                                                        animate="active"
-                                                        custom={i}
-                                                        className={`w-0.5 rounded-full ${state === 'listening' ? 'bg-red-500' : 'bg-amber-500'}`}
-                                                    />
-                                                ))}
-                                            </div>
-                                        )}
-                                    </div>
+                                    <h3 className="font-bold text-sm">Chef Miro</h3>
+                                    <p className="text-xs text-orange-100 flex items-center gap-1">
+                                        <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                                        {language === 'fa' ? 'آنلاین' : 'Online'}
+                                    </p>
                                 </div>
                             </div>
-
-                            {/* Controls */}
-                            <div className="flex gap-2">
-                                {state === 'listening' && (
-                                    <button
-                                        onClick={stopRecording}
-                                        className="p-2 rounded-full bg-red-500/20 text-red-500 hover:bg-red-500 hover:text-white transition-colors animate-pulse"
-                                    >
-                                        <MicOff size={18} />
-                                    </button>
-                                )}
-                                <button
-                                    onClick={() => {
-                                        setState('idle');
-                                        if (audioPlayerRef.current) audioPlayerRef.current.pause();
-                                    }}
-                                    className="p-2 rounded-full bg-white/5 text-zinc-400 hover:bg-white/10 hover:text-white transition-colors"
-                                >
-                                    <X size={18} />
-                                </button>
-                            </div>
+                            <button
+                                onClick={() => setIsOpen(false)}
+                                className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                            >
+                                <ChevronDown className="w-5 h-5" />
+                            </button>
                         </div>
 
-                        {/* Transcript Bubble */}
-                        {(transcript || state === 'processing') && (
-                            <motion.div
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="bg-white/5 rounded-2xl p-3 border border-white/5"
+                        {/* Messages Area */}
+                        <div
+                            ref={scrollRef}
+                            className="flex-1 overflow-y-auto p-4 space-y-4 bg-muted/30 scroll-smooth"
+                        >
+                            {messages.map((m, idx) => (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    key={idx}
+                                    className={`flex w-full ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                                >
+                                    <div
+                                        className={`max-w-[80%] p-3 rounded-2xl text-sm leading-relaxed shadow-sm ${m.role === 'user'
+                                                ? 'bg-primary text-primary-foreground rounded-br-none'
+                                                : 'bg-card border border-border text-foreground rounded-bl-none'
+                                            }`}
+                                    >
+                                        {m.content}
+                                    </div>
+                                </motion.div>
+                            ))}
+
+                            {isLoading && (
+                                <div className="flex justify-start w-full">
+                                    <div className="bg-card border border-border p-3 rounded-2xl rounded-bl-none shadow-sm flex items-center gap-1.5">
+                                        <span className="w-2 h-2 bg-primary/40 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+                                        <span className="w-2 h-2 bg-primary/40 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+                                        <span className="w-2 h-2 bg-primary/40 rounded-full animate-bounce"></span>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Input Area */}
+                        <div className="p-3 bg-background border-t border-border flex items-center gap-2">
+                            <input
+                                value={inputText}
+                                onChange={(e) => setInputText(e.target.value)}
+                                onKeyDown={handleKeyPress}
+                                placeholder={language === 'fa' ? 'سوال آشپزی خود را بپرسید...' : 'Ask about cooking...'}
+                                className={`flex-1 bg-muted/50 border-0 focus:ring-1 focus:ring-primary h-11 px-4 rounded-full text-sm ${language === 'fa' ? 'text-right' : 'text-left'}`}
+                                dir="auto"
+                            />
+                            <Button
+                                onClick={handleSend}
+                                disabled={!inputText.trim() || isLoading}
+                                size="icon"
+                                className="h-11 w-11 rounded-full bg-primary hover:bg-primary/90 shrink-0 transition-all hover:scale-105"
                             >
-                                <p className="text-sm text-zinc-200 leading-relaxed font-light">
-                                    {state === 'processing' ? (
-                                        <span className="flex items-center gap-2">
-                                            <Sparkles size={14} className="text-amber-400 animate-spin" />
-                                            Checking the recipe...
-                                        </span>
-                                    ) : (
-                                        transcript
-                                    )}
-                                </p>
-                            </motion.div>
-                        )}
+                                <Send className="w-5 h-5 ml-0.5" />
+                            </Button>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
-        </div>
+        </>
     );
 }
