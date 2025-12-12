@@ -39,7 +39,8 @@ const RecipeCard = ({ recipe }) => {
     return (
         <div className="relative h-full group">
             {/* Heart/Shopping - Outside generic Link */}
-            <div className="absolute top-3 right-3 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex gap-1">
+            {/* Heart/Shopping - Always visible on mobile, hover on desktop */}
+            <div className="absolute top-3 right-3 z-20 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex gap-1">
                 <RecipeShoppingBtn recipeId={recipe.id} ingredients={recipe.ingredients} />
                 <RecipeHeart recipeId={recipe.id} />
             </div>

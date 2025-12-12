@@ -31,7 +31,16 @@ export default function ChefAssistant({ recipeContext }) {
     const [timeLeft, setTimeLeft] = useState(30);
     const timerRef = useRef(null);
 
+    // Unlock audio context on user interaction (Mobile Safari/Chrome fix)
+    const unlockAudio = () => {
+        if (audioPlayerRef.current) {
+            audioPlayerRef.current.src = '';
+            audioPlayerRef.current.load();
+        }
+    };
+
     const startRecording = async () => {
+        unlockAudio(); // <--- CRITICAL: "Bless" the audio element immediately
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
             mediaRecorderRef.current = new MediaRecorder(stream);
@@ -124,11 +133,23 @@ export default function ChefAssistant({ recipeContext }) {
     };
 
     const playResponse = (base64Audio) => {
-        if (audioPlayerRef.current) audioPlayerRef.current.pause();
-        const audio = new Audio(`data:audio/mp3;base64,${base64Audio}`);
-        audioPlayerRef.current = audio;
-        audio.onended = () => setState('idle');
-        audio.play().catch(console.error);
+        if (!audioPlayerRef.current) return;
+
+        try {
+            // Use correct MIME type
+            const audioSrc = `data:audio/mpeg;base64,${base64Audio}`;
+            audioPlayerRef.current.src = audioSrc;
+
+            const playPromise = audioPlayerRef.current.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.error("Audio Playback Failed:", error);
+                    setState('idle');
+                });
+            }
+        } catch (e) {
+            console.error("Audio Setup Failed:", e);
+        }
     };
 
     // Auto-stop recording removed to allow user to speak freely

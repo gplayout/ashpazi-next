@@ -11,35 +11,39 @@ const base64ToBuffer = (base64) => Buffer.from(base64, 'base64');
 export async function POST(request) {
     try {
         const openaiKey = process.env.OPENAI_API_KEY || process.env.VITE_OPENAI_API_KEY;
-        const googleKey = process.env.GOOGLE_API_KEY;
 
-        if (!openaiKey || !googleKey) {
-            return NextResponse.json({ error: 'Missing API Keys' }, { status: 500 });
+        if (!openaiKey) {
+            return NextResponse.json({ error: 'Missing OpenAI API Key' }, { status: 500 });
         }
 
         const openai = new OpenAI({ apiKey: openaiKey });
-        const genAI = new GoogleGenerativeAI(googleKey);
-        // Switched to gemini-flash-latest for better quota (Lite limit hit 20/day)
-        const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
-        const { audio, language = 'en', recipeContext } = await request.json();
+        // Parse Body
+        const { audio, message, language = 'en', recipeContext } = await request.json();
 
-        if (!audio) {
-            return NextResponse.json({ error: 'No audio provided' }, { status: 400 });
+        let userText = "";
+
+        // Case A: Audio Input (Standard)
+        if (audio) {
+            // --- Step 1: Speech to Text (Whisper) ---
+            const audioBuffer = base64ToBuffer(audio);
+            const audioFile = await OpenAI.toFile(audioBuffer, 'audio.webm', { type: 'audio/webm' });
+
+            const transcription = await openai.audio.transcriptions.create({
+                file: audioFile,
+                model: "whisper-1",
+                language: language === 'fa' ? 'fa' : (language === 'es' ? 'es' : 'en'),
+            });
+            userText = transcription.text;
+        }
+        // Case B: Text Input (Debug / Typing)
+        else if (message) {
+            userText = message;
+        }
+        else {
+            return NextResponse.json({ error: 'No audio or message provided' }, { status: 400 });
         }
 
-        // --- Step 1: Speech to Text (Whisper - OpenAI) ---
-        // Keeping Whisper for robust multi-language STT
-        const audioBuffer = base64ToBuffer(audio);
-        const audioFile = await OpenAI.toFile(audioBuffer, 'audio.webm', { type: 'audio/webm' });
-
-        const transcription = await openai.audio.transcriptions.create({
-            file: audioFile,
-            model: "whisper-1",
-            language: language === 'fa' ? 'fa' : (language === 'es' ? 'es' : 'en'),
-        });
-
-        const userText = transcription.text;
         console.log(`User (${language}): ${userText}`);
 
         // --- Step 2: Intelligence (OpenAI GPT-4o-mini) ---
