@@ -133,22 +133,35 @@ export default function ChefAssistant({ recipeContext }) {
     };
 
     const playResponse = (base64Audio) => {
-        if (!audioPlayerRef.current) return;
+        if (!audioPlayerRef.current) {
+            console.error("❌ Audio Player Ref is NULL");
+            return;
+        }
+
+        console.log(`🔊 Receiving Audio: ${base64Audio.length} chars`);
 
         try {
             // Use correct MIME type
             const audioSrc = `data:audio/mpeg;base64,${base64Audio}`;
             audioPlayerRef.current.src = audioSrc;
 
+            console.log("▶️ Attempting Play...");
             const playPromise = audioPlayerRef.current.play();
+
             if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.error("Audio Playback Failed:", error);
-                    setState('idle');
-                });
+                playPromise
+                    .then(() => console.log("✅ Playback Started Successfully"))
+                    .catch(error => {
+                        console.error("❌ Audio Playback Failed:", error);
+                        // Fallback: Notify user if blocked
+                        if (error.name === 'NotAllowedError') {
+                            alert("Please click anywhere to enable audio playback.");
+                        }
+                        setState('idle');
+                    });
             }
         } catch (e) {
-            console.error("Audio Setup Failed:", e);
+            console.error("❌ Audio Setup Critical Fail:", e);
         }
     };
 

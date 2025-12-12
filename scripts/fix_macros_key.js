@@ -14,7 +14,9 @@ async function fixMacros() {
     // To be efficient, we could filter by text search but scanning 1500 rows is fast enough
     const { data: recipes, error } = await supabase
         .from('recipes')
-        .select('id, name_en, nutrition_info');
+        .select('id, name_en, nutrition_info')
+        .order('created_at', { ascending: false })
+        .limit(100);
 
     if (error) {
         console.error("DB Error:", error);
