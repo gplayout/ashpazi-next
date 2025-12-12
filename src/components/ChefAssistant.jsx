@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, X, Send, User, ChevronDown } from 'lucide-react';
+import { ChefHat, X, Send, User, ChevronDown } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { Button } from '@/components/ui/button';
 
@@ -21,8 +21,8 @@ export default function ChefAssistant({ recipeContext }) {
     useEffect(() => {
         if (isOpen && messages.length === 0) {
             const greeting = language === 'fa'
-                ? "سلام! من سرآشپز میرو هستم. چطور می‌تونم کمکت کنم؟ 👨‍🍳"
-                : "Hello! I'm Chef Miro. How can I help you with your cooking today? 👨‍🍳";
+                ? "سلام! من سرآشپز زعفرون هستم. چطور می‌تونم کمکت کنم؟ 👨‍🍳"
+                : "Hello! I'm Chef Zaffaron. How can I help you with your cooking today? 👨‍🍳";
 
             setMessages([{ role: 'assistant', content: greeting }]);
         }
@@ -87,7 +87,7 @@ export default function ChefAssistant({ recipeContext }) {
                         onClick={() => setIsOpen(true)}
                         className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full shadow-xl hover:shadow-orange-500/50 flex items-center justify-center transition-transform hover:scale-105 active:scale-95"
                     >
-                        <MessageSquare className="w-8 h-8 text-white fill-white/20" />
+                        <ChefHat className="w-9 h-9 text-white stroke-[1.5]" />
                         <span className="absolute -top-1 -right-1 flex h-4 w-4">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-4 w-4 bg-green-500"></span>
@@ -142,8 +142,8 @@ export default function ChefAssistant({ recipeContext }) {
                                 >
                                     <div
                                         className={`max-w-[80%] p-3 rounded-2xl text-sm leading-relaxed shadow-sm ${m.role === 'user'
-                                            ? 'bg-primary text-primary-foreground rounded-br-none'
-                                            : 'bg-card border border-border text-foreground rounded-bl-none'
+                                                ? 'bg-primary text-primary-foreground rounded-br-none'
+                                                : 'bg-card border border-border text-foreground rounded-bl-none'
                                             }`}
                                     >
                                         {m.content}
