@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono, Vazirmatn } from "next/font/google";
 import "./globals.css";
 import Link from 'next/link';
+import Image from 'next/image';
 import AuthButton from "@/components/AuthButton";
 import { LanguageProvider } from "@/context/LanguageContext";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
@@ -38,7 +39,8 @@ export default function RootLayout({ children }) {
         <LanguageProvider>
           <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="container flex h-14 max-w-screen-2xl items-center justify-between px-4">
-              <Link href="/" className="mr-6 flex items-center space-x-2">
+              <Link href="/" className="mr-6 flex items-center space-x-2 gap-2">
+                <Image src="/icon.png" alt="Zaffaron Logo" width={32} height={32} className="rounded-full" />
                 <span className="font-bold text-xl text-amber-600">Zaffaron</span>
               </Link>
               <div className="flex items-center space-x-2 gap-1">

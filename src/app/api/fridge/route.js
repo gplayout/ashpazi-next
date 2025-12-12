@@ -48,6 +48,10 @@ OUTPUT JSON Schema:
 Rules:
 1. "ingredients": List items in ${targetLang}.
 2. "search_terms": List corresponding items in ENGLISH.
+   - IMPOTANT: Use GENERIC, SINGLE WORDS only.
+   - Bad: "fresh organic tomato", "chicken breast"
+   - Good: "tomato", "chicken", "egg", "onion"
+   - This is for a database search, so be broad.
 3. "notes": Write in ${targetLang}. Use a polite tone.
 4. JSON ONLY.
 `;
