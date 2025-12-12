@@ -144,26 +144,27 @@ export default function RecipeDetailClient({ recipe }) {
 
                                 return (
                                     <>
-                                        <div className="flex items-center gap-2 bg-background/50 backdrop-blur-sm px-3 py-1.5 rounded-full border border-border/50 animate-in fade-in zoom-in text-emerald-700 dark:text-emerald-300">
-                                            <Activity size={18} className="text-emerald-500" />
-                                            <span className="font-bold">{formatVal(nutritionData.calories, 'kcal')}</span>
+                                        {/* Mobile Friendly Pills: Smaller padding/text */}
+                                        <div className="flex items-center gap-1.5 bg-background/50 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1.5 rounded-full border border-border/50 animate-in fade-in zoom-in text-emerald-700 dark:text-emerald-300">
+                                            <Activity size={14} className="text-emerald-500 md:w-[18px] md:h-[18px]" />
+                                            <span className="font-bold text-xs md:text-sm">{formatVal(nutritionData.calories, 'kcal')}</span>
                                         </div>
                                         {nutritionData.macros?.protein && (
-                                            <div className="flex items-center gap-2 bg-background/50 backdrop-blur-sm px-3 py-1.5 rounded-full border border-border/50 animate-in fade-in zoom-in text-blue-700 dark:text-blue-300">
-                                                <Dumbbell size={18} className="text-blue-500" />
-                                                <span className="font-bold">{getUiLabel('protein', language)}: {formatVal(nutritionData.macros.protein)}</span>
+                                            <div className="flex items-center gap-1.5 bg-background/50 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1.5 rounded-full border border-border/50 animate-in fade-in zoom-in text-blue-700 dark:text-blue-300">
+                                                <Dumbbell size={14} className="text-blue-500 md:w-[18px] md:h-[18px]" />
+                                                <span className="font-bold text-xs md:text-sm">{getUiLabel('protein', language)}: {formatVal(nutritionData.macros.protein)}</span>
                                             </div>
                                         )}
                                         {nutritionData.macros?.carbs && (
-                                            <div className="flex items-center gap-2 bg-background/50 backdrop-blur-sm px-3 py-1.5 rounded-full border border-border/50 animate-in fade-in zoom-in text-amber-700 dark:text-amber-300">
-                                                <Wheat size={18} className="text-amber-500" />
-                                                <span className="font-bold">{getUiLabel('carbs', language)}: {formatVal(nutritionData.macros.carbs)}</span>
+                                            <div className="flex items-center gap-1.5 bg-background/50 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1.5 rounded-full border border-border/50 animate-in fade-in zoom-in text-amber-700 dark:text-amber-300">
+                                                <Wheat size={14} className="text-amber-500 md:w-[18px] md:h-[18px]" />
+                                                <span className="font-bold text-xs md:text-sm">{getUiLabel('carbs', language)}: {formatVal(nutritionData.macros.carbs)}</span>
                                             </div>
                                         )}
                                         {nutritionData.macros?.fat && (
-                                            <div className="flex items-center gap-2 bg-background/50 backdrop-blur-sm px-3 py-1.5 rounded-full border border-border/50 animate-in fade-in zoom-in text-rose-700 dark:text-rose-300">
-                                                <Droplet size={18} className="text-rose-500" />
-                                                <span className="font-bold">{getUiLabel('fat', language)}: {formatVal(nutritionData.macros.fat)}</span>
+                                            <div className="flex items-center gap-1.5 bg-background/50 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1.5 rounded-full border border-border/50 animate-in fade-in zoom-in text-rose-700 dark:text-rose-300">
+                                                <Droplet size={14} className="text-rose-500 md:w-[18px] md:h-[18px]" />
+                                                <span className="font-bold text-xs md:text-sm">{getUiLabel('fat', language)}: {formatVal(nutritionData.macros.fat)}</span>
                                             </div>
                                         )}
                                     </>
