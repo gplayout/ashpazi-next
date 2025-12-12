@@ -57,7 +57,7 @@ async function run() {
         .from('recipes')
         .select('*')
         .order('id', { ascending: true })
-        .range(0, 1999); // Process up to 2000 recipes
+        .range(1000, 2999); // Process next batch
 
     if (error) { console.error("Fetch Error:", error); return; }
 
