@@ -52,8 +52,11 @@ export default function RootLayout({ children }) {
               </div>
             </div>
           </header>
-          <main className="min-h-screen">
+          <main className="min-h-screen pb-16">
             {children}
+            <footer className="w-full py-4 text-center text-xs text-muted-foreground opacity-50">
+              v2.5.1 (Latest) - {new Date().toLocaleDateString('fa-IR')}
+            </footer>
           </main>
         </LanguageProvider>
         <Analytics />
