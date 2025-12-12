@@ -30,9 +30,24 @@ export async function GET(request) {
             .order('created_at', { ascending: false })
             .limit(50);
 
-        // Text search - simple ilike on name only (most reliable)
+        // Text search - Language Aware
         if (q && q.length >= 2) {
-            query = query.ilike('name', `%${q}%`);
+            const isFarsi = /[\u0600-\u06FF]/.test(q); // Range for Arabic/Persian chars
+
+            if (isFarsi) {
+                // Search Main Table (Farsi)
+                query = query.ilike('name', `%${q}%`);
+            } else {
+                // Search Translations (English)
+                // Use !inner to filter parent rows based on child match
+                // Note: The column in 'recipe_translations' is 'title', not 'name'
+                query = supabase
+                    .from('recipes')
+                    .select('*, recipe_translations!inner(*)')
+                    .order('created_at', { ascending: false })
+                    .limit(50)
+                    .ilike('recipe_translations.title', `%${q}%`);
+            }
         }
 
         // Difficulty filter
