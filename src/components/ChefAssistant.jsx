@@ -113,7 +113,7 @@ export default function ChefAssistant({ recipeContext }) {
                                     <span className="text-xl">👨‍🍳</span>
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-sm">Chef Miro</h3>
+                                    <h3 className="font-bold text-sm">Chef Zaffaron</h3>
                                     <p className="text-xs text-orange-100 flex items-center gap-1">
                                         <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
                                         {language === 'fa' ? 'آنلاین' : 'Online'}
@@ -142,8 +142,8 @@ export default function ChefAssistant({ recipeContext }) {
                                 >
                                     <div
                                         className={`max-w-[80%] p-3 rounded-2xl text-sm leading-relaxed shadow-sm ${m.role === 'user'
-                                                ? 'bg-primary text-primary-foreground rounded-br-none'
-                                                : 'bg-card border border-border text-foreground rounded-bl-none'
+                                            ? 'bg-primary text-primary-foreground rounded-br-none'
+                                            : 'bg-card border border-border text-foreground rounded-bl-none'
                                             }`}
                                     >
                                         {m.content}
