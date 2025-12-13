@@ -197,16 +197,7 @@ export default function RecipeDetailClient({ recipe }) {
                             </div>
                         )}
 
-                        {/* Pro Tip (Small if exists) */}
-                        {nutritionData?.chef_insight && (
-                            <div className="mt-4 flex items-center gap-2 text-sm text-amber-700 dark:text-amber-400 italic">
-                                <ChefHat size={16} />
-                                <span>
-                                    <span className="font-bold not-italic mr-1">{language === 'fa' ? 'نکته:' : 'Pro Tip:'}</span>
-                                    {nutritionData?.chef_insight}
-                                </span>
-                            </div>
-                        )}
+
                     </div>
                 </div>
 
