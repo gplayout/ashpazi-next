@@ -15,11 +15,9 @@ async function main() {
     // 1. Initialize Agent
     const agent = new RecipeEditorPro(apiKey);
 
-    // 2. Fetch Latest 10 Recipes
+    // 2. Fetch Latest 1000 Recipes
     const { data: recipes, error } = await supabase
         .from('recipes')
-        .select('id, name_en, ingredients_en, instructions_en')
-        .order('id', { ascending: false })
         .select('id, name_en, ingredients_en, instructions_en')
         .order('id', { ascending: false })
         .limit(1000);
@@ -31,6 +29,10 @@ async function main() {
 
     console.log(`📋 Found ${recipes.length} recipes. Processing one by one...\n`);
 
+    // Reliability Helpers
+    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+    const MAX_RETRIES = 3;
+
     for (const recipe of recipes) {
         console.log(`👨‍🍳 Editing: ${recipe.name_en} (ID: ${recipe.id})...`);
 
@@ -41,22 +43,41 @@ async function main() {
         Instructions: ${JSON.stringify(recipe.instructions_en)}
         `;
 
-        // Process (Text Only as requested)
-        const result = await agent.process(rawText, null);
+        let attempts = 0;
+        let success = false;
 
-        if (result.status === "success") {
-            const data = result.output;
+        while (attempts < MAX_RETRIES && !success) {
+            attempts++;
+            try {
+                // Process (Text Only as requested)
+                const result = await agent.process(rawText, null);
 
-            // Save to DB (Strict Mapping)
-            await saveToDB(recipe.id, data);
-
-            console.log("   ✅ Done! Saved Strict Format.");
-        } else {
-            console.error(`   ❌ Failed: ${result.message}`);
+                if (result.status === "success") {
+                    const data = result.output;
+                    // Save to DB
+                    await saveToDB(recipe.id, data);
+                    console.log("   ✅ Done! Saved Strict Format.");
+                    success = true;
+                } else {
+                    throw new Error(result.message); // Force retry on logic error
+                }
+            } catch (err) {
+                console.error(`   ⚠️ Attempt ${attempts} Failed: ${err.message}`);
+                if (attempts < MAX_RETRIES) {
+                    const waitTime = 2000 * Math.pow(2, attempts); // 4s, 8s, 16s...
+                    console.log(`   ⏳ Retrying in ${waitTime / 1000}s...`);
+                    await sleep(waitTime);
+                } else {
+                    console.error(`   ❌ FATAL: Giving up on Recipe ${recipe.id} after ${MAX_RETRIES} attempts.`);
+                }
+            }
         }
+
+        // Rate Limit Check (Native Pause)
+        await sleep(1000);
     }
 
-    console.log("\n🎉 All 10 recipes processed by RecipeEditorPro.");
+    console.log(`\n🎉 Process Complete. Checked ${recipes.length} recipes.`);
 }
 
 async function saveToDB(id, data) {

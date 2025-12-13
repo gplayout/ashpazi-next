@@ -16,13 +16,33 @@ export async function generateMetadata({ params }) {
         return { title: 'Recipe Not Found' };
     }
 
-    const displayTitle = recipe.name || recipe.recipe_translations?.[0]?.title || 'Recipe';
-    const displayDesc = recipe.description || recipe.recipe_translations?.[0]?.description || '';
+    // Priority: English Name -> Translation -> Base Name
+    const displayTitle = recipe.name_en || recipe.recipe_translations?.find(t => t.language === 'en')?.title || recipe.name || 'Recipe';
+    const displayDesc = recipe.description || recipe.recipe_translations?.find(t => t.language === 'en')?.description || 'Authentic Persian Recipe';
 
     return {
         title: `${displayTitle} | Zaffaron Recipes`,
-        description: `Learn how to cook authentic ${displayTitle}. ${displayDesc.slice(0, 100)}...`,
+        description: `Learn how to cook ${displayTitle}: ${displayDesc.slice(0, 150)}...`,
         openGraph: {
+            title: `${displayTitle} | Zaffaron`,
+            description: displayDesc.slice(0, 200),
+            url: `https://zaffaron.com/recipe/${slug}`,
+            siteName: 'Zaffaron',
+            images: [
+                {
+                    url: recipe.image || '/og-default.jpg',
+                    width: 1200,
+                    height: 630,
+                    alt: displayTitle,
+                },
+            ],
+            locale: 'en_US',
+            type: 'article',
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: displayTitle,
+            description: displayDesc.slice(0, 200),
             images: [recipe.image || '/og-default.jpg'],
         },
     };

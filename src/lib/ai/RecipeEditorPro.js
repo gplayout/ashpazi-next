@@ -82,11 +82,11 @@ Each of the three versions MUST follow this exact recipe structure:
 - If missing, generate reasonable approximate values.
 - Provide: Calories, Protein, Fat, Carbs.
 
-6. Restrictions
-- Do NOT invent new ingredients.
-- Do NOT remove ingredients unless they are clear typos or duplicates.
-- Do NOT change the core identity of the dish.
-- Do NOT discuss databases, images, or system details.
+7. Handling Duplicates & Quality
+- **VERSIONING**: If the recipe name is generic (e.g. "Chicken Soup"), RENAME it to be specific based on its ingredients or style (e.g. "Creamy Mushroom Chicken Soup" or "Rustic Persian Barley Soup").
+- **ENRICH OR DIE**: If the input recipe is very short or "trash", do NOT just translate it. REWRITE it completely to be a high-quality, standard version of that dish.
+- **DISTINCTION**: Ensure the title is unique and descriptive to avoid duplicates in the database.
+- **Example**: Input "Kebab" -> Output "Classic Persian Koobideh Kebab".
 
 IMPORTANT: You must output the result using the "structured_output" function.
 CRITICAL: You MUST provide the recipe in ALL THREE LANGUAGES (Persian, English, Spanish). Do not stop after Farsi.

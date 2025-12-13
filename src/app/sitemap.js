@@ -6,7 +6,7 @@ export default async function sitemap() {
     // 1. Fetch all recipes
     const { data: recipes, error } = await supabase
         .from('recipes')
-        .select('id, name, created_at')
+        .select('id, name, name_en, created_at')
         .order('created_at', { ascending: false });
 
     if (error) {
@@ -16,8 +16,14 @@ export default async function sitemap() {
 
     // 2. Generate recipe URLs
     const recipeUrls = recipes.map((recipe) => {
-        // Generate slug from name (same logic as RecipeCard)
-        const slug = encodeURIComponent(recipe.name || `recipe-${recipe.id}`);
+        // MATCHING LOGIC with RecipeCard.jsx: Prioritize English Name
+        let slug = '';
+        if (recipe.name_en) {
+            slug = encodeURIComponent(recipe.name_en.replace(/\s+/g, '-').toLowerCase());
+        } else {
+            slug = encodeURIComponent(recipe.name || `recipe-${recipe.id}`);
+        }
+
         return {
             url: `${BASE_URL}/recipe/${slug}`,
             lastModified: recipe.created_at || new Date().toISOString(),
