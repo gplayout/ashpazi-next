@@ -13,12 +13,22 @@ export function useNutrition(recipe) {
         if (recipe.nutrition_info && recipe.nutrition_info[language]) {
             const localData = recipe.nutrition_info[language];
 
-            // Normalize 'macro_nutrients' to 'macros' (Fix for Schema Mismatch)
-            if (localData.macro_nutrients && !localData.macros) {
+            // Normalize 'nutrition' object to expected UI structure
+            if (localData.nutrition) {
+                // Map nested 'nutrition' (from Agent) to root keys (for UI)
+                localData.calories = localData.nutrition.calories;
+                localData.macros = {
+                    protein: localData.nutrition.protein,
+                    carbs: localData.nutrition.carbs,
+                    fat: localData.nutrition.fat
+                };
+            }
+            // Legacy mapping
+            else if (localData.macro_nutrients && !localData.macros) {
                 localData.macros = localData.macro_nutrients;
             }
 
-            console.log("⚡ Nutrition (Local):", localData);
+            console.log("⚡ Nutrition (Local Normalized):", localData);
             setNutritionData(localData);
             setLoading(false);
             return;

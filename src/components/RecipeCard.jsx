@@ -19,8 +19,9 @@ const RecipeCard = ({ recipe }) => {
     // Fallback if recipe is incomplete
     if (!recipe) return null;
 
-    // Generate slug if missing (basic fallback)
-    const slug = recipe.slug || recipe.name.toLowerCase().replace(/\s+/g, '-');
+    // Generate slug: Prefer English name for cleaner URLs, fallback to name
+    const slugSource = recipe.name_en || recipe.name;
+    const slug = recipe.slug || slugSource.toLowerCase().replace(/\s+/g, '-');
 
     // Localized fields
     const displayName = t(recipe, 'name');

@@ -1,85 +1,50 @@
 
-import { createClient } from '@supabase/supabase-js';
-import dotenv from 'dotenv';
-import path from 'path';
-import { fileURLToPath } from 'url';
+const { createClient } = require('@supabase/supabase-js');
+require('dotenv').config({ path: '.env.local' });
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const envPath = path.resolve(__dirname, '../.env.local');
-dotenv.config({ path: envPath });
+const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_ROLE_KEY
+);
 
-function parseEnv(key) {
-    let val = process.env[key];
-    if (!val) {
-        val = process.env['VITE_' + key] || process.env['NEXT_PUBLIC_' + key] || process.env['REACT_APP_' + key];
-    }
-    return val;
-}
+async function main() {
+    const slug = "Tlatlocolotl";
+    console.log(`🔎 Testing slug lookup for: "${slug}"`);
 
-const SUPABASE_URL = parseEnv('SUPABASE_URL');
-const SUPABASE_KEY = parseEnv('SUPABASE_ANON_KEY');
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+    const decoded = decodeURIComponent(slug);
+    const normalized = decoded.replace(/-/g, ' ');
 
-async function run() {
-    console.log("1. Fetching a sample FA translation to get a valid slug...");
-    const { data: samples, error: sampleError } = await supabase
+    console.log(`   Normalized: "${normalized}"`);
+
+    // 1. Search Translations
+    console.log("1️⃣ Searching recipe_translations...");
+    const { data: translations, error: tErr } = await supabase
         .from('recipe_translations')
-        .select('title, recipe_id')
-        .eq('language', 'fa')
-        .limit(1);
+        .select('*')
+        .or(`title.eq.${normalized},title.ilike.${normalized}`);
 
-    if (sampleError || !samples || samples.length === 0) {
-        console.error("Failed to get samples:", sampleError);
-        return;
-    }
+    if (tErr) console.error("   ❌ Error:", tErr.message);
+    console.log(`   Found ${translations?.length || 0} matches:`, translations);
 
-    const sample = samples[0];
-    console.log("Sample:", sample);
-    const slug = sample.title.replace(/\s+/g, '-');
-    console.log("Constructed Slug:", slug);
-    const normalizedTitle = decodeURIComponent(slug).replace(/-/g, ' ');
-    console.log("Normalized Title for Query:", normalizedTitle);
-
-    console.log("\n2. Attempting the problematic query (Relation Filter)...");
-    const { data: recipe, error } = await supabase
+    // 2. Search Main Table (Name)
+    console.log("2️⃣ Searching recipes (name)...");
+    const { data: recipes, error: rErr } = await supabase
         .from('recipes')
-        .select('*, recipe_translations!inner(*)')
-        .eq('recipe_translations.title', normalizedTitle)
-        .eq('recipe_translations.language', 'fa');
+        .select('id, name, name_en')
+        .or(`name.eq.${normalized},name.ilike.${normalized}`);
 
-    if (error) {
-        console.error("❌ Link Query Error:", error);
-    } else {
-        console.log("✅ Link Query Success (Rows):", recipe?.length);
-        if (recipe?.length > 0) console.log("First row ID:", recipe[0].id);
-    }
+    if (rErr) console.error("   ❌ Error:", rErr.message);
+    console.log(`   Found ${recipes?.length || 0} matches:`, recipes);
 
-    console.log("\n3. Attempting alternative query (Two-step via translations)...");
-    const { data: translation, error: tError } = await supabase
-        .from('recipe_translations')
-        .select('recipe_id')
-        .eq('title', normalizedTitle)
-        .eq('language', 'fa')
-        .single();
+    // 3. Search Main Table (name_en) - Potential Fix?
+    console.log("3️⃣ Searching recipes (name_en)...");
+    const { data: recipesEn, error: reErr } = await supabase
+        .from('recipes')
+        .select('id, name, name_en')
+        .or(`name_en.eq.${normalized},name_en.ilike.${normalized}`);
 
-    if (tError) {
-        console.error("❌ Translation Lookup Error:", tError);
-    } else {
-        console.log("✅ Found Recipe ID:", translation.recipe_id);
-        const { data: finalRecipe, error: rError } = await supabase
-            .from('recipes')
-            .select('*, recipe_translations(*)')
-            .eq('id', translation.recipe_id)
-            .single();
-
-        if (rError) {
-            console.error("❌ Final Recipe Fetch Error:", rError);
-        } else {
-            console.log("✅ Final Recipe Fetched:", finalRecipe.id);
-            console.log("Translations count:", finalRecipe.recipe_translations.length);
-        }
-    }
+    if (reErr) console.error("   ❌ Error:", reErr.message);
+    console.log(`   Found ${recipesEn?.length || 0} matches:`, recipesEn);
 }
 
-run();
+main();

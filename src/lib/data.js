@@ -35,13 +35,20 @@ export async function getRecipeBySlug(slug) {
     }
 
     // 2. Legacy Fallback (searching 'recipes' table directly if columns still exist)
-    const { data: legacyRecipe } = await supabase
+    console.log(`[getRecipeBySlug] Checking 'recipes' table for normalized: "${normalized}"`);
+    const { data: legacyRecipe, error: legacyError } = await supabase
         .from('recipes')
         .select('*, recipe_translations(*)')
-        .or(`name.eq.${normalized},name.ilike.${normalized}`)
+        .or(`name.eq.${normalized},name.ilike.${normalized},name_en.eq.${normalized},name_en.ilike.${normalized}`)
         .maybeSingle();
 
-    if (legacyRecipe) return legacyRecipe;
+    if (legacyError) console.error("[getRecipeBySlug] Legacy Query Error:", legacyError);
 
+    if (legacyRecipe) {
+        console.log(`[getRecipeBySlug] Found in DB via name/name_en fallback. ID: ${legacyRecipe.id}`);
+        return legacyRecipe;
+    }
+
+    console.error(`[getRecipeBySlug] FAILED. No match found for "${slug}" (Normalized: "${normalized}")`);
     return null;
 }

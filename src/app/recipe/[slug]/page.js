@@ -9,8 +9,12 @@ export const revalidate = 0;
 // SEO Metadata Generation
 export async function generateMetadata({ params }) {
     const { slug } = await params;
+    console.log(`[RecipePage] generateMetadata slug: "${slug}"`);
     const recipe = await getRecipeBySlug(slug);
-    if (!recipe) return { title: 'Recipe Not Found' };
+    if (!recipe) {
+        console.warn(`[RecipePage] generateMetadata: Recipe NOT FOUND for slug: "${slug}"`);
+        return { title: 'Recipe Not Found' };
+    }
 
     const displayTitle = recipe.name || recipe.recipe_translations?.[0]?.title || 'Recipe';
     const displayDesc = recipe.description || recipe.recipe_translations?.[0]?.description || '';
@@ -72,11 +76,15 @@ function buildJsonLd(recipe) {
 
 export default async function RecipePage({ params }) {
     const { slug } = await params;
+    console.log(`[RecipePage] Rendering page for slug: "${slug}"`);
+
     const recipe = await getRecipeBySlug(slug);
 
     if (!recipe) {
+        console.error(`[RecipePage] 404 Triggered! Recipe null for slug: "${slug}"`);
         notFound();
     }
+    console.log(`[RecipePage] Success! Found recipe: ${recipe.id} - ${recipe.name}`);
 
     const jsonLd = buildJsonLd(recipe);
 

@@ -93,105 +93,116 @@ export default function RecipeDetailClient({ recipe }) {
                     </Link>
                 </div>
 
-                {/* Title Overlay */}
-                <div className={`absolute bottom-0 w-full p-6 md:p-12 ${language === 'fa' ? 'right-0 text-right' : 'left-0 text-left'}`}>
-                    <div className="container mx-auto">
-                        <Badge className="mb-4 text-base px-3 py-1 bg-primary text-primary-foreground border-none">
+
+            </div>
+
+            {/* NEW Info Section (Below Hero) */}
+            <div
+                className="container mx-auto px-4 md:px-6 mt-8 mb-12"
+                dir={language === 'fa' ? 'rtl' : 'ltr'}
+            >
+                <div className="flex flex-col gap-6">
+                    <div className="flex flex-col items-start">
+                        <Badge className="mb-4 text-base px-3 py-1 bg-primary text-primary-foreground border-none w-fit">
                             {displayCategory}
                         </Badge>
-                        <h1 className="text-4xl md:text-6xl font-black text-foreground drop-shadow-sm leading-tight mb-4">
+                        <h1 className="text-4xl md:text-6xl font-black text-foreground leading-tight mb-4">
                             {displayName}
                         </h1>
 
-                        {/* Meta Stats & Nutrition Pills */}
-                        <div className={`flex flex-wrap gap-6 text-sm md:text-base font-medium text-foreground/80 ${language === 'fa' ? 'flex-row-reverse justify-end' : ''}`}>
-                            <div className="flex items-center gap-2 bg-background/50 backdrop-blur-sm px-3 py-1.5 rounded-full border border-border/50">
-                                <Clock size={18} className="text-primary" />
-                                <span>{getUiLabel('prep_time', language)} {displayPrepTime} {getUiLabel('minutes', language)}</span>
-                            </div>
-                            <div className="flex items-center gap-2 bg-background/50 backdrop-blur-sm px-3 py-1.5 rounded-full border border-border/50">
-                                <Flame size={18} className="text-orange-500" />
-                                <span>{getUiLabel('cook_time', language)} {displayCookTime} {getUiLabel('minutes', language)}</span>
-                            </div>
-                            <div className="flex items-center gap-2 bg-background/50 backdrop-blur-sm px-3 py-1.5 rounded-full border border-border/50">
-                                <ChefHat size={18} className="text-purple-500" />
-                                <span>{displayDifficulty}</span>
-                            </div>
+                        {/* Intro / Description */}
+                        {(recipe.nutrition_info?.[language]?.description || recipe.description) && (
+                            <p className="text-lg md:text-xl text-muted-foreground mb-6 max-w-3xl leading-relaxed font-medium">
+                                {recipe.nutrition_info?.[language]?.description || recipe.description}
+                            </p>
+                        )}
+                    </div>
 
-                            {/* Dynamic Nutrition Pills */}
-                            {nutritionLoading ? (
-                                <div className="flex items-center gap-2 bg-background/50 backdrop-blur-sm px-3 py-1.5 rounded-full border border-border/50 animate-pulse">
-                                    <Activity size={18} className="text-muted-foreground" />
-                                    <span className="text-muted-foreground text-xs">{getUiLabel('analyzing', language)}</span>
-                                </div>
-                            ) : nutritionData?.calories ? (() => {
-                                // Helper to localizing values (e.g. "43g" -> "۴۳ گرم")
-                                const formatVal = (val, type) => {
-                                    if (!val) return null;
-                                    if (language !== 'fa') {
-                                        if (type === 'kcal') return `${val} kcal`;
-                                        return val; // e.g. "43g"
-                                    }
-                                    // Farsi logic
-                                    let str = val.toString();
-                                    str = str.replace(/[0-9]/g, d => toPersianDigits(d));
-                                    str = str.replace(/g/i, ' گرم');
-                                    str = str.replace(/kcal/i, ' کیلوکالری');
-
-                                    if (type === 'kcal') return `${str} کیلوکالری`;
-                                    return str;
-                                };
-
-                                return (
-                                    <>
-                                        {/* Mobile Friendly Pills: Smaller padding/text */}
-                                        <div className="flex items-center gap-1.5 bg-background/50 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1.5 rounded-full border border-border/50 animate-in fade-in zoom-in text-emerald-700 dark:text-emerald-300">
-                                            <Activity size={14} className="text-emerald-500 md:w-[18px] md:h-[18px]" />
-                                            <span className="font-bold text-xs md:text-sm">{formatVal(nutritionData.calories, 'kcal')}</span>
-                                        </div>
-                                        {nutritionData.macros?.protein && (
-                                            <div className="flex items-center gap-1.5 bg-background/50 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1.5 rounded-full border border-border/50 animate-in fade-in zoom-in text-blue-700 dark:text-blue-300">
-                                                <Dumbbell size={14} className="text-blue-500 md:w-[18px] md:h-[18px]" />
-                                                <span className="font-bold text-xs md:text-sm">{getUiLabel('protein', language)}: {formatVal(nutritionData.macros.protein)}</span>
-                                            </div>
-                                        )}
-                                        {nutritionData.macros?.carbs && (
-                                            <div className="flex items-center gap-1.5 bg-background/50 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1.5 rounded-full border border-border/50 animate-in fade-in zoom-in text-amber-700 dark:text-amber-300">
-                                                <Wheat size={14} className="text-amber-500 md:w-[18px] md:h-[18px]" />
-                                                <span className="font-bold text-xs md:text-sm">{getUiLabel('carbs', language)}: {formatVal(nutritionData.macros.carbs)}</span>
-                                            </div>
-                                        )}
-                                        {nutritionData.macros?.fat && (
-                                            <div className="flex items-center gap-1.5 bg-background/50 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1.5 rounded-full border border-border/50 animate-in fade-in zoom-in text-rose-700 dark:text-rose-300">
-                                                <Droplet size={14} className="text-rose-500 md:w-[18px] md:h-[18px]" />
-                                                <span className="font-bold text-xs md:text-sm">{getUiLabel('fat', language)}: {formatVal(nutritionData.macros.fat)}</span>
-                                            </div>
-                                        )}
-                                    </>
-                                );
-                            })() : null}
+                    {/* Meta Stats & Macros Row */}
+                    <div className="flex flex-wrap gap-4 items-center">
+                        {/* Basic Stats */}
+                        <div className="flex items-center gap-2 bg-muted/50 px-4 py-2 rounded-xl border border-border/50">
+                            <Clock size={18} className="text-primary" />
+                            <span>{getUiLabel('prep_time', language)} {displayPrepTime} {getUiLabel('minutes', language)}</span>
+                        </div>
+                        <div className="flex items-center gap-2 bg-muted/50 px-4 py-2 rounded-xl border border-border/50">
+                            <Flame size={18} className="text-orange-500" />
+                            <span>{getUiLabel('cook_time', language)} {displayCookTime} {getUiLabel('minutes', language)}</span>
+                        </div>
+                        <div className="flex items-center gap-2 bg-muted/50 px-4 py-2 rounded-xl border border-border/50">
+                            <ChefHat size={18} className="text-purple-500" />
+                            <span>{displayDifficulty}</span>
                         </div>
 
-                        {/* Chef Insight Card (Hero Layout) */}
-                        {nutritionData?.chef_insight && (
-                            <div className="mt-6 p-4 rounded-xl bg-background/60 backdrop-blur-md border border-white/20 shadow-lg max-w-2xl animate-in slide-in-from-bottom-4">
-                                <div className="flex items-start gap-3">
-                                    <div className="bg-amber-100 p-1.5 rounded-full shrink-0">
-                                        <ChefHat size={16} className="text-amber-600" />
+                        {/* Macros */}
+                        {nutritionLoading ? (
+                            <div className="flex items-center gap-2 bg-muted/50 px-3 py-2 rounded-xl animate-pulse">
+                                <Activity size={18} className="text-muted-foreground" />
+                                <span className="text-xs">{getUiLabel('analyzing', language)}</span>
+                            </div>
+                        ) : nutritionData?.calories ? (() => {
+                            const formatVal = (val, type) => {
+                                if (!val) return null;
+                                if (language !== 'fa') {
+                                    if (type === 'kcal') return `${val} kcal`;
+                                    return val;
+                                }
+                                let str = val.toString();
+                                str = str.replace(/[0-9]/g, d => toPersianDigits(d));
+                                str = str.replace(/g/i, ' گرم');
+                                str = str.replace(/kcal/i, ' کیلوکالری');
+                                if (type === 'kcal') return `${str} کیلوکالری`;
+                                return str;
+                            };
+
+                            return (
+                                <>
+                                    <div className="flex items-center gap-1.5 bg-emerald-100 dark:bg-emerald-900/20 px-3 py-2 rounded-xl border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300">
+                                        <Activity size={14} className="text-emerald-500" />
+                                        <span className="font-bold text-sm">{formatVal(nutritionData.calories, 'kcal')}</span>
                                     </div>
-                                    <p className="text-sm md:text-base italic text-foreground/90 leading-relaxed">
-                                        "{nutritionData.chef_insight}"
-                                    </p>
+                                    {nutritionData.macros?.protein && (
+                                        <div className="flex items-center gap-1.5 bg-blue-100 dark:bg-blue-900/20 px-3 py-2 rounded-xl border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300">
+                                            <Dumbbell size={14} className="text-blue-500" />
+                                            <span className="font-bold text-sm">{getUiLabel('protein', language)}: {formatVal(nutritionData.macros.protein)}</span>
+                                        </div>
+                                    )}
+                                    {nutritionData.macros?.carbs && (
+                                        <div className="flex items-center gap-1.5 bg-amber-100 dark:bg-amber-900/20 px-3 py-2 rounded-xl border border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-300">
+                                            <Wheat size={14} className="text-amber-500" />
+                                            <span className="font-bold text-sm">{getUiLabel('carbs', language)}: {formatVal(nutritionData.macros.carbs)}</span>
+                                        </div>
+                                    )}
+                                    {nutritionData.macros?.fat && (
+                                        <div className="flex items-center gap-1.5 bg-rose-100 dark:bg-rose-900/20 px-3 py-2 rounded-xl border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300">
+                                            <Droplet size={14} className="text-rose-500" />
+                                            <span className="font-bold text-sm">{getUiLabel('fat', language)}: {formatVal(nutritionData.macros.fat)}</span>
+                                        </div>
+                                    )}
+                                </>
+                            );
+                        })() : null}
+                    </div>
+
+                    {/* Chef Insight + Health */}
+                    <div className="flex flex-col gap-4 mt-2">
+                        {nutritionData?.chef_insight && (
+                            <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800/30 max-w-3xl">
+                                <div className="flex items-start gap-3">
+                                    <ChefHat size={20} className="text-amber-600 mt-1 shrink-0" />
+                                    <div>
+                                        <h3 className="font-bold text-amber-800 dark:text-amber-200 mb-1">{language === 'fa' ? 'نظر سرآشپز' : 'Chef\'s Insight'}</h3>
+                                        <p className="italic text-foreground/80 leading-relaxed">"{nutritionData.chef_insight}"</p>
+                                    </div>
                                 </div>
                             </div>
                         )}
 
-                        {/* Health Benefits (Restored) */}
                         {nutritionData?.health_benefits && nutritionData.health_benefits.length > 0 && (
-                            <div className="mt-4 flex flex-wrap gap-2 animate-in slide-in-from-bottom-6 duration-700">
+                            <div className="flex flex-wrap gap-2">
                                 {nutritionData.health_benefits.map((benefit, idx) => (
-                                    <div key={idx} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-rose-500/10 backdrop-blur-md border border-rose-500/20 text-rose-800 dark:text-rose-200 text-xs md:text-sm font-medium">
-                                        <Heart size={12} className="text-rose-500 fill-rose-500" />
+                                    <div key={idx} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-green-100 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-300 text-sm font-medium">
+                                        <Heart size={12} className="text-green-500 fill-green-500 shrink-0" />
                                         <span>{benefit}</span>
                                     </div>
                                 ))}
