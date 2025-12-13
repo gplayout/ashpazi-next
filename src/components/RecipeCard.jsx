@@ -46,7 +46,7 @@ const RecipeCard = ({ recipe }) => {
                 <RecipeHeart recipeId={recipe.id} />
             </div>
 
-            <Link href={`/recipe/${slug}`} className="block h-full">
+            <Link href={`/recipe/${slug}?id=${recipe.id}`} className="block h-full">
                 <Card className="overflow-hidden border border-border/40 bg-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
                     {/* Image Section */}
                     <div className="relative aspect-[4/3] overflow-hidden w-full bg-muted">

@@ -94,11 +94,29 @@ function buildJsonLd(recipe) {
     };
 }
 
-export default async function RecipePage({ params }) {
-    const { slug } = await params;
-    console.log(`[RecipePage] Rendering page for slug: "${slug}"`);
+import { supabase } from '@/lib/supabase'; // Import supabase directly for ID fetch
 
-    const recipe = await getRecipeBySlug(slug);
+export default async function RecipePage({ params, searchParams }) {
+    const { slug } = await params;
+    const { id } = await searchParams; // Get ID from query params
+
+    console.log(`[RecipePage] Rendering. Slug: "${slug}", ID: "${id}"`);
+
+    let recipe = await getRecipeBySlug(slug);
+
+    // Link/Slug mismatch Fallback: If slug failed but we have an ID, fetch by ID
+    if (!recipe && id) {
+        console.log(`[RecipePage] Slug lookup failed. Attempting fallback lookup by ID: ${id}`);
+        const { data } = await supabase
+            .from('recipes')
+            .select('*, recipe_translations(*)')
+            .eq('id', id)
+            .single();
+        if (data) {
+            console.log(`[RecipePage] Fallback Success! Retrieved recipe via ID.`);
+            recipe = data;
+        }
+    }
 
     if (!recipe) {
         console.error(`[RecipePage] 404 Triggered! Recipe null for slug: "${slug}"`);
