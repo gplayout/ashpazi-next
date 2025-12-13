@@ -106,7 +106,7 @@ export default function RecipeDetailClient({ recipe }) {
                         <Badge className="mb-4 text-base px-3 py-1 bg-primary text-primary-foreground border-none w-fit">
                             {displayCategory}
                         </Badge>
-                        <h1 className="text-4xl md:text-6xl font-black text-foreground leading-tight mb-4">
+                        <h1 className="text-3xl md:text-6xl font-black text-foreground leading-tight mb-4">
                             {displayName}
                         </h1>
 

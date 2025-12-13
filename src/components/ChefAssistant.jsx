@@ -104,7 +104,7 @@ export default function ChefAssistant({ recipeContext }) {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 50, scale: 0.9 }}
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        className="fixed bottom-4 right-4 z-50 w-[calc(100vw-32px)] max-w-[350px] md:max-w-[380px] h-[60vh] md:h-[500px] bg-background border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+                        className="fixed bottom-4 right-4 z-50 w-[calc(100vw-32px)] max-w-[375px] md:max-w-[380px] h-[80vh] md:h-[550px] bg-background border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden"
                     >
                         {/* Header */}
                         <div className="p-3 bg-gradient-to-r from-amber-500 to-orange-600 flex items-center justify-between text-white shadow-md z-10">
@@ -132,6 +132,7 @@ export default function ChefAssistant({ recipeContext }) {
                         <div
                             ref={scrollRef}
                             className="flex-1 overflow-y-auto p-4 space-y-4 bg-muted/30 scroll-smooth"
+                            dir={language === 'fa' ? 'rtl' : 'ltr'}
                         >
                             {messages.map((m, idx) => (
                                 <motion.div
