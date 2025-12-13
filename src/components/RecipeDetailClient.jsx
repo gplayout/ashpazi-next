@@ -200,82 +200,83 @@ export default function RecipeDetailClient({ recipe }) {
 
                     </div>
                 </div>
+            </div>
 
-                {/* Content Layout */}
-                <div className="container mx-auto px-4 md:px-6 mt-12 grid md:grid-cols-[1fr_2fr] gap-12">
+            {/* Content Layout */}
+            <div className="container mx-auto px-4 md:px-6 mt-12 grid md:grid-cols-[1fr_2fr] gap-12">
 
-                    {/* Sidebar: Ingredients & Nutrition Details */}
-                    <aside className="space-y-8">
-                        <div className="bg-card border border-border rounded-2xl p-6 shadow-sm sticky top-8">
-                            <div dir={language === 'fa' ? 'rtl' : 'ltr'}>
-                                <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                                    <span className="text-primary">●</span> {getUiLabel('ingredients', language)}
-                                </h2>
-                                <ul className="space-y-3">
-                                    {displayIngredients && displayIngredients.length > 0 ? (
-                                        displayIngredients.map((ing, idx) => (
-                                            <li key={idx} className="flex items-start gap-3 text-muted-foreground hover:text-foreground transition-colors p-2 rounded-lg hover:bg-muted/50">
-                                                <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
-                                                <span className="leading-relaxed">{language === 'fa' ? toPersianDigits(ing) : ing}</span>
-                                            </li>
-                                        ))
-                                    ) : (
-                                        <p className="text-muted-foreground italic text-center">
-                                            {getUiLabel('ingredients_embedded', language)}
-                                        </p>
-                                    )}
-                                </ul>
-                            </div>
-
-                            {/* Action Button */}
-                            <Button
-                                onClick={() => setIsCookingMode(true)}
-                                className="w-full mt-8 font-bold text-lg h-12 rounded-xl shadow-md border-b-4 border-primary/20 active:border-b-0 active:translate-y-1 transition-all"
-                            >
-                                {getUiLabel('start_cooking', language)}
-                            </Button>
+                {/* Sidebar: Ingredients & Nutrition Details */}
+                <aside className="space-y-8">
+                    <div className="bg-card border border-border rounded-2xl p-6 shadow-sm sticky top-8">
+                        <div dir={language === 'fa' ? 'rtl' : 'ltr'}>
+                            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                                <span className="text-primary">●</span> {getUiLabel('ingredients', language)}
+                            </h2>
+                            <ul className="space-y-3">
+                                {displayIngredients && displayIngredients.length > 0 ? (
+                                    displayIngredients.map((ing, idx) => (
+                                        <li key={idx} className="flex items-start gap-3 text-muted-foreground hover:text-foreground transition-colors p-2 rounded-lg hover:bg-muted/50">
+                                            <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
+                                            <span className="leading-relaxed">{language === 'fa' ? toPersianDigits(ing) : ing}</span>
+                                        </li>
+                                    ))
+                                ) : (
+                                    <p className="text-muted-foreground italic text-center">
+                                        {getUiLabel('ingredients_embedded', language)}
+                                    </p>
+                                )}
+                            </ul>
                         </div>
 
-                        {/* Nutrition Card (Sidebar REMOVED as requested) */}
-                        {/* <NutritionAI recipe={recipe} data={nutritionData} isLoading={nutritionLoading} /> */}
-                    </aside>
+                        {/* Action Button */}
+                        <Button
+                            onClick={() => setIsCookingMode(true)}
+                            className="w-full mt-8 font-bold text-lg h-12 rounded-xl shadow-md border-b-4 border-primary/20 active:border-b-0 active:translate-y-1 transition-all"
+                        >
+                            {getUiLabel('start_cooking', language)}
+                        </Button>
+                    </div>
 
-                    {/* Main: Instructions */}
-                    <section>
-                        <h2 className={`text-3xl font-bold mb-8 pb-4 border-b border-border ${language === 'fa' ? 'text-right' : 'text-left'}`}>
-                            {getUiLabel('instructions', language)}
-                        </h2>
-                        <div className="space-y-8">
-                            {displayInstructions && displayInstructions.length > 0 ? (
-                                displayInstructions.map((step, idx) => {
-                                    const detected = detectTime(step);
-                                    return (
-                                        <div key={idx} className={`group relative pl-8 pb-8 border-l border-border last:border-0 last:pb-0 ${language === 'fa' ? 'border-r border-l-0 pr-8 pl-0' : ''}`}>
-                                            <div className={`absolute top-0 w-8 h-8 rounded-full bg-background border-2 border-primary text-primary font-bold flex items-center justify-center text-sm shadow-sm group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300 ${language === 'fa' ? '-right-4' : '-left-4'}`}>
-                                                {language === 'fa' ? toPersianDigits(idx + 1) : idx + 1}
-                                            </div>
-                                            <div className="bg-muted/30 p-6 rounded-2xl hover:bg-muted/60 transition-colors">
-                                                <p className={`text-lg leading-relaxed text-foreground/90 ${language === 'fa' ? 'text-right' : 'text-left'}`}>
-                                                    {language === 'fa' ? toPersianDigits(step) : step}
-                                                </p>
-                                                {detected && (
-                                                    <div className={`mt-4 ${language === 'fa' ? 'flex justify-end' : ''}`}>
-                                                        <StepTimer duration={detected} />
-                                                    </div>
-                                                )}
-                                            </div>
+                    {/* Nutrition Card (Sidebar REMOVED as requested) */}
+                    {/* <NutritionAI recipe={recipe} data={nutritionData} isLoading={nutritionLoading} /> */}
+                </aside>
+
+                {/* Main: Instructions */}
+                <section>
+                    <h2 className={`text-3xl font-bold mb-8 pb-4 border-b border-border ${language === 'fa' ? 'text-right' : 'text-left'}`}>
+                        {getUiLabel('instructions', language)}
+                    </h2>
+                    <div className="space-y-8">
+                        {displayInstructions && displayInstructions.length > 0 ? (
+                            displayInstructions.map((step, idx) => {
+                                const detected = detectTime(step);
+                                return (
+                                    <div key={idx} className={`group relative pl-8 pb-8 border-l border-border last:border-0 last:pb-0 ${language === 'fa' ? 'border-r border-l-0 pr-8 pl-0' : ''}`}>
+                                        <div className={`absolute top-0 w-8 h-8 rounded-full bg-background border-2 border-primary text-primary font-bold flex items-center justify-center text-sm shadow-sm group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300 ${language === 'fa' ? '-right-4' : '-left-4'}`}>
+                                            {language === 'fa' ? toPersianDigits(idx + 1) : idx + 1}
                                         </div>
-                                    );
-                                })
-                            ) : (
-                                <p className="text-lg text-muted-foreground text-center">
-                                    {recipe.original_text || getUiLabel('no_instructions', language)}
-                                </p>
-                            )}
-                        </div>
-                    </section>
+                                        <div className="bg-muted/30 p-6 rounded-2xl hover:bg-muted/60 transition-colors">
+                                            <p className={`text-lg leading-relaxed text-foreground/90 ${language === 'fa' ? 'text-right' : 'text-left'}`}>
+                                                {language === 'fa' ? toPersianDigits(step) : step}
+                                            </p>
+                                            {detected && (
+                                                <div className={`mt-4 ${language === 'fa' ? 'flex justify-end' : ''}`}>
+                                                    <StepTimer duration={detected} />
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                );
+                            })
+                        ) : (
+                            <p className="text-lg text-muted-foreground text-center">
+                                {recipe.original_text || getUiLabel('no_instructions', language)}
+                            </p>
+                        )}
+                    </div>
+                </section>
 
-                </div>
+            </div>
         </article>
     );
 }
