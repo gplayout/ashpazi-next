@@ -51,8 +51,26 @@ export default function SocialShareModal({ isOpen, onClose, recipe }) {
                 useCORS: true,
                 scale: 2,
                 backgroundColor: null,
-                allowTaint: true, // Try allowing taint if CORS fails (might block download though)
-                imageTimeout: 15000, // Wait longer
+                allowTaint: true,
+                imageTimeout: 15000,
+                // Fix for OKLCH color crash: Override variables in the cloned document
+                onclone: (clonedDoc) => {
+                    const doc = clonedDoc;
+                    // Force HEX fallbacks for common variables used in global styles (borders etc)
+                    doc.documentElement.style.setProperty('--border', '#e5e5e5');
+                    doc.documentElement.style.setProperty('--ring', '#f59e0b');
+                    doc.documentElement.style.setProperty('--background', '#ffffff');
+                    doc.documentElement.style.setProperty('--foreground', '#000000');
+
+                    // Also force border color on all elements to verify
+                    const allElements = doc.querySelectorAll('*');
+                    allElements.forEach(el => {
+                        // If element has a computed border color using oklch (via variable), this override helps
+                        // But setting the var above should be enough.
+                        // We can also try to "Remove" the global border style if needed:
+                        // el.style.borderColor = 'rgba(255,255,255,0.1)'; 
+                    });
+                }
             });
 
             const link = document.createElement('a');
