@@ -18,7 +18,7 @@ export default function Hero() {
                 <ChefHat size={32} className="text-primary md:w-10 md:h-10" />
             </div>
             <h1 className="text-3xl md:text-5xl font-black text-foreground tracking-tight">
-                {title}
+                {title} (v2.0 Check)
             </h1>
             <p className="text-base md:text-lg text-muted-foreground max-w-xl">
                 {subtitle}
