@@ -136,8 +136,8 @@ export default function Stories({ recipes = [] }) {
                             />
                         </div>
 
-                        {/* Story Container */}
-                        <div className="relative w-full h-full md:w-[400px] md:h-[80vh] bg-black md:rounded-3xl overflow-hidden shadow-2xl flex flex-col z-10 border border-white/10">
+                        {/* Story Container - Card Style on Mobile too */}
+                        <div className="relative w-[95vw] h-[85vh] md:w-[400px] md:h-[80vh] bg-black rounded-3xl overflow-hidden shadow-2xl flex flex-col z-10 border border-white/10">
 
                             {/* Progress Bar */}
                             <div className="absolute top-0 left-0 right-0 z-20 flex gap-1 p-2">
