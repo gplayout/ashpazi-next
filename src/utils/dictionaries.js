@@ -335,7 +335,12 @@ export const ui = {
         fa: 'یخچال هوشمند',
         en: 'Fridge Vision',
         es: 'Visión de Nevera'
-    }
+    },
+    // Difficulty Reverse Mappings
+    'آسان': { fa: 'آسان', en: 'Easy', es: 'Fácil' },
+    'متوسط': { fa: 'متوسط', en: 'Medium', es: 'Medio' },
+    'سخت': { fa: 'سخت', en: 'Hard', es: 'Difícil' },
+    'حرفه‌ای': { fa: 'حرفه‌ای', en: 'Expert', es: 'Experto' }
 };
 
 export function getUiLabel(key, lang) {

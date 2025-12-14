@@ -56,20 +56,28 @@ export default function SocialShareModal({ isOpen, onClose, recipe }) {
                 // Fix for OKLCH color crash: Override variables in the cloned document
                 onclone: (clonedDoc) => {
                     const doc = clonedDoc;
-                    // Force HEX fallbacks for common variables used in global styles (borders etc)
+                    // Force HEX fallbacks for ALL variables used in global styles (borders etc)
                     doc.documentElement.style.setProperty('--border', '#e5e5e5');
                     doc.documentElement.style.setProperty('--ring', '#f59e0b');
                     doc.documentElement.style.setProperty('--background', '#ffffff');
                     doc.documentElement.style.setProperty('--foreground', '#000000');
+                    doc.documentElement.style.setProperty('--primary', '#d97706'); // Amber-600
+                    doc.documentElement.style.setProperty('--primary-foreground', '#ffffff');
+                    doc.documentElement.style.setProperty('--card', '#ffffff');
+                    doc.documentElement.style.setProperty('--popover', '#ffffff');
+                    doc.documentElement.style.setProperty('--muted', '#f5f5f5');
+                    doc.documentElement.style.setProperty('--accent', '#fee2e2');
 
-                    // Also force border color on all elements to verify
-                    const allElements = doc.querySelectorAll('*');
-                    allElements.forEach(el => {
-                        // If element has a computed border color using oklch (via variable), this override helps
-                        // But setting the var above should be enough.
-                        // We can also try to "Remove" the global border style if needed:
-                        // el.style.borderColor = 'rgba(255,255,255,0.1)'; 
-                    });
+                    // FORCE border color on all elements to ensure no oklch leaks
+                    // html2canvas fails if it encounters `oklch(...)` in ANY computed style
+                    const style = doc.createElement('style');
+                    style.innerHTML = `
+                        * { 
+                            border-color: #e5e5e5 !important; 
+                            outline-color: #f59e0b !important;
+                        }
+                    `;
+                    doc.head.appendChild(style);
                 }
             });
 
