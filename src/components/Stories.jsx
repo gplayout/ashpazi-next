@@ -56,7 +56,22 @@ export default function Stories({ recipes = [] }) {
         // console.log("Stories Active Items:", validStories.length);
     }, [validStories.length]);
 
-    if (validStories.length === 0) return null;
+    // Debug logging
+    console.log("Stories Component Debug:", {
+        totalRecipes: recipes?.length,
+        validStories: validStories.length,
+        firstRecipeImage: recipes?.[0]?.image
+    });
+
+    if (validStories.length === 0) {
+        return (
+            <div className="p-4 bg-red-100 border border-red-500 text-red-700 rounded-lg m-4 text-center">
+                <strong>Debug: No Stories Found</strong><br />
+                Total Recipes Fetched: {recipes?.length || 0}<br />
+                Valid Stories: {validStories.length}
+            </div>
+        );
+    }
 
     return (
         <section className="py-4 px-4 md:px-6 overflow-x-auto scrollbar-hide select-none bg-background border-b border-border/50 sticky top-[56px] z-40 shadow-sm min-h-[110px]">
