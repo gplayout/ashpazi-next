@@ -88,43 +88,45 @@ export default function Stories({ recipes = [] }) {
     }
 
     return (
-        <section className="py-4 px-4 md:px-6 overflow-x-auto scrollbar-hide select-none bg-zinc-50 dark:bg-zinc-900 border-b border-border/50 relative z-30 shadow-sm min-h-[120px]">
-            <div className="flex gap-4 md:gap-6 min-w-max md:min-w-0 md:justify-center mx-auto max-w-7xl">
-                {displayStories.map((recipe, idx) => (
-                    <button
-                        key={recipe.id}
-                        onClick={() => setViewingIndex(idx)}
-                        className="flex flex-col items-center gap-2 group cursor-pointer"
-                    >
-                        {/* Ring */}
-                        <div className="p-[3px] rounded-full bg-gradient-to-tr from-yellow-400 via-orange-500 to-red-600 group-hover:scale-105 transition-transform duration-300">
-                            <div className="p-[2px] rounded-full bg-background">
-                                <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden">
-                                    <Image
-                                        src={recipe.image}
-                                        alt={recipe.name_en}
-                                        fill
-                                        className="object-cover"
-                                    />
+        <>
+            <section className="py-4 px-4 md:px-6 overflow-x-auto scrollbar-hide select-none bg-zinc-50 dark:bg-zinc-900 border-b border-border/50 relative z-30 shadow-sm min-h-[120px]">
+                <div className="flex gap-4 md:gap-6 min-w-max md:min-w-0 md:justify-center mx-auto max-w-7xl">
+                    {displayStories.map((recipe, idx) => (
+                        <button
+                            key={recipe.id}
+                            onClick={() => setViewingIndex(idx)}
+                            className="flex flex-col items-center gap-2 group cursor-pointer"
+                        >
+                            {/* Ring */}
+                            <div className="p-[3px] rounded-full bg-gradient-to-tr from-yellow-400 via-orange-500 to-red-600 group-hover:scale-105 transition-transform duration-300">
+                                <div className="p-[2px] rounded-full bg-background">
+                                    <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden">
+                                        <Image
+                                            src={recipe.image}
+                                            alt={recipe.name_en}
+                                            fill
+                                            className="object-cover"
+                                        />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        {/* Label */}
-                        <span className="text-xs font-medium text-foreground/80 truncate w-20 text-center">
-                            {t(recipe, 'name')}
-                        </span>
-                    </button>
-                ))}
-            </div>
+                            {/* Label */}
+                            <span className="text-xs font-medium text-foreground/80 truncate w-20 text-center">
+                                {t(recipe, 'name')}
+                            </span>
+                        </button>
+                    ))}
+                </div>
+            </section>
 
-            {/* Full Screen Viewer */}
+            {/* Full Screen Viewer - Moved OUTSIDE section to prevent z-index clipping */}
             <AnimatePresence>
                 {viewingIndex !== null && (
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.95 }}
-                        className="fixed inset-0 z-[100] bg-black flex items-center justify-center p-0 md:p-8"
+                        className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-sm flex items-center justify-center p-0 md:p-8"
                     >
                         {/* Background Blur */}
                         <div className="absolute inset-0 z-0 opacity-50 blur-3xl">
@@ -158,7 +160,7 @@ export default function Stories({ recipes = [] }) {
                             {/* Close Button */}
                             <button
                                 onClick={() => setViewingIndex(null)}
-                                className="absolute top-4 right-4 z-30 text-white drop-shadow-md p-2"
+                                className="absolute top-4 right-4 z-30 text-white drop-shadow-md p-2 bg-black/20 rounded-full hover:bg-black/40 transition-colors"
                             >
                                 <X size={24} />
                             </button>
@@ -215,6 +217,6 @@ export default function Stories({ recipes = [] }) {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </section>
+        </>
     );
 }
