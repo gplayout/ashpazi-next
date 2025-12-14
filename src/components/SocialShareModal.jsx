@@ -83,14 +83,12 @@ export default function SocialShareModal({ isOpen, onClose, recipe }) {
                     >
                         {/* Background Image */}
                         <div className="absolute inset-0">
-                            {/* Proxy image via Base64 to bypass CORS issues */}
+                            {/* Proxy image via API to ensure Same-Origin for html2canvas */}
                             <img
-                                src={proxyImage || recipe.image}
+                                src={`/api/image-proxy?url=${encodeURIComponent(recipe.image)}`}
                                 alt={recipe.name_en}
                                 className="w-full h-full object-cover opacity-80"
                                 crossOrigin="anonymous"
-                                onLoad={() => console.log("Image loaded")}
-                                onError={(e) => console.error("Image load error", e)}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
                         </div>
