@@ -89,7 +89,7 @@ export default function Stories({ recipes = [] }) {
 
     return (
         <section className="py-4 px-4 md:px-6 overflow-x-auto scrollbar-hide select-none bg-zinc-50 dark:bg-zinc-900 border-b border-border/50 relative z-30 shadow-sm min-h-[120px]">
-            <div className="flex gap-4 md:gap-6 min-w-max">
+            <div className="flex gap-4 md:gap-6 min-w-max md:min-w-0 md:justify-center mx-auto max-w-7xl">
                 {displayStories.map((recipe, idx) => (
                     <button
                         key={recipe.id}

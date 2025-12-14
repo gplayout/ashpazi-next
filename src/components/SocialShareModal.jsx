@@ -9,6 +9,30 @@ import html2canvas from 'html2canvas';
 export default function SocialShareModal({ isOpen, onClose, recipe }) {
     const cardRef = useRef(null);
     const [isGenerating, setIsGenerating] = useState(false);
+    const [proxyImage, setProxyImage] = useState(null);
+
+    // Pre-load image as Base64 to avoid CORS issues with html2canvas
+    React.useEffect(() => {
+        if (isOpen && recipe?.image) {
+            let active = true;
+            const fetchImage = async () => {
+                try {
+                    const response = await fetch(recipe.image);
+                    const blob = await response.blob();
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        if (active) setProxyImage(reader.result);
+                    };
+                    reader.readAsDataURL(blob);
+                } catch (e) {
+                    console.error("Failed to proxy image:", e);
+                    // Fallback to original URL
+                }
+            };
+            fetchImage();
+            return () => { active = false; };
+        }
+    }, [isOpen, recipe]);
 
     if (!isOpen || !recipe) return null;
 
@@ -59,13 +83,14 @@ export default function SocialShareModal({ isOpen, onClose, recipe }) {
                     >
                         {/* Background Image */}
                         <div className="absolute inset-0">
-                            {/* We use standard img for html2canvas compatibility (sometimes Next/Image is tricky with Canvas due to srcset) */}
-                            {/* Using proxy or ensuring CORS is enabled on Supabase bucket */}
+                            {/* Proxy image via Base64 to bypass CORS issues */}
                             <img
-                                src={recipe.image}
+                                src={proxyImage || recipe.image}
                                 alt={recipe.name_en}
                                 className="w-full h-full object-cover opacity-80"
                                 crossOrigin="anonymous"
+                                onLoad={() => console.log("Image loaded")}
+                                onError={(e) => console.error("Image load error", e)}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
                         </div>
