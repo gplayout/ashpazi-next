@@ -8,6 +8,7 @@ import html2canvas from 'html2canvas';
 
 export default function SocialShareModal({ isOpen, onClose, recipe }) {
     const cardRef = useRef(null);
+    const [isGenerating, setIsGenerating] = useState(false);
     const [proxyImage, setProxyImage] = useState(null);
 
     // Pre-load image as Local Blob via Proxy to guarantee html2canvas success
