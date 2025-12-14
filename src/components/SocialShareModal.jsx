@@ -8,29 +8,35 @@ import html2canvas from 'html2canvas';
 
 export default function SocialShareModal({ isOpen, onClose, recipe }) {
     const cardRef = useRef(null);
-    const [isGenerating, setIsGenerating] = useState(false);
     const [proxyImage, setProxyImage] = useState(null);
 
-    // Pre-load image as Base64 to avoid CORS issues with html2canvas
+    // Pre-load image as Local Blob via Proxy to guarantee html2canvas success
     React.useEffect(() => {
         if (isOpen && recipe?.image) {
             let active = true;
             const fetchImage = async () => {
                 try {
-                    const response = await fetch(recipe.image);
+                    // Fetch via our Proxy to get a clean Blob
+                    const proxyUrl = `/api/image-proxy?url=${encodeURIComponent(recipe.image)}`;
+                    const response = await fetch(proxyUrl);
+                    if (!response.ok) throw new Error(`Proxy error: ${response.status}`);
+
                     const blob = await response.blob();
-                    const reader = new FileReader();
-                    reader.onloadend = () => {
-                        if (active) setProxyImage(reader.result);
-                    };
-                    reader.readAsDataURL(blob);
+                    const localUrl = URL.createObjectURL(blob);
+
+                    if (active) setProxyImage(localUrl);
                 } catch (e) {
-                    console.error("Failed to proxy image:", e);
-                    // Fallback to original URL
+                    console.error("Failed to load image via proxy:", e);
+                    // Fallback to original (might fail CORS, but better than nothing)
+                    if (active) setProxyImage(recipe.image);
                 }
             };
             fetchImage();
-            return () => { active = false; };
+            return () => {
+                active = false;
+                // Cleanup ObjectURL? (React strict mode might make this tricky, letting GC handle it usually fine for small blobs)
+                if (proxyImage && proxyImage.startsWith('blob:')) URL.revokeObjectURL(proxyImage);
+            };
         }
     }, [isOpen, recipe]);
 
@@ -40,12 +46,12 @@ export default function SocialShareModal({ isOpen, onClose, recipe }) {
         if (!cardRef.current) return;
         setIsGenerating(true);
         try {
-            // Wait for images to load? Next/Image handles lazy, so we might need a small delay or ensure priority.
-            // Using html2canvas with specific settings for quality.
             const canvas = await html2canvas(cardRef.current, {
-                useCORS: true, // Important for external images
-                scale: 2, // Retina quality
+                useCORS: true,
+                scale: 2,
                 backgroundColor: null,
+                allowTaint: true, // Try allowing taint if CORS fails (might block download though)
+                imageTimeout: 15000, // Wait longer
             });
 
             const link = document.createElement('a');
@@ -54,7 +60,7 @@ export default function SocialShareModal({ isOpen, onClose, recipe }) {
             link.click();
         } catch (err) {
             console.error("Card generation failed:", err);
-            alert("Failed to generate image. Please try again.");
+            alert("Failed to create image: " + err.message);
         } finally {
             setIsGenerating(false);
         }
