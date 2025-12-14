@@ -340,11 +340,16 @@ export const ui = {
     'آسان': { fa: 'آسان', en: 'Easy', es: 'Fácil' },
     'متوسط': { fa: 'متوسط', en: 'Medium', es: 'Medio' },
     'سخت': { fa: 'سخت', en: 'Hard', es: 'Difícil' },
-    'حرفه‌ای': { fa: 'حرفه‌ای', en: 'Expert', es: 'Experto' }
+    'حرفه‌ای': { fa: 'حرفه‌ای', en: 'Expert', es: 'Experto' },
+    'ساده': { fa: 'ساده', en: 'Simple', es: 'Simple' }
 };
 
 export function getUiLabel(key, lang) {
-    const entry = ui[key];
-    if (!entry) return key;
-    return entry[lang] || entry['en'] || key;
+    if (key === null || key === undefined) return '';
+    const cleanKey = key.toString().trim();
+
+    const entry = ui[cleanKey];
+    if (!entry) return cleanKey;
+
+    return entry[lang] || entry['en'] || cleanKey;
 }
