@@ -89,9 +89,9 @@ export default function SocialShareModal({ isOpen, onClose, recipe }) {
                     >
                         {/* Background Image */}
                         <div className="absolute inset-0">
-                            {/* Proxy image via API to ensure Same-Origin for html2canvas */}
+                            {/* Use Pre-fetched Blob URL for perfect CORS safety */}
                             <img
-                                src={`/api/image-proxy?url=${encodeURIComponent(recipe.image)}`}
+                                src={proxyImage || recipe.image}
                                 alt={recipe.name_en}
                                 className="w-full h-full object-cover opacity-80"
                                 crossOrigin="anonymous"
