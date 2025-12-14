@@ -6,7 +6,7 @@ import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronRight, ChevronLeft, Clock, ChefHat } from 'lucide-react';
+import { X, ChefHat } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function Stories({ recipes = [] }) {
@@ -52,40 +52,13 @@ export default function Stories({ recipes = [] }) {
         }
     };
 
-    // Debug list
-    useEffect(() => {
-        // console.log("Stories Active Items:", validStories.length);
-    }, [validStories.length]);
-
-    // Debug logging
-    console.log("Stories Component Debug:", {
-        totalRecipes: recipes?.length,
-        validStories: validStories.length,
-        firstRecipeImage: recipes?.[0]?.image,
-        envCheck: !!process.env.NEXT_PUBLIC_SUPABASE_URL
-    });
-
-    // Force add a dummy story for visual verification
-    const debugStory = {
-        id: 'debug-1',
-        name_en: 'Debug Story',
-        image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
-        nutrition_info: { en: { description: 'Debug Description' } }
-    };
-
-    // Combine real + debug
-    const displayStories = [...validStories, debugStory];
+    // Combine real + debug (if needed, but keeping clean for prod)
+    // const debugStory = { ... };
+    const displayStories = validStories;
 
     if (validStories.length === 0) {
-        // High visibility debug box
-        return (
-            <div className="fixed top-24 left-4 z-[9999] p-4 bg-red-600 text-white font-bold rounded-lg shadow-2xl border-4 border-yellow-400">
-                <p>DEBUG MODE ACTIVE</p>
-                <p>Recipes Fetched: {recipes?.length || 0}</p>
-                <p>Valid Stories: {validStories.length}</p>
-                <p>Supabase Configured: {process.env.NEXT_PUBLIC_SUPABASE_URL ? 'YES' : 'NO'}</p>
-            </div>
-        );
+        // Return null or debug box if strictly debugging
+        return null;
     }
 
     return (
@@ -189,8 +162,7 @@ export default function Stories({ recipes = [] }) {
                                         <h2 className="text-2xl font-black leading-tight mb-2">
                                             {t(displayStories[viewingIndex], 'name')}
                                         </h2>
-                                        {/* AI Description Teaser */}
-                                        <p className="text-sm opacity-80 line-clamp-3 leading-relaxed">
+                                        <p className="text-sm opacity-80 line-clamp-2 leading-relaxed">
                                             {displayStories[viewingIndex].nutrition_info?.[language]?.description?.split('**')[0] || ""}
                                         </p>
                                     </div>
@@ -201,11 +173,6 @@ export default function Stories({ recipes = [] }) {
                                                 {language === 'fa' ? 'مشاهده دستور' : 'View Recipe'}
                                             </button>
                                         </Link>
-                                        <button
-                                            className="w-full py-3 bg-white/10 backdrop-blur border border-white/20 text-white font-semibold rounded-xl active:scale-95 transition-transform"
-                                        >
-                                            Some Action
-                                        </button>
                                     </div>
                                 </div>
 
@@ -217,22 +184,23 @@ export default function Stories({ recipes = [] }) {
                             </div>
 
                         </motion.div>
+                    </StoryViewerPortal>
                 )}
-                    </AnimatePresence>
+            </AnimatePresence>
         </>
-            );
+    );
 }
 
-            // Helper Component for Portal
-            function StoryViewerPortal({children}) {
+// Helper Component for Portal
+function StoryViewerPortal({ children }) {
     const [mounted, setMounted] = useState(false);
     useEffect(() => {
-                setMounted(true);
-            // Lock body scroll
-            document.body.style.overflow = 'hidden';
-        return () => {document.body.style.overflow = 'unset'; };
+        setMounted(true);
+        // Lock body scroll
+        document.body.style.overflow = 'hidden';
+        return () => { document.body.style.overflow = 'unset'; };
     }, []);
 
-            if (!mounted) return null;
-            return createPortal(children, document.body);
+    if (!mounted) return null;
+    return createPortal(children, document.body);
 }
