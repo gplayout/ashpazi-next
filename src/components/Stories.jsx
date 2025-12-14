@@ -38,7 +38,7 @@ export default function Stories({ recipes = [] }) {
     }, [viewingIndex]);
 
     const handleNext = () => {
-        if (viewingIndex !== null && viewingIndex < validStories.length - 1) {
+        if (viewingIndex !== null && viewingIndex < displayStories.length - 1) {
             setViewingIndex(viewingIndex + 1);
         } else {
             setViewingIndex(null); // Close on end
@@ -60,15 +60,29 @@ export default function Stories({ recipes = [] }) {
     console.log("Stories Component Debug:", {
         totalRecipes: recipes?.length,
         validStories: validStories.length,
-        firstRecipeImage: recipes?.[0]?.image
+        firstRecipeImage: recipes?.[0]?.image,
+        envCheck: !!process.env.NEXT_PUBLIC_SUPABASE_URL
     });
 
+    // Force add a dummy story for visual verification
+    const debugStory = {
+        id: 'debug-1',
+        name_en: 'Debug Story',
+        image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+        nutrition_info: { en: { description: 'Debug Description' } }
+    };
+
+    // Combine real + debug
+    const displayStories = [...validStories, debugStory];
+
     if (validStories.length === 0) {
+        // High visibility debug box
         return (
-            <div className="p-4 bg-red-100 border border-red-500 text-red-700 rounded-lg m-4 text-center">
-                <strong>Debug: No Stories Found</strong><br />
-                Total Recipes Fetched: {recipes?.length || 0}<br />
-                Valid Stories: {validStories.length}
+            <div className="fixed top-24 left-4 z-[9999] p-4 bg-red-600 text-white font-bold rounded-lg shadow-2xl border-4 border-yellow-400">
+                <p>DEBUG MODE ACTIVE</p>
+                <p>Recipes Fetched: {recipes?.length || 0}</p>
+                <p>Valid Stories: {validStories.length}</p>
+                <p>Supabase Configured: {process.env.NEXT_PUBLIC_SUPABASE_URL ? 'YES' : 'NO'}</p>
             </div>
         );
     }
@@ -76,7 +90,7 @@ export default function Stories({ recipes = [] }) {
     return (
         <section className="py-4 px-4 md:px-6 overflow-x-auto scrollbar-hide select-none bg-background border-b border-border/50 sticky top-[56px] z-40 shadow-sm min-h-[110px]">
             <div className="flex gap-4 md:gap-6 min-w-max">
-                {validStories.map((recipe, idx) => (
+                {displayStories.map((recipe, idx) => (
                     <button
                         key={recipe.id}
                         onClick={() => setViewingIndex(idx)}
@@ -127,7 +141,7 @@ export default function Stories({ recipes = [] }) {
 
                             {/* Progress Bar */}
                             <div className="absolute top-0 left-0 right-0 z-20 flex gap-1 p-2">
-                                {validStories.map((_, idx) => (
+                                {displayStories.map((_, idx) => (
                                     <div key={idx} className="h-1 flex-1 bg-white/20 rounded-full overflow-hidden">
                                         <div
                                             className={`h-full bg-white transition-all duration-100 ${idx < viewingIndex ? 'w-full' :
@@ -152,7 +166,7 @@ export default function Stories({ recipes = [] }) {
                             {/* Main Image */}
                             <div className="relative flex-1">
                                 <Image
-                                    src={validStories[viewingIndex].image}
+                                    src={displayStories[viewingIndex].image}
                                     alt="story"
                                     fill
                                     className="object-cover"
@@ -169,16 +183,16 @@ export default function Stories({ recipes = [] }) {
                                         <span>{language === 'fa' ? 'پیشنهاد امروز' : 'Today\'s Pick'}</span>
                                     </div>
                                     <h2 className="text-2xl font-black leading-tight mb-2">
-                                        {t(validStories[viewingIndex], 'name')}
+                                        {t(displayStories[viewingIndex], 'name')}
                                     </h2>
                                     {/* AI Description Teaser */}
                                     <p className="text-sm opacity-80 line-clamp-3 leading-relaxed">
-                                        {validStories[viewingIndex].nutrition_info?.[language]?.description?.split('**')[0] || ""}
+                                        {displayStories[viewingIndex].nutrition_info?.[language]?.description?.split('**')[0] || ""}
                                     </p>
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-3">
-                                    <Link href={`/recipe/${validStories[viewingIndex].id}?id=${validStories[viewingIndex].id}`} passHref>
+                                    <Link href={`/recipe/${displayStories[viewingIndex].id}?id=${displayStories[viewingIndex].id}`} passHref>
                                         <button className="w-full py-3 bg-white text-black font-bold rounded-xl active:scale-95 transition-transform flex items-center justify-center gap-2">
                                             {language === 'fa' ? 'مشاهده دستور' : 'View Recipe'}
                                         </button>
