@@ -3,6 +3,8 @@ import { ChefHat } from 'lucide-react';
 import RecipeFeed from '@/components/RecipeFeed';
 import Hero from '@/components/Hero';
 
+import Stories from '@/components/Stories';
+
 // ISR: Force Dynamic for Debugging (0)
 export const revalidate = 0;
 
@@ -11,8 +13,9 @@ export default async function Home() {
   const { data: recipes, error } = await supabase
     .from('recipes')
     .select('*, recipe_translations(*)')
+    .not('image', 'is', null) // Ensure images exist for stories
     .order('created_at', { ascending: false })
-    .limit(24); // Match the pagination limit
+    .limit(24);
 
   if (error) {
     console.error("Supabase Fetch Error:", error);
@@ -20,6 +23,9 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen bg-background pb-20">
+      {/* Daily Stories */}
+      <Stories recipes={recipes || []} />
+
       {/* Hero Header */}
       <Hero />
 

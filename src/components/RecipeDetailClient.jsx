@@ -17,10 +17,12 @@ import CookingMode from './CookingMode';
 import StepTimer from './StepTimer';
 import ChefAssistant from './ChefAssistant';
 import NutritionAI from './NutritionAI';
+import SocialShareModal from './SocialShareModal';
 
 export default function RecipeDetailClient({ recipe }) {
     const { language, t } = useLanguage();
     const [isCookingMode, setIsCookingMode] = useState(false);
+    const [isShareModalOpen, setIsShareModalOpen] = useState(false);
     const { nutritionData, loading: nutritionLoading } = useNutrition(recipe);
 
     if (!recipe) return null;
@@ -93,6 +95,17 @@ export default function RecipeDetailClient({ recipe }) {
                     </Link>
                 </div>
 
+                {/* Share Button (Top Right) */}
+                <div className="absolute top-6 right-6 z-50">
+                    <Button
+                        variant="secondary"
+                        size="icon"
+                        onClick={() => setIsShareModalOpen(true)}
+                        className="rounded-full shadow-lg backdrop-blur-md bg-white/70 dark:bg-black/50 hover:bg-white dark:hover:bg-black text-amber-600 hover:text-amber-500"
+                    >
+                        <Share2 size={20} />
+                    </Button>
+                </div>
 
             </div>
 
@@ -101,7 +114,16 @@ export default function RecipeDetailClient({ recipe }) {
                 className="container mx-auto px-4 md:px-6 mt-8 mb-12"
                 dir={language === 'fa' ? 'rtl' : 'ltr'}
             >
-                <div className="flex flex-col gap-6">
+
+
+                {/* Share Modal */}
+                <SocialShareModal
+                    isOpen={isShareModalOpen}
+                    onClose={() => setIsShareModalOpen(false)}
+                    recipe={recipe}
+                />
+
+                {/* Content Layout */}                <div className="flex flex-col gap-6">
                     <div className="flex flex-col items-start">
                         <Badge className="mb-4 text-base px-3 py-1 bg-primary text-primary-foreground border-none w-fit">
                             {displayCategory}
@@ -113,7 +135,7 @@ export default function RecipeDetailClient({ recipe }) {
                         {/* Rich Narrative Description */}
                         {(recipe.nutrition_info?.[language]?.description || recipe.description) && (
                             <div className="prose dark:prose-invert max-w-4xl">
-                                <p className="text-lg md:text-xl text-foreground/80 leading-loose font-serif italic border-l-4 border-primary/30 pl-6 py-2">
+                                <p className="text-lg md:text-xl text-foreground/80 leading-loose font-medium border-l-4 border-primary/30 pl-6 py-2">
                                     {recipe.nutrition_info?.[language]?.description || recipe.description}
                                 </p>
                             </div>
@@ -274,9 +296,30 @@ export default function RecipeDetailClient({ recipe }) {
                             </p>
                         )}
                     </div>
+
+                    {/* Chef's Mastery Guide (Pro Tips, Mistakes, Storage) */}
+                    {recipe.nutrition_info?.[language]?.chef_notes && (
+                        <div className="mt-12 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900 rounded-2xl p-6 md:p-8">
+                            <h3 className="text-xl font-bold text-amber-800 dark:text-amber-500 mb-4 flex items-center gap-2">
+                                <ChefHat size={24} />
+                                {language === 'fa' ? 'راهنمای تسلط سرآشپز' : "Chef's Mastery Guide"}
+                            </h3>
+                            <div className="prose prose-amber dark:prose-invert max-w-none">
+                                <div className="space-y-4 text-base leading-relaxed text-amber-900/80 dark:text-amber-100/80">
+                                    {recipe.nutrition_info[language].chef_notes.split('\n').filter(line => line.trim()).map((line, i) => (
+                                        <div key={i} className="flex gap-2 items-start">
+                                            <span className="mt-1.5 w-2 h-2 rounded-full bg-amber-500 shrink-0" />
+                                            <span>{line.replace(/^[-•*]\s*/, '')}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
                 </section>
 
             </div>
-        </article>
+        </article >
     );
 }
