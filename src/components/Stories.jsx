@@ -2,6 +2,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -119,104 +120,119 @@ export default function Stories({ recipes = [] }) {
                 </div>
             </section>
 
-            {/* Full Screen Viewer - Moved OUTSIDE section to prevent z-index clipping */}
+            {/* Full Screen Viewer - Via Portal */}
             <AnimatePresence>
                 {viewingIndex !== null && (
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
-                        className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-sm flex items-center justify-center p-0 md:p-8"
-                    >
-                        {/* Background Blur */}
-                        <div className="absolute inset-0 z-0 opacity-50 blur-3xl">
-                            <Image
-                                src={validStories[viewingIndex].image}
-                                alt="blur"
-                                fill
-                                className="object-cover"
-                            />
-                        </div>
-
-                        {/* Story Container - Card Style on Mobile too */}
-                        <div className="relative w-[95vw] h-[85vh] md:w-[400px] md:h-[80vh] bg-black rounded-3xl overflow-hidden shadow-2xl flex flex-col z-10 border border-white/10">
-
-                            {/* Progress Bar */}
-                            <div className="absolute top-0 left-0 right-0 z-20 flex gap-1 p-2">
-                                {displayStories.map((_, idx) => (
-                                    <div key={idx} className="h-1 flex-1 bg-white/20 rounded-full overflow-hidden">
-                                        <div
-                                            className={`h-full bg-white transition-all duration-100 ${idx < viewingIndex ? 'w-full' :
-                                                idx === viewingIndex ? 'w-full origin-left' : 'w-0'
-                                                }`}
-                                            style={{
-                                                width: idx === viewingIndex ? `${progress}%` : undefined
-                                            }}
-                                        />
-                                    </div>
-                                ))}
-                            </div>
-
-                            {/* Close Button */}
-                            <button
-                                onClick={() => setViewingIndex(null)}
-                                className="absolute top-4 right-4 z-30 text-white drop-shadow-md p-2 bg-black/20 rounded-full hover:bg-black/40 transition-colors"
-                            >
-                                <X size={24} />
-                            </button>
-
-                            {/* Main Image */}
-                            <div className="relative flex-1">
+                    <StoryViewerPortal>
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-sm flex items-center justify-center p-0 md:p-8"
+                        >
+                            {/* Background Blur */}
+                            <div className="absolute inset-0 z-0 opacity-50 blur-3xl">
                                 <Image
-                                    src={displayStories[viewingIndex].image}
-                                    alt="story"
+                                    src={validStories[viewingIndex].image}
+                                    alt="blur"
                                     fill
                                     className="object-cover"
-                                    priority
                                 />
-                                <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/50 to-transparent" />
                             </div>
 
-                            {/* Content Overlay */}
-                            <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col gap-4 text-white" dir={language === 'fa' ? 'rtl' : 'ltr'}>
-                                <div>
-                                    <div className="flex items-center gap-2 text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">
-                                        <ChefHat size={16} />
-                                        <span>{language === 'fa' ? 'پیشنهاد امروز' : 'Today\'s Pick'}</span>
+                            {/* Story Container - Card Style on Mobile too */}
+                            <div className="relative w-[95vw] h-[85vh] md:w-[400px] md:h-[80vh] bg-black rounded-3xl overflow-hidden shadow-2xl flex flex-col z-10 border border-white/10">
+
+                                {/* Progress Bar */}
+                                <div className="absolute top-0 left-0 right-0 z-20 flex gap-1 p-2">
+                                    {displayStories.map((_, idx) => (
+                                        <div key={idx} className="h-1 flex-1 bg-white/20 rounded-full overflow-hidden">
+                                            <div
+                                                className={`h-full bg-white transition-all duration-100 ${idx < viewingIndex ? 'w-full' :
+                                                    idx === viewingIndex ? 'w-full origin-left' : 'w-0'
+                                                    }`}
+                                                style={{
+                                                    width: idx === viewingIndex ? `${progress}%` : undefined
+                                                }}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Close Button */}
+                                <button
+                                    onClick={() => setViewingIndex(null)}
+                                    className="absolute top-4 right-4 z-30 text-white drop-shadow-md p-2 bg-black/20 rounded-full hover:bg-black/40 transition-colors"
+                                >
+                                    <X size={24} />
+                                </button>
+
+                                {/* Main Image */}
+                                <div className="relative flex-1">
+                                    <Image
+                                        src={displayStories[viewingIndex].image}
+                                        alt="story"
+                                        fill
+                                        className="object-cover"
+                                        priority
+                                    />
+                                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/50 to-transparent" />
+                                </div>
+
+                                {/* Content Overlay */}
+                                <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col gap-4 text-white" dir={language === 'fa' ? 'rtl' : 'ltr'}>
+                                    <div>
+                                        <div className="flex items-center gap-2 text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">
+                                            <ChefHat size={16} />
+                                            <span>{language === 'fa' ? 'پیشنهاد امروز' : 'Today\'s Pick'}</span>
+                                        </div>
+                                        <h2 className="text-2xl font-black leading-tight mb-2">
+                                            {t(displayStories[viewingIndex], 'name')}
+                                        </h2>
+                                        {/* AI Description Teaser */}
+                                        <p className="text-sm opacity-80 line-clamp-3 leading-relaxed">
+                                            {displayStories[viewingIndex].nutrition_info?.[language]?.description?.split('**')[0] || ""}
+                                        </p>
                                     </div>
-                                    <h2 className="text-2xl font-black leading-tight mb-2">
-                                        {t(displayStories[viewingIndex], 'name')}
-                                    </h2>
-                                    {/* AI Description Teaser */}
-                                    <p className="text-sm opacity-80 line-clamp-3 leading-relaxed">
-                                        {displayStories[viewingIndex].nutrition_info?.[language]?.description?.split('**')[0] || ""}
-                                    </p>
-                                </div>
 
-                                <div className="grid grid-cols-2 gap-3">
-                                    <Link href={`/recipe/${displayStories[viewingIndex].id}?id=${displayStories[viewingIndex].id}`} passHref>
-                                        <button className="w-full py-3 bg-white text-black font-bold rounded-xl active:scale-95 transition-transform flex items-center justify-center gap-2">
-                                            {language === 'fa' ? 'مشاهده دستور' : 'View Recipe'}
+                                    <div className="grid grid-cols-2 gap-3">
+                                        <Link href={`/recipe/${displayStories[viewingIndex].id}?id=${displayStories[viewingIndex].id}`} passHref>
+                                            <button className="w-full py-3 bg-white text-black font-bold rounded-xl active:scale-95 transition-transform flex items-center justify-center gap-2">
+                                                {language === 'fa' ? 'مشاهده دستور' : 'View Recipe'}
+                                            </button>
+                                        </Link>
+                                        <button
+                                            className="w-full py-3 bg-white/10 backdrop-blur border border-white/20 text-white font-semibold rounded-xl active:scale-95 transition-transform"
+                                        >
+                                            Some Action
                                         </button>
-                                    </Link>
-                                    <button
-                                        className="w-full py-3 bg-white/10 backdrop-blur border border-white/20 text-white font-semibold rounded-xl active:scale-95 transition-transform"
-                                    >
-                                        Some Action
-                                    </button>
+                                    </div>
+                                </div>
+
+                                {/* Tap Areas */}
+                                <div className="absolute inset-0 flex z-0">
+                                    <div className="w-1/3 h-full" onClick={handlePrev} />
+                                    <div className="w-2/3 h-full" onClick={handleNext} />
                                 </div>
                             </div>
 
-                            {/* Tap Areas */}
-                            <div className="absolute inset-0 flex z-0">
-                                <div className="w-1/3 h-full" onClick={handlePrev} />
-                                <div className="w-2/3 h-full" onClick={handleNext} />
-                            </div>
-                        </div>
-
-                    </motion.div>
+                        </motion.div>
                 )}
-            </AnimatePresence>
+                    </AnimatePresence>
         </>
-    );
+            );
+}
+
+            // Helper Component for Portal
+            function StoryViewerPortal({children}) {
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => {
+                setMounted(true);
+            // Lock body scroll
+            document.body.style.overflow = 'hidden';
+        return () => {document.body.style.overflow = 'unset'; };
+    }, []);
+
+            if (!mounted) return null;
+            return createPortal(children, document.body);
 }
