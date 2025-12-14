@@ -168,10 +168,11 @@ export default function Stories({ recipes = [] }) {
                                     </div>
 
                                     <div className="grid grid-cols-2 gap-3">
-                                        <Link href={`/recipe/${displayStories[viewingIndex].id}?id=${displayStories[viewingIndex].id}`} passHref>
-                                            <button className="w-full py-3 bg-white text-black font-bold rounded-xl active:scale-95 transition-transform flex items-center justify-center gap-2">
-                                                {language === 'fa' ? 'مشاهده دستور' : 'View Recipe'}
-                                            </button>
+                                        <Link
+                                            href={`/recipe/${displayStories[viewingIndex].id}`}
+                                            className="w-full py-3 bg-white text-black font-bold rounded-xl active:scale-95 transition-transform flex items-center justify-center gap-2 z-50 relative"
+                                        >
+                                            {language === 'fa' ? 'مشاهده دستور' : 'View Recipe'}
                                         </Link>
                                     </div>
                                 </div>
