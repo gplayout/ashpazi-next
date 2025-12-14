@@ -88,7 +88,7 @@ export default function Stories({ recipes = [] }) {
     }
 
     return (
-        <section className="py-4 px-4 md:px-6 overflow-x-auto scrollbar-hide select-none bg-background border-b border-border/50 sticky top-[56px] z-40 shadow-sm min-h-[110px]">
+        <section className="py-4 px-4 md:px-6 overflow-x-auto scrollbar-hide select-none bg-zinc-50 dark:bg-zinc-900 border-b border-border/50 relative z-30 shadow-sm min-h-[120px]">
             <div className="flex gap-4 md:gap-6 min-w-max">
                 {displayStories.map((recipe, idx) => (
                     <button
