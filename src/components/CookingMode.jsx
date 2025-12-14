@@ -31,7 +31,11 @@ const CookingMode = ({ recipe, onClose }) => {
         const text = steps[currentStep];
         if ('speechSynthesis' in window) {
             const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = language === 'fa' ? 'fa-IR' : 'en-US';
+
+            if (language === 'fa') utterance.lang = 'fa-IR';
+            else if (language === 'es') utterance.lang = 'es-ES';
+            else utterance.lang = 'en-US';
+
             window.speechSynthesis.cancel();
             window.speechSynthesis.speak(utterance);
         }
@@ -46,12 +50,12 @@ const CookingMode = ({ recipe, onClose }) => {
         'stop': () => typeof window !== 'undefined' && window.speechSynthesis.cancel()
     };
 
-    const { isListening, isSupported, startListening, stopListening } = useVoiceControl(commands);
+    const { isListening, isSupported, startListening, stopListening } = useVoiceControl(commands, language);
 
-    // Auto-Timer Detection (Simple regex for 10 min, 5 minutes etc)
-    const timeRegex = language === 'fa'
-        ? /(\d+)\s*(دقیقه)/
-        : /(\d+)\s*(minute|min|minutes|mins)/i;
+    // Auto-Timer Detection (Regex)
+    let timeRegex = /(\d+)\s*(minute|min|minutes|mins)/i;
+    if (language === 'fa') timeRegex = /(\d+)\s*(دقیقه)/;
+    if (language === 'es') timeRegex = /(\d+)\s*(minuto|minutos|mins)/i;
 
     // Note: Farsi regex simplistic, might need enhancement for Persian digits
 
@@ -104,6 +108,15 @@ const CookingMode = ({ recipe, onClose }) => {
             clearTimeout(timeout);
         };
     }, []);
+
+    // Auto-Start Listening (Hands Free)
+    useEffect(() => {
+        if (isSupported) {
+            // Small delay to allow admission
+            const timer = setTimeout(() => startListening(), 500);
+            return () => clearTimeout(timer);
+        }
+    }, [isSupported, startListening]);
 
     if (steps.length === 0) return null;
 

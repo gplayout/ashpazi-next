@@ -46,18 +46,16 @@ async function syncColumns() {
             const updates = {};
             let hasUpdate = false;
 
-            // 1. Sync English Name (if present in JSON)
-            // The JSON structure is: { english: { name: "..." }, ... } based on RecipeEditorPro
-            // OR checks for old structure.
-
-            let newNameEn = ni.english?.name || ni.name_en;
-            let newNameFa = ni.persian?.name || ni.header?.title; // Fallbacks
-            let newDescEn = ni.english?.description || ni.description;
+            // 1. Sync English Name (from 'en')
+            let newNameEn = ni.en?.name || ni.english?.name || ni.name_en;
+            let newNameFa = ni.fa?.name || ni.persian?.name || ni.header?.title;
+            let newDescEn = ni.en?.description || ni.english?.description || ni.description;
             // Note: DB 'name' is often Farsi in this legacy DB, but 'name_en' is English.
+            // But sometimes 'name' is English if legacy. We want 'name' to be Farsi if possible, or fallback.
 
-            // Logic: If 'english.name' exists in JSON, update root 'name_en'
-            if (ni.english?.name && ni.english.name !== r.name_en) {
-                updates.name_en = ni.english.name;
+            // Logic: If 'en.name' exists, update root 'name_en'
+            if (newNameEn && newNameEn !== r.name_en) {
+                updates.name_en = newNameEn;
                 hasUpdate = true;
             }
 
@@ -76,14 +74,18 @@ async function syncColumns() {
                 }
             }
 
-            // Logic: Sync Description (English fallback for SEO columns, mostly unused but good for integrity)
-            if (newDescEn && newDescEn !== r.description) {
-                updates.description = newDescEn;
-                hasUpdate = true;
+            // Logic: Sync Description (FORCE overwrite with English Narrative)
+            if (newDescEn && newDescEn.length > 20) {
+                // We want to FORCE the English narrative into the main description for now
+                // because the user wants to see the "Rich Text" which is currently in English.
+                if (newDescEn !== r.description) {
+                    updates.description = newDescEn;
+                    hasUpdate = true;
+                }
             }
 
             // Logic: Sync 'Category'
-            const cat = ni.english?.categories?.[0] || ni.category;
+            const cat = ni.en?.categories?.[0] || ni.english?.categories?.[0] || ni.category;
             if (cat && cat !== r.category) {
                 updates.category = cat;
                 hasUpdate = true;

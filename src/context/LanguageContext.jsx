@@ -26,6 +26,21 @@ export function LanguageProvider({ children }) {
     const t = (obj, key) => {
         if (!obj) return '';
 
+        // 0. Priority: AI-Generated Content (nutrition_info JSON)
+        if (obj.nutrition_info) {
+            const langKey = language === 'fa' ? 'fa' : (language === 'es' ? 'es' : 'en');
+            // Support both 'en' and 'english' keys (legacy)
+            const node = obj.nutrition_info[langKey] ||
+                (language === 'en' ? obj.nutrition_info.english :
+                    language === 'fa' ? obj.nutrition_info.persian :
+                        language === 'es' ? obj.nutrition_info.spanish : null);
+
+            if (node) {
+                if (node[key]) return node[key];
+                // Map specific keys if needed (e.g. name -> title is not needed here as JSON usually has 'name')
+            }
+        }
+
         // 1. Try Target Language via recipe_translations
         if (obj.recipe_translations && Array.isArray(obj.recipe_translations)) {
             const translation = obj.recipe_translations.find(tr => tr.language === language);

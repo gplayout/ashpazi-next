@@ -1,0 +1,134 @@
+{
+  "persian": {
+    "name": "لازانیا گوشت چرخ‌کرده به سبک ایرانی با سس بشامل مخملی",
+    "origin": "Italy/Iran",
+    "description": "**خاستگاه و تاریخچه:** لازانیا از کهن‌ترین غذاهای ایتالیایی است که ریشه‌های آن به ناحیه ناپل بازمی‌گردد؛ جایی که لایه‌های خمیر، سس گوشت و پنیر به‌تدریج به یک شاهکار کلاسیک بدل شدند. این غذا با مهاجرت ایتالیایی‌ها و نفوذ فرهنگ آشپزی مدیترانه‌ای، راه خود را به خاورمیانه و به‌ویژه ایران گشود و در آشپزخانه‌های خانگی با ذائقه محلی سازگار شد.\n\n**تمایز و هویت نسخه ایرانی:** برخلاف لازانیای اصیل ایتالیایی که بر سس راگو، پارمزان و گاه بشامل سبک تکیه دارد، نسخه ایرانی تمرکز بیشتری بر گوشت چرخ‌کرده کاملاً پخته، پیاز سرخ‌شده و طعم‌دهی ساده اما عمیق دارد. استفاده از پنیر موزارلای فراوان برای کشسانی، میزان بیشتر سس بشامل و حذف شراب یا سبزیجات معطر غربی، این لازانیا را به غذایی گرم، خانگی و سازگار با ذائقه ایرانی تبدیل می‌کند؛ نسخه‌ای «پریمیوم» به‌سبب تعادل لایه‌ها و بافت نرم و یکدست.\n\n**تجربه حسی و نکات سرآشپز:** در خروج از فر، عطر کره و شیر بشامل با رایحه گوشت و پنیر طلایی در هم می‌آمیزد. بافت نهایی، لطیف و لایه‌لایه است؛ نه خشک و نه شل. برای سرو حرفه‌ای، اجازه دهید لازانیا ده دقیقه استراحت کند تا برش‌ها تمیز و مجلسی باشند.",
+    "ingredients": [
+      "ورق لازانیای آماده",
+      "۵۰۰ گرم گوشت چرخ‌کرده گوساله",
+      "۳ قاشق غذاخوری پیاز سرخ‌شده",
+      "۱ قاشق غذاخوری رب گوجه‌فرنگی",
+      "۲ پیمانه سس بشامل",
+      "۲۰۰ گرم پنیر موزارلا رنده‌شده",
+      "روغن به میزان لازم",
+      "نمک و فلفل سیاه به مقدار لازم"
+    ],
+    "instructions": [
+      "گوشت چرخ‌کرده را با پیاز سرخ‌شده و مقداری روغن تفت دهید، سپس کمی آب افزوده و اجازه دهید کاملاً پخته و روغن بیندازد. رب، نمک و فلفل را اضافه کنید.",
+      "برای سس بشامل، کره را ذوب کرده، آرد را کمی تفت دهید و شیر را تدریجی افزوده و هم بزنید تا سسی غلیظ و یکدست حاصل شود.",
+      "ورق‌های لازانیا را در آب جوش نمک‌دار و کمی روغن بجوشانید تا نرم شوند؛ سپس آبکش کرده و با آب سرد بشویید.",
+      "کف ظرف نسوز را چرب کنید. لایه‌ای لازانیا، سپس گوشت، سس بشامل و پنیر بچینید و این کار را تکرار کنید.",
+      "در فر ۱۸۰ درجه سانتی‌گراد به مدت ۳۰ دقیقه بپزید تا سطح آن طلایی شود."
+    ],
+    "chef_notes": "- **نکته حرفه‌ای 👨‍🍳:** افزودن مقدار اندکی جوز هندی به بشامل، عمق عطر را چند برابر می‌کند.\n- **اشتباه رایج ⚠️:** لایه‌چینی با مواد داغ باعث شل شدن ساختار لازانیا می‌شود.\n- **نگهداری/سرو 🥡:** تا ۲۴ ساعت در یخچال قابل نگهداری است و بهترین طعم را با گرم‌کردن ملایم دارد.",
+    "health_benefits": [
+      "پروتئین بالا برای حفظ و ترمیم توده عضلانی",
+      "کلسیم موجود در پنیر برای سلامت استخوان‌ها"
+    ],
+    "nutrition": {
+      "calories": 520,
+      "protein": "32g",
+      "carbs": "38g",
+      "fat": "28g"
+    },
+    "times": {
+      "prep": 25,
+      "cook": 30,
+      "total": 55
+    },
+    "categories": [
+      "غذای اصلی",
+      "آشپزی ایرانی"
+    ]
+  },
+  "english": {
+    "name": "Tehran-Style Beef Lasagna with Persian Aromatics",
+    "origin": "Italy/Iran",
+    "description": "Lasagna was born in the kitchens of southern Italy, most famously in Naples, where layers of pasta, slow-simmered ragù, and creamy béchamel were assembled as a celebratory dish for feast days. As Italian culinary traditions traveled through trade, migration, and modern global dining, lasagna became a canvas for local interpretation. In Iran, the dish was embraced during the mid-20th century, when European techniques began blending with Persian home cooking, resulting in a comforting hybrid now firmly rooted in urban family tables.\n\nThis Persian-style lasagna distinguishes itself through restraint and adaptation rather than strict replication. Unlike the classic Italian version, which relies on soffritto, red wine, and Parmigiano-Reggiano, the Iranian approach simplifies the meat sauce, highlighting well-seasoned ground beef, fried onions, and tomato paste without acidity or herbs. Mozzarella replaces aged cheeses for a softer melt, while the béchamel remains gentle and milk-forward, echoing Persian preferences for smooth, cohesive textures over sharp contrasts.\n\nWhen baked, the dish emerges delicately layered: tender pasta sheets, succulent beef, and a creamy béchamel that binds everything into a unified, velvety bite. Aromas are warm and familiar, with toasted dairy notes and savory beef at the forefront. For service, allow the lasagna to rest ten minutes before slicing, and accompany it with a crisp Shirazi salad or lightly dressed herbs to balance its richness.",
+    "ingredients": [
+      "Ready-made lasagna sheets",
+      "Ground beef (80–85% lean)",
+      "Fried onions",
+      "Tomato paste",
+      "Whole milk",
+      "Butter",
+      "All-purpose flour",
+      "Mozzarella cheese, freshly grated",
+      "Neutral vegetable oil",
+      "Fine sea salt",
+      "Freshly ground black pepper"
+    ],
+    "instructions": [
+      "Brown the ground beef in oil with fried onions over medium heat until fully cooked and lightly caramelized. Add a small amount of water, simmer until reduced, then stir in tomato paste, salt, and pepper.",
+      "Prepare the béchamel by melting butter, whisking in flour, and cooking briefly. Gradually add warm milk, whisking constantly until smooth and thickened; season lightly.",
+      "Boil the lasagna sheets in salted water with a little oil until just pliable. Drain and rinse with cold water to prevent sticking.",
+      "Lightly oil a baking dish. Layer pasta sheets, meat sauce, béchamel, and mozzarella. Repeat until ingredients are finished, ending with béchamel and cheese.",
+      "Bake at 350°F (175°C) for 30 minutes, until bubbling and golden. Rest before serving."
+    ],
+    "chef_notes": "• Pro Tip 👨‍🍳: Slightly undercook the pasta sheets so they finish perfectly tender in the oven.\n• Common Mistake ⚠️: Over-seasoning the béchamel—this version relies on balance, not intensity.\n• Storage/Serving 🥡: Keeps refrigerated up to 3 days; reheat covered to preserve moisture.",
+    "health_benefits": [
+      "High-quality protein from beef supports muscle maintenance.",
+      "Calcium from béchamel and cheese contributes to bone health."
+    ],
+    "nutrition": {
+      "calories": 520,
+      "protein": "32g",
+      "carbs": "38g",
+      "fat": "26g"
+    },
+    "times": {
+      "prep": 25,
+      "cook": 45,
+      "total": 70
+    },
+    "difficulty": "Intermediate",
+    "categories": []
+  },
+  "spanish": {
+    "name": "Lasaña Persa de Carne Especiada con Bechamel Sedosa",
+    "origin": "Italia/Irán",
+    "description": "**ORIGEN E HISTORIA**: La lasaña nace en Italia, con raíces profundas en Nápoles y Emilia‑Romaña, donde las capas de pasta, ragú y bechamel simbolizan la cocina de paciencia y técnica. Con el tiempo, este formato viajero se adaptó a despensas locales: en Irán, la tradición de guisos aromáticos y carnes especiadas encontró en la lasaña un lienzo moderno para expresar sabores familiares, integrándose en mesas urbanas y celebraciones contemporáneas.\n\n**COMPARACIÓN Y DIFERENCIACIÓN**: A diferencia de la lasaña italiana clásica, que privilegia el parmesano y el ragú largo, esta versión persa apuesta por carne molida salteada con cebolla frita y un toque concentrado de tomate. La bechamel, aquí más untuosa, envuelve las capas con suavidad, mientras la mozzarella aporta elasticidad y gratinado uniforme. Es una interpretación premium por su equilibrio: menos ingredientes, mayor claridad de sabor y capas definidas que respetan la identidad persa sin perder la arquitectura italiana.\n\n**EXPERIENCIA SENSORIAL Y CONSEJOS**: Al salir del horno, el aroma lácteo y cárnico se funde con notas tostadas. La textura alterna cremosidad y mordida, con un centro jugoso y bordes dorados. Sirva reposada 10 minutos; acompañe con una ensalada de hierbas frescas y yogur para contraste.",
+    "ingredients": [
+      "Láminas de lasaña precocidas",
+      "Carne molida de res",
+      "Cebolla frita",
+      "Pasta de tomate concentrada",
+      "Salsa bechamel casera",
+      "Queso mozzarella rallado",
+      "Aceite vegetal",
+      "Sal fina",
+      "Pimienta negra recién molida"
+    ],
+    "instructions": [
+      "Saltee la carne con aceite y cebolla frita hasta dorar; agregue un poco de agua, cocine hasta que suelte grasa, incorpore la pasta de tomate y sazone.",
+      "Prepare la bechamel: derrita mantequilla, añada harina, cocine brevemente y agregue leche poco a poco hasta espesar; sazone.",
+      "Hidrate las láminas de lasaña en agua hirviendo con sal y aceite; escurra y enfríe.",
+      "Engrase la fuente; disponga capas de pasta, queso, carne y bechamel, repitiendo hasta terminar.",
+      "Hornee a 180 °C durante 30 minutos hasta gratinar; deje reposar antes de servir."
+    ],
+    "chef_notes": "• Pro Tip 👨‍🍳: Repose la lasaña 10 minutos para cortes limpios.\n• Common Mistake ⚠️: Excederse con la salsa diluye las capas.\n• Storage/Serving 🥡: Refrigera hasta 3 días; recalienta cubierta.",
+    "health_benefits": [
+      "Alto aporte proteico para mantenimiento muscular",
+      "Calcio de lácteos que apoya la salud ósea"
+    ],
+    "nutrition": {
+      "calories": 520,
+      "protein": "32g",
+      "carbs": "42g",
+      "fat": "26g"
+    },
+    "times": {
+      "prep": 25,
+      "cook": 30,
+      "total": 55
+    },
+    "categories": [
+      "Main Course",
+      "Persian"
+    ]
+  },
+  "image_validation": {
+    "is_match": true,
+    "explanation": "Skipped by user request"
+  }
+}
