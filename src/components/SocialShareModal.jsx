@@ -4,14 +4,14 @@
 import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import { X, Share2, Download, Instagram } from 'lucide-react';
-import html2canvas from 'html2canvas';
+import { toPng } from 'html-to-image';
 
 export default function SocialShareModal({ isOpen, onClose, recipe }) {
     const cardRef = useRef(null);
     const [isGenerating, setIsGenerating] = useState(false);
     const [proxyImage, setProxyImage] = useState(null);
 
-    // Pre-load image as Local Blob via Proxy to guarantee html2canvas success
+    // Pre-load image as Local Blob via Proxy to guarantee success
     React.useEffect(() => {
         if (isOpen && recipe?.image) {
             let active = true;
@@ -28,14 +28,13 @@ export default function SocialShareModal({ isOpen, onClose, recipe }) {
                     if (active) setProxyImage(localUrl);
                 } catch (e) {
                     console.error("Failed to load image via proxy:", e);
-                    // Fallback to original (might fail CORS, but better than nothing)
+                    // Fallback to original (might fail with tainted canvas, but html-to-image handles it better)
                     if (active) setProxyImage(recipe.image);
                 }
             };
             fetchImage();
             return () => {
                 active = false;
-                // Cleanup ObjectURL? (React strict mode might make this tricky, letting GC handle it usually fine for small blobs)
                 if (proxyImage && proxyImage.startsWith('blob:')) URL.revokeObjectURL(proxyImage);
             };
         }
@@ -47,47 +46,23 @@ export default function SocialShareModal({ isOpen, onClose, recipe }) {
         if (!cardRef.current) return;
         setIsGenerating(true);
         try {
-            const canvas = await html2canvas(cardRef.current, {
-                useCORS: true,
-                scale: 2,
-                backgroundColor: null,
-                allowTaint: true,
-                imageTimeout: 15000,
-                // Fix for OKLCH color crash: Override variables in the cloned document
-                onclone: (clonedDoc) => {
-                    const doc = clonedDoc;
-                    // Force HEX fallbacks for ALL variables used in global styles (borders etc)
-                    doc.documentElement.style.setProperty('--border', '#e5e5e5');
-                    doc.documentElement.style.setProperty('--ring', '#f59e0b');
-                    doc.documentElement.style.setProperty('--background', '#ffffff');
-                    doc.documentElement.style.setProperty('--foreground', '#000000');
-                    doc.documentElement.style.setProperty('--primary', '#d97706'); // Amber-600
-                    doc.documentElement.style.setProperty('--primary-foreground', '#ffffff');
-                    doc.documentElement.style.setProperty('--card', '#ffffff');
-                    doc.documentElement.style.setProperty('--popover', '#ffffff');
-                    doc.documentElement.style.setProperty('--muted', '#f5f5f5');
-                    doc.documentElement.style.setProperty('--accent', '#fee2e2');
-
-                    // FORCE border color on all elements to ensure no oklch leaks
-                    // html2canvas fails if it encounters `oklch(...)` in ANY computed style
-                    const style = doc.createElement('style');
-                    style.innerHTML = `
-                        * { 
-                            border-color: #e5e5e5 !important; 
-                            outline-color: #f59e0b !important;
-                        }
-                    `;
-                    doc.head.appendChild(style);
-                }
+            // Using html-to-image instead of html2canvas because it handles modern CSS (like oklch) 
+            // much better, relying on browser SVG foreignObject rendering.
+            const dataUrl = await toPng(cardRef.current, {
+                cacheBust: true,
+                skipAutoScale: true,
+                quality: 0.95,
+                backgroundColor: 'rgba(0,0,0,0)', // Clean transparent bg
             });
 
             const link = document.createElement('a');
             link.download = `zaffaron-recipe-${recipe.id}.png`;
-            link.href = canvas.toDataURL('image/png');
+            link.href = dataUrl;
             link.click();
         } catch (err) {
             console.error("Card generation failed:", err);
-            alert("Failed to create image: " + err.message);
+            // Fallback message with detail
+            alert("Failed to create image: " + (err.message || "Unknown error"));
         } finally {
             setIsGenerating(false);
         }
@@ -116,7 +91,7 @@ export default function SocialShareModal({ isOpen, onClose, recipe }) {
                     >
                         {/* Background Image */}
                         <div className="absolute inset-0">
-                            {/* Use Pre-fetched Blob URL for perfect CORS safety */}
+                            {/* Use Pre-fetched Blob URL for perfect safety */}
                             <img
                                 src={proxyImage || recipe.image}
                                 alt={recipe.name_en}
