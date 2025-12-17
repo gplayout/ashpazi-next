@@ -1,4 +1,3 @@
-
 const { createClient } = require('@supabase/supabase-js');
 require('dotenv').config({ path: '.env.local' });
 
@@ -7,44 +6,49 @@ const supabase = createClient(
     process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-async function main() {
-    const slug = "Tlatlocolotl";
-    console.log(`🔎 Testing slug lookup for: "${slug}"`);
+async function debugSlug(slug) {
+    console.log(`\n--- Debugging Slug: "${slug}" ---`);
+    const normalized = slug.replace(/-/g, ' ');
+    console.log(`Normalized: "${normalized}"`);
 
-    const decoded = decodeURIComponent(slug);
-    const normalized = decoded.replace(/-/g, ' ');
+    // 1. Check Published Translations
+    console.log("\n1. Checking 'content_translations' (Published)...");
+    const { data: trans, error: transErr } = await supabase
+        .from('content_translations')
+        .select(`title, registry_recipes!inner(legacy_recipe_id)`)
+        .eq('publish_status', 'published')
+        .or(`title.ilike.${normalized},title.eq.${normalized}`);
 
-    console.log(`   Normalized: "${normalized}"`);
+    if (trans && trans.length > 0) {
+        console.log("✅ Found in content_translations:", trans);
+    } else {
+        console.log("❌ Not found in content_translations.");
+        if (transErr) console.error("Error:", transErr);
+    }
 
-    // 1. Search Translations
-    console.log("1️⃣ Searching recipe_translations...");
-    const { data: translations, error: tErr } = await supabase
-        .from('recipe_translations')
-        .select('*')
-        .or(`title.eq.${normalized},title.ilike.${normalized}`);
-
-    if (tErr) console.error("   ❌ Error:", tErr.message);
-    console.log(`   Found ${translations?.length || 0} matches:`, translations);
-
-    // 2. Search Main Table (Name)
-    console.log("2️⃣ Searching recipes (name)...");
-    const { data: recipes, error: rErr } = await supabase
+    // 2. Check Legacy Recipes
+    console.log("\n2. Checking 'recipes' (Legacy tables)...");
+    const { data: legacy, error: legacyErr } = await supabase
         .from('recipes')
         .select('id, name, name_en')
-        .or(`name.eq.${normalized},name.ilike.${normalized}`);
+        .or(`name.ilike.${normalized},name.eq.${normalized},name_en.ilike.${normalized},name_en.eq.${normalized}`);
 
-    if (rErr) console.error("   ❌ Error:", rErr.message);
-    console.log(`   Found ${recipes?.length || 0} matches:`, recipes);
+    if (legacy && legacy.length > 0) {
+        console.log("✅ Found in recipes:", legacy);
+    } else {
+        console.log("❌ Not found in recipes.");
+        if (legacyErr) console.error("Error:", legacyErr);
+    }
 
-    // 3. Search Main Table (name_en) - Potential Fix?
-    console.log("3️⃣ Searching recipes (name_en)...");
-    const { data: recipesEn, error: reErr } = await supabase
+    // 3. Search for anything SIMILAR
+    console.log("\n3. Broad Search (Partial Match)...");
+    const { data: broad } = await supabase
         .from('recipes')
         .select('id, name, name_en')
-        .or(`name_en.eq.${normalized},name_en.ilike.${normalized}`);
+        .ilike('name_en', `%${normalized.split(' ')[0]}%`)
+        .limit(3);
 
-    if (reErr) console.error("   ❌ Error:", reErr.message);
-    console.log(`   Found ${recipesEn?.length || 0} matches:`, recipesEn);
+    console.log("   Detailed Suggestions:", broad);
 }
 
-main();
+debugSlug('ghormeh-sabzi');

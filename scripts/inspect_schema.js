@@ -1,39 +1,29 @@
-
-const { createClient } = require('@supabase/supabase-js');
 require('dotenv').config({ path: '.env.local' });
+const { createClient } = require('@supabase/supabase-js');
 
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
     process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-async function inspectSchema() {
-    console.log("🔍 Inspecting 'recipes' table structure...");
-
-    // Fetch one recipe to see the object keys
+async function inspect() {
+    // We can infer columns by selecting a single row and checking keys
+    // OR we can try to select '*' and let it return what it has.
     const { data, error } = await supabase
         .from('recipes')
-        .select('*, recipe_translations(*)')
+        .select('*')
         .limit(1);
 
     if (error) {
-        console.error("Error:", error);
-        return;
-    }
-
-    if (data && data.length > 0) {
-        const r = data[0];
-        console.log("\n--- Recipes Table Keys ---");
-        console.log(Object.keys(r));
-
-        console.log("\n--- Sample Ingredient Structure ---");
-        console.log(JSON.stringify(r.ingredients, null, 2));
-
-        console.log("\n--- Sample Translation Structure ---");
-        console.log(JSON.stringify(r.recipe_translations, null, 2));
+        console.error('Inspect Error:', error);
+    } else if (data && data.length > 0) {
+        console.log('Columns found:', Object.keys(data[0]));
     } else {
-        console.log("No recipes found to inspect.");
+        // If empty, we can't infer keys easily from REST without metadata table access
+        // But we know it's not empty because earlier steps worked partially
+        console.log('Table seems empty or no access. trying to insert a dummy to see errors? No, risky.');
+        console.log('Returned data:', data);
     }
 }
 
-inspectSchema();
+inspect();

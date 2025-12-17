@@ -62,8 +62,17 @@ export default function RootLayout({ children }) {
           </header>
           <main className="min-h-screen pb-16">
             {children}
-            <footer className="w-full py-4 text-center text-xs text-muted-foreground opacity-50">
-              v2.5.2 (Latest) - {new Date().toLocaleDateString('fa-IR')}
+            <footer className="w-full py-8 text-center text-xs text-muted-foreground border-t mt-12">
+              <div className="container mx-auto px-4 space-y-2">
+                <p className="opacity-70">
+                  Zaffaron matches Buyers with independent Chefs. Payment is off-platform.
+                  Chefs are solely responsible for food safety and local compliance.
+                  Service is a Pilot Program.
+                </p>
+                <p className="opacity-40">
+                  v2.5.3 (MVP) - {new Date().toLocaleDateString('fa-IR')}
+                </p>
+              </div>
             </footer>
           </main>
           <ChefAssistant />

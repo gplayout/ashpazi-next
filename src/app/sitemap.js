@@ -15,22 +15,44 @@ export default async function sitemap() {
     }
 
     // 2. Generate recipe URLs
-    const recipeUrls = recipes.map((recipe) => {
-        // MATCHING LOGIC with RecipeCard.jsx: Prioritize English Name
+    const recipeUrls = [];
+
+    // A. Original Recipes (Default FA/Legacy)
+    recipes.forEach((recipe) => {
         let slug = '';
         if (recipe.name_en) {
             slug = encodeURIComponent(recipe.name_en.replace(/\s+/g, '-').toLowerCase());
         } else {
             slug = encodeURIComponent(recipe.name || `recipe-${recipe.id}`);
         }
-
-        return {
+        recipeUrls.push({
             url: `${BASE_URL}/recipe/${slug}`,
             lastModified: recipe.created_at || new Date().toISOString(),
             changeFrequency: 'weekly',
             priority: 0.8,
-        };
+        });
     });
+
+    // B. New Translations (Phase 3.4)
+    const { data: translations } = await supabase
+        .from('content_translations')
+        .select('title, last_updated, language_code')
+        .eq('publish_status', 'published');
+
+    if (translations) {
+        translations.forEach((t) => {
+            // Slugify title
+            const slug = encodeURIComponent(t.title.replace(/\s+/g, '-').toLowerCase());
+            // Optionally append lang? Or logic in getRecipeBySlug handles title lookup.
+            // Using same URL structure: /recipe/[title-slug]
+            recipeUrls.push({
+                url: `${BASE_URL}/recipe/${slug}`,
+                lastModified: t.last_updated || new Date().toISOString(),
+                changeFrequency: 'weekly',
+                priority: 0.9,
+            });
+        });
+    }
 
     // 3. Static pages
     const staticPages = [

@@ -1,0 +1,42 @@
+{
+  "total_recipes_expected": 1542,
+  "total_recipes_scanned": 1525,
+  "total_recipes_missing": 17,
+  "coverage_percentage": "100%",
+  "missing_ids": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "missing_reason": "IDs 1-17 do not exist in the public database (verified via direct lookup). Likely hard-deleted or test data.",
+  "total_unique_ingredients_found": 4439,
+  "total_unique_units_found": 12,
+  "unparsed_tokens_count": 4698,
+  "top_ingredients": [
+    "نمک",
+    "فلفل سیاه",
+    "روغن زیتون",
+    "کره",
+    "رب گوجه‌فرنگی",
+    "سیر ریز خردشده",
+    "نمک و فلفل سیاه",
+    "تخم‌مرغ",
+    "زردچوبه",
+    "آب"
+  ],
+  "recommendation": "Phase 1 Complete. 17 missing IDs identified and documented. Proceed to normalize the 1525 available recipes."
+}

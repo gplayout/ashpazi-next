@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation';
 import { getRecipeBySlug } from '@/lib/data';
 import RecipeDetailClient from '@/components/RecipeDetailClient';
 import JsonLdScript from '@/components/JsonLdScript';
+import { getOffer } from '@/lib/marketplace/offers';
+import OrderCTA from '@/components/OrderCTA';
 
 // ISR: Force Dynamic for Debugging (0)
 export const revalidate = 0;
@@ -20,7 +22,7 @@ export async function generateMetadata({ params }) {
     const displayTitle = recipe.name_en || recipe.recipe_translations?.find(t => t.language === 'en')?.title || recipe.name || 'Recipe';
     // Priority: AI Description -> DB Description -> Translations
     const ni = recipe.nutrition_info?.en || recipe.nutrition_info?.english || {};
-    const displayDesc = ni.description || recipe.description || recipe.recipe_translations?.find(t => t.language === 'en')?.description || 'Authentic Persian Recipe';
+    const displayDesc = ni.description || recipe.description || recipe.recipe_translations?.find(t => t.language === 'en')?.description || `Order ${displayTitle} from top local chefs or cook it yourself with Zaffaron.`;
 
     return {
         title: `${displayTitle} | Zaffaron Recipes`,
@@ -47,6 +49,15 @@ export async function generateMetadata({ params }) {
             description: displayDesc.slice(0, 200),
             images: [recipe.image || '/og-default.jpg'],
         },
+        alternates: {
+            classes: 'notranslate', // Hint to Google Translate to not double-translate
+            languages: {
+                // Link self
+                [recipe._lang === 'en' ? 'en-US' : 'fa-IR']: `https://zaffaron.com/recipe/${slug}`,
+                // Link counterpart via ID fallback (since we don't know the exact other slug easily)
+                [recipe._lang === 'en' ? 'fa-IR' : 'en-US']: `https://zaffaron.com/recipe/${recipe.id}`,
+            },
+        },
     };
 }
 
@@ -58,7 +69,7 @@ function buildJsonLd(recipe) {
     const title = ni.name || recipe.name_en || recipe.recipe_translations?.[0]?.title || recipe.name || 'Recipe';
 
     // Fallback logic: AI Description -> DB Description
-    const description = ni.description || recipe.description || `Authentic ${title} recipe from Zaffaron.`;
+    const description = ni.description || recipe.description || `Order ${title} from top local chefs or cook it yourself with Zaffaron.`;
 
     // Time Logic: Prefer AI times
     const prepTime = ni.times?.prep || recipe.prep_time_minutes || 30;
@@ -82,9 +93,9 @@ function buildJsonLd(recipe) {
         "cookTime": `PT${cookTime}M`,
         "totalTime": `PT${prepTime + cookTime}M`,
         "recipeYield": "4 servings",
-        "recipeCategory": recipe.category || "Main Course",
-        "recipeCuisine": "Persian",
-        "keywords": `${title}, Persian Food, Iranian Cuisine, ${recipe.category || ''}`,
+        "recipeCategory": recipe.category || "Global Cuisine",
+        "recipeCuisine": recipe.category || "International",
+        "keywords": `${title}, ${recipe.category || 'Global Food'}, Zaffaron`,
         "recipeIngredient": ni.ingredients || recipe.ingredients || [],
         "recipeInstructions": (ni.instructions || recipe.instructions || []).map((step, idx) => ({
             "@type": "HowToStep",
@@ -140,9 +151,18 @@ export default async function RecipePage({ params, searchParams }) {
 
     const jsonLd = buildJsonLd(recipe);
 
+    const offer = getOffer(slug);
+    if (offer) {
+        console.log(`[Metric] Offer Active for slug: "${slug}" (Channel: ${offer.channel})`);
+    }
+
     return (
         <>
             <JsonLdScript data={jsonLd} />
+
+            {/* MVP Transaction Layer - Config Driven */}
+            {offer && <OrderCTA offer={offer} slug={slug} />}
+
             <RecipeDetailClient recipe={recipe} />
         </>
     );
