@@ -7,45 +7,35 @@ export default function OrderCTA({ offer, slug }) {
 
     if (!offer || !offer.enabled) return null;
 
-    const handleOrderClick = async (e) => {
-        e.preventDefault();
-        setLoading(true);
+    // Construct URL immediately
+    const phone = offer.destination || "";
+    const cleanPhone = phone.replace(/[^\d+]/g, '');
+    const dateStr = new Date().toLocaleDateString('en-US');
+    const text = encodeURIComponent(
+        offer.message
+            .replace('{{SKU}}', offer.skuLabel)
+            .replace('{{DATE}}', dateStr)
+    );
 
-        // 1. Log the click (Fire & Forget mostly, but we await mainly to ensure req starts)
-        try {
-            await fetch('/api/metrics/order-click', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    slug: slug || offer.key,
-                    channel: offer.channel,
-                    sku: offer.skuLabel
-                }),
-            });
-        } catch (err) {
-            console.error("Metric Log Failed", err);
-        }
+    let url = '#';
+    if (offer.channel === 'whatsapp') {
+        url = `https://wa.me/${cleanPhone}?text=${text}`;
+    } else if (offer.channel === 'sms') {
+        url = `sms:${cleanPhone}?body=${text}`;
+    }
 
-        // 2. Construct URL
-        const phone = offer.destination || "";
-        const cleanPhone = phone.replace(/[^\d+]/g, ''); // basic sanitize
-        const dateStr = new Date().toLocaleDateString('en-US');
-        const text = encodeURIComponent(
-            offer.message
-                .replace('{{SKU}}', offer.skuLabel)
-                .replace('{{DATE}}', dateStr)
-        );
-
-        let url = '#';
-        if (offer.channel === 'whatsapp') {
-            url = `https://wa.me/${cleanPhone}?text=${text}`;
-        } else if (offer.channel === 'sms') {
-            url = `sms:${cleanPhone}?body=${text}`;
-        }
-
-        // 3. Open
-        window.open(url, '_blank');
-        setLoading(false);
+    const handleOrderClick = (e) => {
+        // Do NOT prevent default. Let the link navigation happen.
+        // Fire & Forget the metric
+        fetch('/api/metrics/order-click', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                slug: slug || offer.key,
+                channel: offer.channel,
+                sku: offer.skuLabel
+            }),
+        }).catch(err => console.error("Metric Log Failed", err));
     };
 
     // Styles objects for cleanliness
@@ -80,23 +70,25 @@ export default function OrderCTA({ offer, slug }) {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        textDecoration: 'none',
+        textDecoration: 'none', // Critical for <a>
         boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
         transition: 'transform 0.1s active',
     };
 
     return (
         <div style={containerStyle}>
-            <button
+            <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={handleOrderClick}
                 style={buttonStyle}
-                disabled={loading}
             >
                 <span>🛍️ Order for Pickup</span>
                 <span style={{ backgroundColor: 'rgba(255,255,255,0.2)', padding: '4px 8px', borderRadius: '6px', fontSize: '0.9em' }}>
                     ${offer.price}
                 </span>
-            </button>
+            </a>
         </div>
     );
 }
