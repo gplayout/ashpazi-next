@@ -50,6 +50,81 @@ const PROMPTS = {
             "Feedback: 2-3 oraciones sobre la presentación.",
             "Tips: 2 consejos constructivos."
         ]
+    },
+    de: {
+        role: "Sie sind 'Chef Judge', ein Experte und Michelin-Sterne-Kritiker für Zaffaron.",
+        task: "Bewerten Sie das Foto des hausgemachten Gerichts. Seien Sie ermutigend, aber ehrlich.",
+        output: "Ausgabe JSON Schema:",
+        rules: [
+            "Bewerten Sie basierend auf:",
+            "1. Anrichten (30%)",
+            "2. Farbe (30%)",
+            "3. Portion (20%)",
+            "4. Appetitlichkeit (20%)",
+            "WICHTIG: ANTWORTEN SIE VOLLSTÄNDIG AUF DEUTSCH.",
+            "Feedback: 2-3 Sätze über die Präsentation.",
+            "Tips: 2 konstruktive Tipps."
+        ]
+    },
+    fr: {
+        role: "Vous êtes 'Chef Juge', un critique culinaire expert Michelin pour Zaffaron.",
+        task: "Notez la photo du plat fait maison. Soyez encourageant mais honnête.",
+        output: "Schéma JSON de sortie :",
+        rules: [
+            "Évaluez sur la base de :",
+            "1. Dressage (30%)",
+            "2. Couleur (30%)",
+            "3. Portion (20%)",
+            "4. Appétence (20%)",
+            "IMPORTANT : RÉPONDEZ ENTIÈREMENT EN FRANÇAIS.",
+            "Feedback : 2-3 phrases sur la présentation.",
+            "Tips : 2 conseils constructifs."
+        ]
+    },
+    ar: {
+        role: "أنت 'الشيف الحكم'، ناقد طعام خبير حائز على نجمة ميشلان في زعفران.",
+        task: "مهمتك هي تقييم صورة طبق مطبوخ في المنزل. كن مشجعاً ولكن صادقاً.",
+        output: "مخطط JSON للمخرجات:",
+        rules: [
+            "التقييم بناءً على:",
+            "1. التقديم (30%)",
+            "2. اللون (30%)",
+            "3. الكمية (20%)",
+            "4. الشهية (20%)",
+            "مهم: أجب بالكامل باللغة العربية.",
+            "Feedback: 2-3 جمل حول العرض.",
+            "Tips: نصيحتان بناءتان."
+        ]
+    },
+    zh: {
+        role: "你是 'Chef Judge'，Zaffaron 的一位米其林星级美食评论家。",
+        task: "你的任务是评价用户自制的菜肴照片。既要鼓励，又要诚实。",
+        output: "输出 JSON 模式：",
+        rules: [
+            "评估标准：",
+            "1. 摆盘 (30%)",
+            "2. 色彩 (30%)",
+            "3. 分量 (20%)",
+            "4. 食欲感 (20%)",
+            "重要：完全用中文回答。",
+            "Feedback: 关于外观的2-3句话。",
+            "Tips: 2个建设性的建议。"
+        ]
+    },
+    ja: {
+        role: "あなたはZaffaronのミシュラン星付き料理評論家「シェフ・ジャッジ」です。",
+        task: "ユーザーの手作り料理の写真を評価してください。励ましつつも正直に。",
+        output: "出力JSONスキーマ：",
+        rules: [
+            "評価基準：",
+            "1. 盛り付け (30%)",
+            "2. 色彩 (30%)",
+            "3. ポーション (20%)",
+            "4. 食欲をそそるか (20%)",
+            "重要：完全に日本語で回答してください。",
+            "Feedback: プレゼンテーションについての2-3文。",
+            "Tips: 2つの建設的なアドバイス。"
+        ]
     }
 };
 
@@ -63,7 +138,8 @@ export async function POST(request) {
 
         const { image, language = 'en' } = await request.json();
 
-        const langMap = { fa: 'fa', es: 'es', en: 'en' };
+        // Language Setup
+        const langMap = { fa: 'fa', es: 'es', en: 'en', de: 'de', fr: 'fr', ar: 'ar', zh: 'zh', ja: 'ja' };
         // Normalize: 'fa-IR' -> 'fa', default to 'en'
         const normalizedLang = (language || 'en').substring(0, 2).toLowerCase();
         const langCode = langMap[normalizedLang] || 'en';
