@@ -123,9 +123,10 @@ import { supabase } from '@/lib/supabase'; // Import supabase directly for ID fe
 
 export default async function RecipePage({ params, searchParams }) {
     const { slug } = await params;
-    const { id } = await searchParams; // Get ID from query params
+    const resolvedSearchParams = await searchParams; // Await properly
+    const { id, lang } = resolvedSearchParams;
 
-    console.log(`[RecipePage] Rendering. Slug: "${slug}", ID: "${id}"`);
+    console.log(`[RecipePage] Rendering. Slug: "${slug}", ID: "${id}", Lang: "${lang}"`);
 
     let recipe = await getRecipeBySlug(slug);
 
@@ -163,7 +164,7 @@ export default async function RecipePage({ params, searchParams }) {
             {/* MVP Transaction Layer - Config Driven */}
             {offer && <OrderCTA offer={offer} slug={slug} />}
 
-            <RecipeDetailClient recipe={recipe} />
+            <RecipeDetailClient recipe={recipe} initialLang={lang} />
         </>
     );
 }

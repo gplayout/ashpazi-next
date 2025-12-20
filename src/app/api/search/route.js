@@ -25,7 +25,7 @@ export async function GET(request) {
 
         let query = supabase
             .from('recipes')
-            .select('*, recipe_translations(*)')
+            .select('*')
             .order('created_at', { ascending: false })
             .limit(50);
 

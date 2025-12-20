@@ -1,76 +1,68 @@
 import { useState, useEffect } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 
-export function useNutrition(recipe) {
-    const { language } = useLanguage();
-    const [nutritionData, setNutritionData] = useState(null);
+export function useNutrition(recipe, overrideLang) {
+    const { language: contextLang } = useLanguage();
+    const language = overrideLang || contextLang;
+    const [nutritionData, setNutritionData] = useState(() => {
+        // Optimization: Initialize directly from prop if available (Zero-Flash)
+        if (recipe?.nutrition_info?.[language]) {
+            const data = recipe.nutrition_info[language];
+            // Simple validation check (sync version of effect logic)
+            if (data.name && (data.description || data.ingredients?.length)) {
+                // Normalize on init
+                if (data.nutrition) {
+                    data.calories = data.nutrition.calories;
+                    data.category = data.category;
+                    data.macros = {
+                        protein: data.nutrition.protein,
+                        carbs: data.nutrition.carbs,
+                        fat: data.nutrition.fat
+                    };
+                }
+                return data;
+            }
+        }
+        return null;
+    });
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const title = recipe.name || recipe.title;
-
         // 1. Check Local DB Data (Optimization)
         if (recipe.nutrition_info && recipe.nutrition_info[language]) {
             const localData = recipe.nutrition_info[language];
 
-            // Normalize 'nutrition' object to expected UI structure
-            if (localData.nutrition) {
-                // Map nested 'nutrition' (from Agent) to root keys (for UI)
-                localData.calories = localData.nutrition.calories;
-                localData.macros = {
-                    protein: localData.nutrition.protein,
-                    carbs: localData.nutrition.carbs,
-                    fat: localData.nutrition.fat
-                };
-            }
-            // Legacy mapping
-            else if (localData.macro_nutrients && !localData.macros) {
-                localData.macros = localData.macro_nutrients;
-            }
+            // Validate that we have translated content
+            const hasTranslation = localData.name && (localData.description || (localData.ingredients && localData.ingredients.length > 0));
 
-            console.log("⚡ Nutrition (Local Normalized):", localData);
-            setNutritionData(localData);
-            setLoading(false);
-            return;
-        }
-
-        if (!title) {
-            setLoading(false);
-            return;
-        }
-
-        // 2. Fetch from API (Fallback)
-        const fetchNutrition = async () => {
-            try {
-                // ... same fetch logic ...
-                const res = await fetch('/api/nutrition', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        title: title,
-                        ingredients: recipe.ingredients,
-                        language
-                    })
-                });
-                if (!res.ok) throw new Error('Failed to fetch');
-                const result = await res.json();
-
-                // Normalization here too just in case
-                if (result.macro_nutrients && !result.macros) {
-                    result.macros = result.macro_nutrients;
+            if (hasTranslation) {
+                // Normalize 'nutrition' object to expected UI structure
+                if (localData.nutrition) {
+                    localData.calories = localData.nutrition.calories;
+                    localData.category = localData.category;
+                    localData.macros = {
+                        protein: localData.nutrition.protein,
+                        carbs: localData.nutrition.carbs,
+                        fat: localData.nutrition.fat
+                    };
+                }
+                // Legacy mapping
+                else if (localData.macro_nutrients && !localData.macros) {
+                    localData.macros = localData.macro_nutrients;
                 }
 
-                setNutritionData(result);
-            } catch (err) {
-                console.error('Nutrition Hook Error:', err);
+                setNutritionData(localData);
                 setLoading(false);
-            } finally {
-                setLoading(false);
+                return;
             }
-        };
+        }
 
-        fetchNutrition();
-    }, [recipe, language]); // Added recipe dependency
+        // If no local data, we just stop loading. 
+        // We do NOT fall back to API anymore (Logic Removed per User Request).
+        console.log("No rich content found in DB for lang:", language);
+        setLoading(false);
+
+    }, [recipe, language]);
 
     return { nutritionData, loading };
 }

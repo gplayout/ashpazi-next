@@ -1,3 +1,5 @@
+'use server';
+
 import { pipelineClient as supabase } from '../pipeline-client';
 
 /**
@@ -118,9 +120,9 @@ export async function retryRecipe(legacyRecipeId) {
 }
 
 /**
- * Retrieves DRAFT translations for review.
+ * Retrieves recently updated translations (Draft OR Published) for activity monitoring.
  */
-export async function getDraftTranslations() {
+export async function getRecentTranslations() {
     const { data, error } = await supabase
         .from('content_translations')
         .select(`
@@ -134,13 +136,48 @@ export async function getDraftTranslations() {
         legacy_recipe_id
       )
     `)
-        .eq('publish_status', 'draft')
-        .order('last_updated', { ascending: false });
+        .order('last_updated', { ascending: false })
+        .limit(50); // Show last 50 updates
 
     if (error) {
-        throw new Error(`getDraftTranslations failed: ${error.message}`);
+        throw new Error(`getRecentTranslations failed: ${error.message}`);
     }
     return data;
+}
+
+/**
+ * Retrieves global statistics for translations from the database.
+ */
+export async function getTranslationStats() {
+    // 1. Total count
+    const { count: total, error: totalErr } = await supabase
+        .from('content_translations')
+        .select('*', { count: 'exact', head: true });
+
+    if (totalErr) throw new Error(`Stats Total failed: ${totalErr.message}`);
+
+    // 2. Breakdown by language (OPTIMIZED)
+    // Instead of fetching rows (which hits 1000 limit), we count explicitly.
+    const langs = ['en', 'fr', 'de', 'es', 'ar', 'ja', 'zh', 'fa'];
+    const byLang = {};
+
+    // Parallel fetch for speed
+    await Promise.all(langs.map(async (lang) => {
+        const { count, error } = await supabase
+            .from('content_translations')
+            .select('*', { count: 'exact', head: true }) // HEAD request only
+            .eq('language_code', lang);
+
+        if (!error) {
+            byLang[lang] = count;
+        }
+    }));
+
+    // Safety fallback for unknown langs if needed, but this covers 99%
+    return {
+        total: total || 0,
+        byLang
+    };
 }
 
 /**

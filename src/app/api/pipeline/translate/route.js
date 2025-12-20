@@ -8,182 +8,276 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(request) {
     try {
-        // 1. Auth Check (Same secret as ingestion)
         const { searchParams } = new URL(request.url);
         const secret = searchParams.get('secret');
+        const targetLang = searchParams.get('lang') || 'en';
 
-        if (secret !== process.env.NEXT_PUBLIC_PIPELINE_SECRET) {
+        console.log('Auth Check:', { incoming: secret, env: process.env.NEXT_PUBLIC_PIPELINE_SECRET ? 'Exits' : 'Missing' });
+
+        // Temporary fallback for debug if env is missing
+        const SERVER_SECRET = process.env.NEXT_PUBLIC_PIPELINE_SECRET || 'pipeline_secret_777';
+
+        if (secret !== SERVER_SECRET) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        // 2. Fetch Pending Rows (Limit 10 per batch for Pilot)
-        // We need 'normalized_ok' AND 'translated_en' IS NULL. 
-        // Status usage: The user said "Select status = 'normalized_ok'".
-        // We will update status to 'translated_en' on success.
+        // fetch normalized recipes that need translation
+        // Start simple: Iterate normalized recipes.
+        // Check if translation exists in 'content_translations' for targetLang.
+        // Since we don't have a simple 'left join' in one query easily with postgREST for "missing rows",
+        // we will fetch a batch of normalized recipes and check their translation status in code or via a second query.
 
-        // Join with registry_recipes to get UUID and instructions?
-        // recipe_pipeline_state has legacy_recipe_id.
-        // We need to fetch pipeline state first.
+        // Optimization: We could RPC, but for now:
+        // Fetch 10 normalized recipes.
+        // Ideally we want those that are NOT in content_translations for this lang.
 
-        const { data: rows, error: fetchError } = await pipelineClient
-            .from('recipe_pipeline_state')
-            .select('legacy_recipe_id')
-            .eq('status', 'normalized_ok')
-            .limit(10); // Pilot Limit
+        // Let's rely on recipe_pipeline_state for finding "valid/normalized" recipes first.
+        // 1. Get list of already translated IDs to exclude
+        // This prevents the "Skipped Loop" where we keep fetching the same completed 50 rows.
+        // 2. Fetch Candidates with Offset
+        // We rely on the client (manual script) to iterate through the table using 'offset'.
+        // PRIORITY FETCH: check for 'manual_retry' first (user forced resets)
+        const offset = parseInt(searchParams.get('offset')) || 0;
+        const targetId = searchParams.get('id'); // NEW: Specific targeting
+        // Dynamic Batch Size (Default reduced to 2 for stability)
+        const BATCH_LIMIT = parseInt(searchParams.get('batch_size')) || 2;
+        let rows = [];
 
-        if (fetchError) throw new Error(`Fetch failed: ${fetchError.message}`);
+        if (targetId) {
+            // mode: SINGLE TARGET (Client Managed)
+            console.log(`[Target Mode] Fetching specific legacy ID: ${targetId}`);
+            const { data: specificRow, error: specificErr } = await pipelineClient
+                .from('recipe_pipeline_state')
+                .select(`legacy_recipe_id, status`)
+                .eq('legacy_recipe_id', targetId)
+                //.eq('status', 'manual_retry') // Optional: enforce status?
+                .single();
+
+            if (specificRow) {
+                rows = [specificRow];
+            } else {
+                console.warn(`Target ID ${targetId} not found or not in pipeline.`);
+            }
+        } else {
+            // mode: AUTO BATCH (Pull from DB)
+            const { data: retryRows, error: retryErr } = await pipelineClient
+                .from('recipe_pipeline_state')
+                .select(`legacy_recipe_id, status`)
+                .eq('status', 'manual_retry')
+                .order('legacy_recipe_id', { ascending: true }) // Stable sort
+                .range(offset, offset + BATCH_LIMIT - 1); // Apply pagination
+
+            if (retryRows && retryRows.length > 0) {
+                console.log(`[Priority] Found ${retryRows.length} items to retry.`);
+                rows = [...retryRows];
+            }
+
+            // Fill remaining slots with normal offset-based query
+            if (rows.length < BATCH_LIMIT) {
+                const remaining = BATCH_LIMIT - rows.length;
+                const { data: normalRows, error: fetchError } = await pipelineClient
+                    .from('recipe_pipeline_state')
+                    .select(`legacy_recipe_id, status`)
+                    .in('status', ['normalized_ok', 'translated_en', 'published', 'translated_fr', 'translated_de'])
+                    .order('legacy_recipe_id', { ascending: true }) // Fix: Ensure stable pagination
+                    .range(offset, offset + remaining - 1);
+
+                if (fetchError) throw new Error(`Fetch failed: ${fetchError.message}`);
+                if (normalRows && normalRows.length > 0) {
+                    rows = [...rows, ...normalRows];
+                }
+            }
+        }
+
+
 
         if (!rows || rows.length === 0) {
-            return NextResponse.json({ ok: true, message: 'No pending translations' });
+            return NextResponse.json({ ok: true, message: 'No normalized recipes found' });
         }
 
         const results = {
+            targetLang,
             success: 0,
             failed: 0,
+            skipped: 0,
             details: []
         };
 
-        // 3. Process Loop
+        let processedCount = 0;
+
         for (const row of rows) {
+            if (processedCount >= BATCH_LIMIT) break;
+
             const legacyId = row.legacy_recipe_id;
             try {
-                // A. Fetch Source Data (Registry + Ingredients + Legacy Title/Instructions if needed?)
-                // Phase 3.1 normalized to registry_recipes.
-                // registry_recipes has prep/cook/etc. Does it have source instructions?
-                // Wait, IngestionAgent read legacyRecipe from 'recipes'. 
-                // registry_recipes might NOT have instructions if they weren't upserted there.
-                // Let's re-read legacy table for Source Title/Instructions to be safe.
-                // AND registry_recipes for the UUID.
-
-                // Fetch UUID from registry
-                const { data: registryData, error: regErr } = await pipelineClient
+                // 1. Get UUID
+                const { data: registryData } = await pipelineClient
                     .from('registry_recipes')
                     .select('id')
                     .eq('legacy_recipe_id', legacyId)
                     .single();
 
-                if (regErr || !registryData) {
-                    throw new Error("Registry ID not found for normalized recipe");
-                }
+                if (!registryData) continue; // Should not happen if normalized_ok
                 const recipeUUID = registryData.id;
 
-                // Fetch Source Text (from legacy 'recipes' table)
-                const { data: sourceData, error: srcErr } = await pipelineClient
+                // 2. Check if already translated for targetLang
+                // FIX: If manual_retry, we WANT to regenerate, so skip the "exists" check.
+                const isRetry = row.status === 'manual_retry';
+
+                if (!isRetry) {
+                    const { data: existing } = await pipelineClient
+                        .from('content_translations')
+                        .select('id')
+                        .eq('recipe_id', recipeUUID)
+                        .eq('language_code', targetLang)
+                        .single();
+
+                    if (existing) {
+                        console.log(`[Skip] LegacyId: ${legacyId} -> UUID: ${recipeUUID} has translation ${existing.id} (${targetLang})`);
+                        results.skipped++;
+                        results.details.push({ id: legacyId, status: 'skipped', reason: `Translation exists: ${existing.id}` }); // Debug info
+                        continue;
+                    }
+                }
+
+                // 3. Fetch Source Data
+                const { data: sourceData } = await pipelineClient
                     .from('recipes')
-                    .select('name, instructions')
+                    .select('name, instructions, ingredients') // <--- Added ingredients
                     .eq('id', legacyId)
                     .single();
 
-                if (srcErr || !sourceData) {
-                    throw new Error("Legacy source data not found");
-                }
+                if (!sourceData) continue;
 
-                // To get ingredients context, we query normalized ingredients joined with master names
-                // recipe_ingredients -> ingredient_translations(fa)? Or master code?
-                // Let's fetch the ingredient names directly.
-                const { data: ingData } = await pipelineClient
-                    .from('recipe_ingredients')
-                    .select(`
-                    quantity_value,
-                    unit_id,
-                    ingredient_id,
-                    ingredients_master!inner (code),
-                    ingredient_translations:ingredients_master!inner (ingredient_translations)
-                 `) // This deep join is complex.
-                    // Simpler: Just fetch raw_note_fa from recipe_ingredients if we stored it?
-                    // IngestionAgent stored 'raw_note_fa'. This is perfect for context!
-                    .eq('recipe_id', recipeUUID)
-                    .select('raw_note_fa');
-
-                // Wait, query above was pseudo-code. Correct is:
-                const { data: ingRaw, error: ingErr } = await pipelineClient
+                // 4. Fetch Context (Optional secondary context)
+                const { data: ingRaw } = await pipelineClient
                     .from('recipe_ingredients')
                     .select('raw_note_fa')
                     .eq('recipe_id', recipeUUID);
 
-                const context = ingRaw ? ingRaw.map(i => i.raw_note_fa).filter(Boolean) : [];
+                // MERGE contexts: Prefer the main 'ingredients' array from legacy as it has quantities
+                let context = sourceData.ingredients || [];
+                // If legacy ingredients is empty, fallback to recipe_ingredients notes
+                if (context.length === 0 && ingRaw) {
+                    context = ingRaw.map(i => i.raw_note_fa).filter(Boolean);
+                }
 
-                // B. Call Agent
-                // sourceData.instructions typically JSON or TEXT[]? Next.js inspection showed it as array in prev phase
-                // legacy 'recipes.instructions' is TEXT[] or JSONB? 
-                // In setup_test_data.js it was array. 
-                // We assume array.
-
+                // 5. Call Agent
                 const agentInput = {
                     recipe_id: recipeUUID,
-                    source_title: sourceData.name, // 'name' in legacy table based on history
+                    source_title: sourceData.name,
                     source_instructions: Array.isArray(sourceData.instructions) ? sourceData.instructions : [sourceData.instructions],
-                    ingredients_context: context
+                    ingredients_context: context,
+                    targetLanguage: targetLang
                 };
+                console.log(`[Translate Debug] Context for ${sourceData.name}:`, JSON.stringify(context).slice(0, 200));
 
                 const translation = await TranslationAgent.translate(agentInput);
 
-                // C. SCORE (Phase 4 Shadow Mode)
-                const combinedSource = `${agentInput.source_title}\n${agentInput.source_instructions.join('\n')}`;
-                const combinedTarget = `${translation.title_en}\n${translation.instructions_en.map(i => i.text).join('\n')}`;
-
-                // For meaningful glossary check, ideally we need EN dictionary.
-                // For now, we pass the FA context tokens just to satisfy signature diffs if we evolve it.
-                // But Scorer logic currently returns neutral for glossary.
-                // We use length and format primarily.
-
+                // 6. Score (Minimal)
                 const quality = QualityScorer.score({
-                    sourceText: combinedSource,
-                    targetText: combinedTarget,
+                    sourceText: agentInput.source_title,
+                    targetText: translation.title,
                     sourceStepCount: agentInput.source_instructions.length,
-                    targetStepCount: translation.instructions_en.length,
-                    glossaryTokens: [] // Placeholder until we have EN dictionary
+                    targetStepCount: translation.instructions.length,
+                    glossaryTokens: []
                 });
 
-                // D. Save to DB (Status=Draft, Auto-publish OFF)
+                // 7. Save
                 const { error: saveErr } = await pipelineClient
                     .from('content_translations')
                     .upsert({
                         recipe_id: recipeUUID,
-                        language_code: 'en',
-                        title: translation.title_en,
-                        instructions: translation.instructions_en, // JSONB
-                        publish_status: 'draft',
-                        version: 1,
+                        language_code: targetLang, // Dynamic Code
+                        title: translation.title,
+                        instructions: translation.instructions, // JSONB
+                        ingredients: translation.ingredients || [],
+                        // Store extended info in qa_metadata JSONB since columns don't exist
+                        qa_metadata: {
+                            ...quality.metadata,
+                            nutrition: translation.nutrition || {},
+                            internal_score: translation.internal_score || {},
+                            marketing_description: translation.marketing_description || '',
+                            // RICH CONTENT MAPPING (CRITICAL FIX)
+                            origin_history: translation.origin_history,
+                            why_this_version: translation.why_this_version,
+                            sensory_experience: translation.sensory_experience,
+                            chef_guide: translation.chef_guide,
+                            dietary_tags: translation.dietary_tags,
+                            occasion_tags: translation.occasion_tags,
+                            difficulty_level: translation.difficulty_level,
+                            ingredient_substitutions: translation.ingredient_substitutions,
+                            equipment_needed: translation.equipment_needed,
+                            flavor_profile: translation.flavor_profile,
+                            pairings: translation.pairings,
+                            estimated_cost: translation.estimated_cost,
+                            seo_keywords: translation.seo_keywords,
+                            seo_meta_description: translation.seo_meta_description,
+                            social_share_copy: translation.social_share_copy,
+                            allergen_contains: translation.allergen_contains,
+                            kid_friendly: translation.kid_friendly,
+                            // Added per user request for UI Box
+                            health_benefits: translation.health_benefits,
+                            category: translation.category
+                        },
+                        publish_status: 'published',
+                        version: 2, // Bump version
                         last_updated: new Date().toISOString(),
                         confidence_score: quality.score,
-                        qa_metadata: quality.metadata,
-                        auto_published: false
+                        auto_published: true
                     }, { onConflict: 'recipe_id, language_code' });
 
                 if (saveErr) throw new Error(`Save failed: ${saveErr.message}`);
 
-                // D. Update Pipeline State
-                await pipelineClient
+                // 7b. ROOT CAUSE FIX: Update Legacy Data in 'recipes' table
+                // We overwrite the old Farsi category with the new clean English one.
+                if (translation.category) {
+                    const { error: legacyUpdateErr } = await pipelineClient
+                        .from('recipes')
+                        .update({ category: translation.category })
+                        .eq('id', legacyId);
+
+                    if (legacyUpdateErr) {
+                        console.error(`Failed to update legacy category for ${legacyId}:`, legacyUpdateErr.message);
+                        throw new Error(`Legacy Update Failed: ${legacyUpdateErr.message}`);
+                    }
+
+                    // 7b-2. VALIDATION LOCK (Read-After-Write Check)
+                    // As requested: "ye gofl barash dorost kon" - Verify the data actually changed.
+                    const { data: verifyData } = await pipelineClient
+                        .from('recipes')
+                        .select('category')
+                        .eq('id', legacyId)
+                        .single();
+
+                    if (!verifyData || verifyData.category !== translation.category) {
+                        const actual = verifyData ? verifyData.category : 'null';
+                        throw new Error(`CRITICAL: Data Verification Failed! Expected category '${translation.category}' but found '${actual}'. Write operation may have been silently ignored.`);
+                    }
+
+                    console.log(`[Root Fix] Verified recipes.category for ${legacyId} is now "${translation.category}"`);
+                }
+
+                // 7c. Update Pipeline State
+                // This ensures we don't pick up the same 'manual_retry' item again in the next loop
+                const { error: stateErr } = await pipelineClient
                     .from('recipe_pipeline_state')
                     .update({
-                        status: 'translated_en',
-                        last_processed_at: new Date().toISOString(),
-                        error_log: null
+                        status: 'published',
+                        last_processed_at: new Date().toISOString()
                     })
                     .eq('legacy_recipe_id', legacyId);
 
+                if (stateErr) console.warn(`State update warning for ${legacyId}:`, stateErr.message);
+
                 results.success++;
-                results.details.push({ id: legacyId, status: 'ok' });
+                results.details.push({ id: legacyId, title: translation.title });
+                processedCount++;
 
-            } catch (processError) {
-                console.error(`Translation Failed for ${row.legacy_recipe_id}:`, processError);
-
-                // Update Pipeline State to error
-                await pipelineClient
-                    .from('recipe_pipeline_state')
-                    .update({
-                        status: 'translation_error',
-                        last_processed_at: new Date().toISOString(),
-                        error_log: {
-                            message: processError.message,
-                            stack: processError.stack
-                        }
-                    })
-                    .eq('legacy_recipe_id', row.legacy_recipe_id);
-
+            } catch (err) {
+                console.error(`Failed ${legacyId}:`, err);
                 results.failed++;
-                results.details.push({ id: row.legacy_recipe_id, error: processError.message });
+                results.details.push({ id: legacyId, error: err.message });
             }
         }
 

@@ -6,44 +6,53 @@ export async function updateSession(request) {
         request,
     })
 
-    const supabase = createServerClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-        {
-            cookies: {
-                getAll() {
-                    return request.cookies.getAll()
+    try {
+        const supabase = createServerClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+            {
+                cookies: {
+                    getAll() {
+                        return request.cookies.getAll()
+                    },
+                    setAll(cookiesToSet) {
+                        try {
+                            cookiesToSet.forEach(({ name, value, options }) =>
+                                request.cookies.set(name, value)
+                            )
+                            supabaseResponse = NextResponse.next({
+                                request,
+                            })
+                            cookiesToSet.forEach(({ name, value, options }) =>
+                                supabaseResponse.cookies.set(name, value, options)
+                            )
+                        } catch (cookieError) {
+                            // Ignore cookie setting errors
+                        }
+                    },
                 },
-                setAll(cookiesToSet) {
-                    cookiesToSet.forEach(({ name, value, options }) =>
-                        request.cookies.set(name, value)
-                    )
-                    supabaseResponse = NextResponse.next({
-                        request,
-                    })
-                    cookiesToSet.forEach(({ name, value, options }) =>
-                        supabaseResponse.cookies.set(name, value, options)
-                    )
-                },
-            },
+            }
+        )
+
+        // IMPORTANT: Avoid writing any logic between createServerClient and
+        // supabase.auth.getUser().
+        const {
+            data: { user },
+        } = await supabase.auth.getUser()
+
+        if (
+            !user &&
+            !request.nextUrl.pathname.startsWith('/login') &&
+            !request.nextUrl.pathname.startsWith('/auth')
+        ) {
+            // no user, potentially handle redirects here if needed
         }
-    )
-
-    // IMPORTANT: Avoid writing any logic between createServerClient and
-    // supabase.auth.getUser(). A simple mistake could make it very hard to debug
-    // issues with users being randomly logged out.
-
-    const {
-        data: { user },
-    } = await supabase.auth.getUser()
-
-    if (
-        !user &&
-        !request.nextUrl.pathname.startsWith('/login') &&
-        !request.nextUrl.pathname.startsWith('/auth')
-    ) {
-        // no user, potentially handle redirects here if needed specifically for protected routes
-        // For now we allow browsing without login, so no forced redirect
+    } catch (e) {
+        console.error('Middleware Error:', e);
+        // On error, continue without jamming the response
+        return NextResponse.next({
+            request,
+        });
     }
 
     return supabaseResponse

@@ -1,86 +1,99 @@
-import OpenAI from 'openai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
 
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
 
-// Core System Prompt for the Charismatic Chef
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+
+// Core System Prompt for the Master Chef
 const SYSTEM_PROMPT = `
-You are "Chef Zaffaron", a world-renowned culinary expert, food historian, and charismatic host.
-Your goal is to make the user fall in love with cooking and food culture.
+You are "Chef Zaffaron", a World-Renowned Persian Chef and Culinary Host.
+Your personality is a unique blend of **Old-World Persian Charm** and **Modern Witty Sophistication**.
 
-**Your Personality:**
-1.  **Warm & Witty:** You are friendly, slightly humorous, and very inviting.
-2.  **Highly Knowledgeable:** You know the science, history, and art of food.
-3.  **Engaging:** Never give dry answers. Use anecdotes, sensory details, and "Chef's Secrets".
-4.  **Proactive:** Always end with a relevant question or a "did you know?" to keep the conversation flowing.
+**YOUR PERSONA:**
+1.  **The Gentleman Chef:** You are extremely polite ("Ba Kelas"), respectful, and hospitable. You treat every user like a VIP guest in your home.
+2.  **Witty & Playful:** You have a good sense of humor. You make small, classy jokes (e.g., "A life without saffron is like a sky without stars!").
+3.  **The Saffron Ambassador:** You OBSESS over Persian Saffron. You politely suggest adding it to dishes where it fits, calling it "The Red Gold".
+4.  **Cultural Diplomat:** You are DEEPLY culturally sensitive. Never mock a culture. Always respect the user's food traditions while respectfully sharing your own.
 
-**CRITICAL RULE: LANGUAGE MATCHING (STRICT)**
-- **Farsi Script:** If user writes in Farsi script (سلام), reply in **Farsi Script**.
-- **Finglish (Farsi in Latin):** If user writes in Finglish (e.g., "Salam chetori?"), YOU MUST REPLY IN **FARSI SCRIPT**. Do NOT reply in Finglish or English.
-   - Example Input: "Abgosht chetori bepazam?"
-   - Example Reply: "آبگوشت یکی از خوشمزه‌ترین غذاهای اصیل ایرانیه! برای پختنش..."
-- **English:** If user writes in standard English, reply in English.
-- Do NOT translate unless asked. Just naturally converse in their language (or correct script).
+**STRICT LANGUAGE RULES:**
+1.  **DETECT & MATCH:** You must reply *strictly* in the language the user is currently speaking.
+    - User speaks Farsi/Finglish -> Reply in **Farsi Script**.
+    - User speaks French -> Reply in **French**.
+    - User speaks English -> Reply in **English**.
+2.  **No Switching:** Do not mix languages unless teaching a specific culinary term (e.g., "The *Tahdig* is essential").
 
-**Context awareness:**
-- Users might be asking about a specific recipe they are viewing. Use the provided 'recipeContext' to give specific advice.
+**CONTEXT:**
+You are the AI Assistant for the Zaffaron App.
 `;
 
 export async function POST(req) {
     try {
-        if (!process.env.OPENAI_API_KEY) {
-            return NextResponse.json({ error: 'Missing OpenAI API Key' }, { status: 500 });
-        }
+        const { message, messages, recipeContext, language = 'en' } = await req.json();
 
-        // Parse Request: Expect standard chat format
-        const { message, messages, recipeContext } = await req.json();
+        // 1. Build History for Gemini
+        // Gemini Expectation: History must be User -> Model -> User -> Model...
+        // It CANNOT start with Model.
+        const history = [];
 
-        // Construct Message History for Context
-        const conversationMessages = [
-            { role: "system", content: SYSTEM_PROMPT },
-        ];
-
-        // Add Recipe Context if available (Hidden system note)
-        if (recipeContext) {
-            conversationMessages.push({
-                role: "system",
-                content: `User is currently viewing this recipe: ${JSON.stringify(recipeContext)}. Use this info to answer specific questions.`
-            });
-        }
-
-        // Append previous chat history (if any)
         if (messages && Array.isArray(messages)) {
-            // Limit history to last 6 messages to save tokens
-            const recentHistory = messages.slice(-6).map(m => ({
-                role: m.role, // 'user' or 'assistant'
-                content: m.content
-            }));
-            conversationMessages.push(...recentHistory);
+            // Filter valid turns
+            const validTurns = messages
+                .filter(m => m.role === 'user' || m.role === 'assistant' || m.role === 'model') // Ignore system
+                .map(m => ({
+                    role: m.role === 'user' ? 'user' : 'model',
+                    parts: [{ text: m.content || '' }]
+                }));
+
+            // Find the index of the first USER message
+            const firstUserIndex = validTurns.findIndex(m => m.role === 'user');
+
+            if (firstUserIndex !== -1) {
+                // Slice from first User message to satisfy API
+                const alignedHistory = validTurns.slice(firstUserIndex);
+                history.push(...alignedHistory);
+            } else {
+                // If no user message in history (e.g. just greeting), send empty history.
+                // The current 'message' will be the first user turn.
+            }
         }
 
-        // Append current user message
-        conversationMessages.push({ role: "user", content: message });
+        // Add Recipe Context to the last user message or as a separate turn?
+        // Better to embed it in the system prompt for this session or prepend to the prompt.
+        let finalSystemPrompt = SYSTEM_PROMPT;
+        finalSystemPrompt += `\n\nUSER UI LANGUAGE: ${language}`;
+        if (recipeContext) {
+            finalSystemPrompt += `\n\nCURRENT USER CONTEXT (Viewing Recipe): ${JSON.stringify(recipeContext)}\nFocus your advice on this dish if asked.`;
+        }
 
-        // Call OpenAI (GPT-4o-mini for speed/quality balance)
-        const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
-        const completion = await openai.chat.completions.create({
-            model: "gpt-4o-mini",
-            messages: conversationMessages,
-            temperature: 0.8, // Slightly higher for creativity/charisma
-            max_tokens: 500,
+        // Initialize Model WITH systemInstruction (Security Fix)
+        // Using systemInstruction prevents prompt injection by separating context from conversation
+        const model = genAI.getGenerativeModel({
+            model: "gemini-2.5-flash",
+            systemInstruction: finalSystemPrompt
         });
 
-        const reply = completion.choices[0].message.content;
+        const chat = model.startChat({
+            history: history,
+            generationConfig: {
+                maxOutputTokens: 8192,
+                temperature: 0.8,
+            },
+        });
 
-        // Return Text Only (No Audio/TTS)
+        const result = await chat.sendMessage(message);
+        const responseText = result.response.text();
+
         return NextResponse.json({
-            text: reply
+            text: responseText
         });
 
     } catch (error) {
-        console.error('Chat API Error:', error);
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        console.error('Chat API Error (Gemini):', error);
+        // Fallback for safety
+        return NextResponse.json({
+            text: `My apologies, the kitchen is a bit busy right now! (System Error: ${error.message})`
+        }, { status: 500 });
     }
 }

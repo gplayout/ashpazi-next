@@ -4,12 +4,18 @@ import { createContext, useContext, useState, useEffect } from 'react';
 const LanguageContext = createContext();
 
 export function LanguageProvider({ children }) {
-    const [language, setLanguage] = useState('fa');
+    const [language, setLanguage] = useState('en');
 
+    // Load from localStorage on mount
+    // Load from localStorage or Geo-IP on mount
     // Load from localStorage on mount
     useEffect(() => {
         const stored = localStorage.getItem('language');
-        if (stored && ['fa', 'en', 'es'].includes(stored)) {
+
+        // Check for specific valid supported langs
+        const supported = ['fa', 'en', 'es', 'fr', 'de', 'ar', 'zh', 'ja'];
+
+        if (stored && supported.includes(stored)) {
             setLanguage(stored);
         }
     }, []);
@@ -18,8 +24,19 @@ export function LanguageProvider({ children }) {
     useEffect(() => {
         localStorage.setItem('language', language);
         // Dynamic Direction & Language Attribute
-        document.documentElement.setAttribute('dir', language === 'fa' ? 'rtl' : 'ltr');
+        // Add 'ar' to RTL list
+        const isRtl = ['fa', 'ar'].includes(language);
+        document.documentElement.setAttribute('dir', isRtl ? 'rtl' : 'ltr');
         document.documentElement.setAttribute('lang', language);
+
+        // Optional: Toggle font class on body for better typography
+        if (isRtl) {
+            document.body.classList.add('font-[family-name:var(--font-vazirmatn)]');
+            document.body.classList.remove('font-sans');
+        } else {
+            document.body.classList.add('font-sans');
+            document.body.classList.remove('font-[family-name:var(--font-vazirmatn)]');
+        }
     }, [language]);
 
     // Helper to get localized content
@@ -28,38 +45,37 @@ export function LanguageProvider({ children }) {
 
         // 0. Priority: AI-Generated Content (nutrition_info JSON)
         if (obj.nutrition_info) {
-            const langKey = language === 'fa' ? 'fa' : (language === 'es' ? 'es' : 'en');
-            // Support both 'en' and 'english' keys (legacy)
-            const node = obj.nutrition_info[langKey] ||
-                (language === 'en' ? obj.nutrition_info.english :
-                    language === 'fa' ? obj.nutrition_info.persian :
-                        language === 'es' ? obj.nutrition_info.spanish : null);
+            const langCode = language;
+            // Map legacy verbal keys if necessary, but prefer strict code match
+            const node = obj.nutrition_info[langCode] ||
+                (langCode === 'en' ? obj.nutrition_info.english :
+                    langCode === 'fa' ? obj.nutrition_info.persian :
+                        langCode === 'es' ? obj.nutrition_info.spanish : null);
 
             if (node) {
                 if (node[key]) return node[key];
-                // Map specific keys if needed (e.g. name -> title is not needed here as JSON usually has 'name')
             }
         }
 
         // 1. Try Target Language via recipe_translations
         if (obj.recipe_translations && Array.isArray(obj.recipe_translations)) {
-            const translation = obj.recipe_translations.find(tr => tr.language === language);
+            const translation = obj.recipe_translations.find(tr => tr.language_code === language);
             if (translation) {
                 if (key === 'name' && translation.title) return translation.title;
                 if (translation[key]) return translation[key];
             }
         }
 
-        // 2. Legacy Specific Match (e.g. name_en for language='en')
-        if (language === 'en' && obj[`${key}_en`]) {
-            return obj[`${key}_en`];
+        // 2. Legacy Specific Match (e.g. name_fr for language='fr') - Generic Fallback
+        if (obj[`${key}_${language}`]) {
+            return obj[`${key}_${language}`];
         }
 
-        // 3. Global Fallback: If target language (e.g. Spanish) is missing, show English instead of Farsi
-        if (language !== 'fa') {
+        // 3. Global Fallback to English
+        if (language !== 'en') {
             // Try English Translation Row
             if (obj.recipe_translations && Array.isArray(obj.recipe_translations)) {
-                const enTrans = obj.recipe_translations.find(tr => tr.language === 'en');
+                const enTrans = obj.recipe_translations.find(tr => tr.language_code === 'en');
                 if (enTrans) {
                     if (key === 'name' && enTrans.title) return enTrans.title;
                     if (enTrans[key]) return enTrans[key];
@@ -69,7 +85,7 @@ export function LanguageProvider({ children }) {
             if (obj[`${key}_en`]) return obj[`${key}_en`];
         }
 
-        // 4. Final Fallback (Original Source/Farsi)
+        // 4. Final Fallback (Original Source/Default)
         return obj[key];
     };
 

@@ -13,7 +13,12 @@ const CookingMode = ({ recipe, onClose }) => {
 
     // Parse instructions
     const rawInstructions = t(recipe, 'instructions') || [];
-    const steps = Array.isArray(rawInstructions) ? rawInstructions : [];
+    const steps = (Array.isArray(rawInstructions) ? rawInstructions : []).map(step => {
+        if (typeof step === 'object' && step !== null) {
+            return step.text || '';
+        }
+        return String(step);
+    });
 
     const handleNext = useCallback(() => {
         if (currentStep < steps.length - 1) {

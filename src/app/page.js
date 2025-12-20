@@ -5,21 +5,16 @@ import Hero from '@/components/Hero';
 
 import Stories from '@/components/Stories';
 
+import { fetchRecipes } from '@/app/actions';
+
 // ISR: Force Dynamic for Debugging (0)
 export const revalidate = 0;
 
 export default async function Home() {
-  // Fetch initial data (Page 1)
-  const { data: recipes, error } = await supabase
-    .from('recipes')
-    .select('*, recipe_translations(*)')
-    .not('image', 'is', null) // Ensure images exist for stories
-    .order('created_at', { ascending: false })
-    .limit(24);
+  // Fetch initial data (Page 1) using the shared logic
+  const recipes = await fetchRecipes(1, 24);
 
-  if (error) {
-    console.error("Supabase Fetch Error:", error);
-  }
+  const error = null; // fetchRecipes handles internal errors errors returns []
 
   return (
     <main className="min-h-screen bg-background pb-20">

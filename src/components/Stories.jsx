@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -8,14 +7,82 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChefHat } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import { getUiLabel } from '@/utils/dictionaries';
+import { useNutrition } from '@/hooks/useNutrition';
+
+// Sub-component for individual story content to handle hooks
+function StoryContent({ story }) {
+    const { language, t } = useLanguage();
+    const { nutritionData } = useNutrition(story);
+
+    // AI/Chef Zaffaron Data Extraction
+    // FIX: Use current language, fallback to EN if specific translation missing
+    const translation = story.recipe_translations?.find(tr => tr.language_code === language)
+        || story.recipe_translations?.find(tr => tr.language_code === 'en');
+
+    const metadata = translation?.qa_metadata;
+    const isChefPick = (metadata?.internal_score?.marketing_joy_score || 0) > 85;
+
+    // Prefer AI Title/Desc -> Nutrition -> Default
+    const displayName = translation?.title || nutritionData?.name || t(story, 'name');
+    const displayDescription = metadata?.marketing_description || nutritionData?.description || t(story, 'description') || story.intro;
+
+    return (
+        <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col gap-4 text-white" dir={language === 'fa' ? 'rtl' : 'ltr'}>
+            <div>
+                {isChefPick && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="flex items-center gap-2 text-amber-300 text-sm font-bold uppercase tracking-wider mb-2 bg-black/40 backdrop-blur-md w-fit px-3 py-1 rounded-full border border-amber-500/30"
+                    >
+                        <ChefHat size={16} className="text-amber-400 drop-shadow-lg" />
+                        <span>{getUiLabel('chef_pick_label', language)}</span>
+                    </motion.div>
+                )}
+
+                {!isChefPick && (
+                    <div className="flex items-center gap-2 text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">
+                        <span>{getUiLabel('todays_pick', language)}</span>
+                    </div>
+                )}
+
+                <h2 className="text-2xl font-black leading-tight mb-2 drop-shadow-md">
+                    {displayName}
+                </h2>
+                <p className="text-sm opacity-90 line-clamp-3 leading-relaxed font-medium drop-shadow-sm text-zinc-100">
+                    {displayDescription}
+                </p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+                <Link
+                    href={`/recipe/${story.id}`}
+                    className="w-full py-3 bg-white text-black font-bold rounded-xl active:scale-95 transition-transform flex items-center justify-center gap-2 z-50 relative shadow-xl hover:bg-amber-50"
+                >
+                    {getUiLabel('view_recipe', language)}
+                </Link>
+            </div>
+        </div>
+    );
+}
 
 export default function Stories({ recipes = [] }) {
     const { language, t } = useLanguage();
     const [viewingIndex, setViewingIndex] = useState(null);
     const [progress, setProgress] = useState(0);
 
-    // Filter valid recipes with images
-    const validStories = recipes.filter(r => r.image && r.image.length > 5).slice(0, 10);
+    // Filter valid recipes with images & Prioritize Chef Picks
+    const validStories = recipes
+        .filter(r => r.image && r.image.length > 5)
+        .sort((a, b) => {
+            // Sort by Marketing Score if available
+            const scoreA = a.recipe_translations?.[0]?.qa_metadata?.internal_score?.marketing_joy_score || 0;
+            const scoreB = b.recipe_translations?.[0]?.qa_metadata?.internal_score?.marketing_joy_score || 0;
+            return scoreB - scoreA; // Descending
+        })
+        .slice(0, 10);
+    const displayStories = validStories;
 
     // Auto-Advance Logic
     useEffect(() => {
@@ -52,12 +119,7 @@ export default function Stories({ recipes = [] }) {
         }
     };
 
-    // Combine real + debug (if needed, but keeping clean for prod)
-    // const debugStory = { ... };
-    const displayStories = validStories;
-
     if (validStories.length === 0) {
-        // Return null or debug box if strictly debugging
         return null;
     }
 
@@ -152,30 +214,8 @@ export default function Stories({ recipes = [] }) {
                                     <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/50 to-transparent" />
                                 </div>
 
-                                {/* Content Overlay */}
-                                <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col gap-4 text-white" dir={language === 'fa' ? 'rtl' : 'ltr'}>
-                                    <div>
-                                        <div className="flex items-center gap-2 text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">
-                                            <ChefHat size={16} />
-                                            <span>{language === 'fa' ? 'پیشنهاد امروز' : 'Today\'s Pick'}</span>
-                                        </div>
-                                        <h2 className="text-2xl font-black leading-tight mb-2">
-                                            {t(displayStories[viewingIndex], 'name')}
-                                        </h2>
-                                        <p className="text-sm opacity-80 line-clamp-2 leading-relaxed">
-                                            {displayStories[viewingIndex].nutrition_info?.[language]?.description?.split('**')[0] || ""}
-                                        </p>
-                                    </div>
-
-                                    <div className="grid grid-cols-2 gap-3">
-                                        <Link
-                                            href={`/recipe/${displayStories[viewingIndex].id}`}
-                                            className="w-full py-3 bg-white text-black font-bold rounded-xl active:scale-95 transition-transform flex items-center justify-center gap-2 z-50 relative"
-                                        >
-                                            {language === 'fa' ? 'مشاهده دستور' : 'View Recipe'}
-                                        </Link>
-                                    </div>
-                                </div>
+                                {/* Content Overlay - Refactored to Sub-Component */}
+                                <StoryContent story={displayStories[viewingIndex]} />
 
                                 {/* Tap Areas */}
                                 <div className="absolute inset-0 flex z-0">
@@ -184,10 +224,10 @@ export default function Stories({ recipes = [] }) {
                                 </div>
                             </div>
 
-                        </motion.div>
-                    </StoryViewerPortal>
+                        </motion.div >
+                    </StoryViewerPortal >
                 )}
-            </AnimatePresence>
+            </AnimatePresence >
         </>
     );
 }

@@ -10,9 +10,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const LANGUAGES = [
-    { code: 'fa', label: 'فارسی (Farsi)' },
     { code: 'en', label: 'English' },
+    { code: 'fa', label: 'فارسی (Farsi)' },
     { code: 'es', label: 'Español (Spanish)' },
+    { code: 'fr', label: 'Français (French)' },
+    { code: 'de', label: 'Deutsch (German)' },
+    { code: 'ar', label: 'العربية (Arabic)' },
+    { code: 'zh', label: '中文 (Chinese)' },
+    { code: 'ja', label: '日本語 (Japanese)' },
 ];
 
 export default function LanguageSwitcher() {

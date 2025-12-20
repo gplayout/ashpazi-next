@@ -3,24 +3,28 @@
 // Imports
 import { getUiLabel } from '@/utils/dictionaries';
 import { useLanguage } from '@/context/LanguageContext';
-import { ChefHat, Star, Refrigerator } from 'lucide-react';
+import { ChefHat, Star, Refrigerator, Globe } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Hero() {
-    const { language } = useLanguage();
+    const { language, setLanguage } = useLanguage();
 
-    const title = getUiLabel('hero_title', language);
+    const titleStart = getUiLabel('hero_title_start', language);
+    const titleHighlight = getUiLabel('hero_title_highlight', language);
     const subtitle = getUiLabel('hero_subtitle', language);
 
     return (
         <section className="relative w-full py-12 md:py-20 px-4 md:px-6 bg-gradient-to-b from-primary/10 to-background flex flex-col items-center text-center space-y-6">
+
+
+
             <div className="p-3 bg-primary/20 rounded-full mb-2">
                 <ChefHat size={32} className="text-primary md:w-10 md:h-10" />
             </div>
             <h1 className="text-3xl md:text-5xl font-black text-foreground tracking-tight">
-                {title}
+                {titleStart} <span className="text-primary">{titleHighlight}</span>
             </h1>
-            <p className="text-base md:text-lg text-muted-foreground max-w-xl">
+            <p className="text-base md:text-lg text-muted-foreground max-w-xl whitespace-pre-line">
                 {subtitle}
             </p>
 
@@ -36,6 +40,13 @@ export default function Hero() {
                     <div className="flex items-center gap-2 md:gap-3 px-4 py-2 md:px-6 md:py-3 bg-cyan-500/10 border border-cyan-500/30 rounded-full hover:bg-cyan-500/20 transition-all duration-300 hover:scale-105">
                         <Refrigerator size={18} className="text-cyan-600 md:w-5 md:h-5" />
                         <span className="font-medium text-sm md:text-base text-cyan-700 dark:text-cyan-400">{getUiLabel('fridge_vision', language)}</span>
+                    </div>
+                </Link>
+                {/* NEW: Monetization VIP Button */}
+                <Link href="https://example.com/test-payment" target="_blank" className="group">
+                    <div className="flex items-center gap-2 md:gap-3 px-4 py-2 md:px-6 md:py-3 bg-gradient-to-r from-yellow-400/20 to-amber-500/20 border border-amber-500/50 rounded-full hover:from-yellow-400/30 hover:to-amber-500/30 transition-all duration-300 hover:scale-110 shadow-lg shadow-amber-500/10">
+                        <ChefHat size={18} className="text-amber-600 md:w-5 md:h-5 drop-shadow-sm" />
+                        <span className="font-bold text-sm md:text-base text-amber-800 dark:text-amber-300 tracking-wide uppercase">{getUiLabel('hire_chef', language)}</span>
                     </div>
                 </Link>
             </div>

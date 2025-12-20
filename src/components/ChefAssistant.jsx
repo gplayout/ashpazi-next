@@ -50,7 +50,8 @@ export default function ChefAssistant({ recipeContext }) {
                 body: JSON.stringify({
                     message: userMsg.content,
                     messages: messages, // Send history
-                    recipeContext: recipeContext // Context awareness
+                    recipeContext: recipeContext, // Context awareness
+                    language: language // Pass User's current language (from Geo-IP or selection)
                 }),
             });
 

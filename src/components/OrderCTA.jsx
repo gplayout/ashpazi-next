@@ -27,8 +27,10 @@ export default function OrderCTA({ offer, slug }) {
     const handleOrderClick = (e) => {
         // Do NOT prevent default. Let the link navigation happen.
         // Fire & Forget the metric
+        // Use keepalive to ensure request survives page navigation (Critical for outbound links)
         fetch('/api/metrics/order-click', {
             method: 'POST',
+            keepalive: true, // <--- The Fix
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 slug: slug || offer.key,

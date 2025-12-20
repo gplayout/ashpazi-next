@@ -70,7 +70,7 @@ export default function RootLayout({ children }) {
                   Service is a Pilot Program.
                 </p>
                 <p className="opacity-40">
-                  v2.5.3 (MVP) - {new Date().toLocaleDateString('fa-IR')}
+                  v2.5.4 (MVP)
                 </p>
               </div>
             </footer>
