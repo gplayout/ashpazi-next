@@ -63,7 +63,7 @@ export default function FridgePage() {
     return (
         <main className="min-h-screen bg-slate-950 text-white pb-20 overflow-x-hidden relative">
             {/* Background Effects */}
-            <div className="fixed inset-0 z-0">
+            <div className="fixed inset-0 z-[-1]">
                 <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-cyan-500/20 rounded-full blur-[100px] animate-pulse" />
                 <div className="absolute bottom-[-10%] right-[-10%] w-[400px] h-[400px] bg-blue-600/20 rounded-full blur-[100px] animate-pulse delay-1000" />
             </div>

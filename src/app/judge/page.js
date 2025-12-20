@@ -57,7 +57,7 @@ export default function JudgePage() {
     return (
         <main className="min-h-screen bg-slate-950 text-white pb-20 overflow-x-hidden relative">
             {/* Background Effects */}
-            <div className="fixed inset-0 z-0">
+            <div className="fixed inset-0 z-[-1]">
                 <div className="absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-amber-600/20 rounded-full blur-[100px] animate-pulse" />
                 <div className="absolute bottom-[10%] left-[-10%] w-[300px] h-[300px] bg-yellow-600/10 rounded-full blur-[80px]" />
             </div>

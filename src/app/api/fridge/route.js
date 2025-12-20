@@ -62,8 +62,10 @@ export async function POST(request) {
         const { image, language = 'en' } = await request.json();
 
         // Language Setup
-        const langMap = { fa: 'fa', es: 'es', en: 'en' }; // Simplify to code
-        const langCode = langMap[language] || 'en';
+        const langMap = { fa: 'fa', es: 'es', en: 'en' };
+        // Normalize: 'fa-IR' -> 'fa', default to 'en'
+        const normalizedLang = (language || 'en').substring(0, 2).toLowerCase();
+        const langCode = langMap[normalizedLang] || 'en';
         const p = PROMPTS[langCode];
 
         if (!image) return NextResponse.json({ error: 'No image' }, { status: 400 });
