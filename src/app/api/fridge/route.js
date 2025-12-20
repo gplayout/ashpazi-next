@@ -103,6 +103,30 @@ const PROMPTS = {
             "4. 'notes': 日本語で書いてください。",
             "5. JSONのみ。"
         ]
+    },
+    hi: {
+        role: "आप Zaffaron के लिए एक विशेषज्ञ रसोइया और सामग्री डिटेक्टर हैं।",
+        task: "छवि का विश्लेषण करें।",
+        output: "आउटपुट JSON स्कीमा:",
+        rules: [
+            "1. 'detected_dish': यदि अंग्रेजी नाम पता है तो लिखें (या null)।",
+            "2. 'ingredients': सामग्री की सूची हिंदी में।",
+            "3. 'search_terms': खोज के लिए अंग्रेजी शब्द।",
+            "4. 'notes': हिंदी में लिखें।",
+            "5. केवल JSON।"
+        ]
+    },
+    ko: {
+        role: "당신은 Zaffaron의 전문 셰프이자 재료 탐지기입니다.",
+        task: "이미지를 분석하세요.",
+        output: "출력 JSON 스키마:",
+        rules: [
+            "1. 'detected_dish': 요리 이름은 영어로 (또는 null).",
+            "2. 'ingredients': 재료 목록은 한국어로.",
+            "3. 'search_terms': 검색어는 영어로.",
+            "4. 'notes': 한국어로 작성하세요.",
+            "5. JSON만 출력."
+        ]
     }
 };
 
@@ -122,7 +146,7 @@ export async function POST(request) {
         const { image, language = 'en' } = await request.json();
 
         // Language Setup
-        const langMap = { fa: 'fa', es: 'es', en: 'en', de: 'de', fr: 'fr', ar: 'ar', zh: 'zh', ja: 'ja' };
+        const langMap = { fa: 'fa', es: 'es', en: 'en', de: 'de', fr: 'fr', ar: 'ar', zh: 'zh', ja: 'ja', hi: 'hi', ko: 'ko' };
         // Normalize: 'fa-IR' -> 'fa', default to 'en'
         const normalizedLang = (language || 'en').substring(0, 2).toLowerCase();
         const langCode = langMap[normalizedLang] || 'en';
@@ -201,6 +225,8 @@ ${p.rules.join('\n')}
         // C: FALLBACK - Native Ingredient Search (Low Precision but High Recall for Localized Inputs)
         // If English search failed OR yielded few results, search the LOCALIZED terms in the TARGET language table.
         // e.g. Search "Makkaroni" in "de" translations.
+        // NOTE: We only do this if we have a target language where native search makes sense.
+        // For Hindi/Korean, if we don't have translated recipes yet, this might return 0 results, which is fine.
         if (candidateIds.size < 2 && ingredients.length > 0) {
             // Take top 3 detection ingredients
             for (const term of ingredients.slice(0, 3)) {

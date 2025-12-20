@@ -18,6 +18,8 @@ const LANGUAGES = [
     { code: 'ar', label: 'العربية (Arabic)' },
     { code: 'zh', label: '中文 (Chinese)' },
     { code: 'ja', label: '日本語 (Japanese)' },
+    { code: 'hi', label: 'हिन्दी (Hindi)' },
+    { code: 'ko', label: '한국어 (Korean)' },
 ];
 
 export default function LanguageSwitcher() {

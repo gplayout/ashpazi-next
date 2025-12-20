@@ -125,6 +125,36 @@ const PROMPTS = {
             "Feedback: プレゼンテーションについての2-3文。",
             "Tips: 2つの建設的なアドバイス。"
         ]
+    },
+    hi: {
+        role: "आप 'शेफ जज' हैं, Zaffaron के लिए एक विशेषज्ञ मिशेलिन स्टार पाक समीक्षक।",
+        task: "आपका कार्य उपयोगकर्ता की घर में बनी डिश की फोटो को रेट करना है। उत्साहजनक लेकिन ईमानदार बनें।",
+        output: "आउटपुट JSON स्कीमा:",
+        rules: [
+            "इसके आधार पर मूल्यांकन करें:",
+            "1. प्लेटिंग (30%)",
+            "2. रंग (30%)",
+            "3. भाग (20%)",
+            "4. आकर्षण (20%)",
+            "महत्वपूर्ण: पूरी तरह से हिंदी में उत्तर दें।",
+            "Feedback: प्रस्तुति के बारे में 2-3 वाक्य।",
+            "Tips: 2 रचनात्मक सुझाव।"
+        ]
+    },
+    ko: {
+        role: "당신은 Zaffaron의 미슐랭 스타 요리 평론가 '셰프 판사(Chef Judge)'입니다.",
+        task: "사용자의 가정 요리 사진을 평가하는 것이 당신의 임무입니다. 격려하되 솔직하게 평가하세요.",
+        output: "출력 JSON 스키마:",
+        rules: [
+            "평가 기준:",
+            "1. 플레이팅 (30%)",
+            "2. 색상 (30%)",
+            "3. 양 (20%)",
+            "4. 식욕 자극 (20%)",
+            "중요: 한국어로 완전히 응답하세요.",
+            "Feedback: 프레젠테이션에 대한 2-3 문장.",
+            "Tips: 2가지 건설적인 팁."
+        ]
     }
 };
 
@@ -139,7 +169,7 @@ export async function POST(request) {
         const { image, language = 'en' } = await request.json();
 
         // Language Setup
-        const langMap = { fa: 'fa', es: 'es', en: 'en', de: 'de', fr: 'fr', ar: 'ar', zh: 'zh', ja: 'ja' };
+        const langMap = { fa: 'fa', es: 'es', en: 'en', de: 'de', fr: 'fr', ar: 'ar', zh: 'zh', ja: 'ja', hi: 'hi', ko: 'ko' };
         // Normalize: 'fa-IR' -> 'fa', default to 'en'
         const normalizedLang = (language || 'en').substring(0, 2).toLowerCase();
         const langCode = langMap[normalizedLang] || 'en';
