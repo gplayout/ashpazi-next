@@ -273,6 +273,11 @@ function mergeTranslation(legacy, trans, overwriteTopLevel = true) {
             name_en: trans.title,
             instructions: trans.instructions,
             ingredients: trans.ingredients,
+            // FIX: Hydrate top-level integers from Metadata if available
+            prep_time_minutes: enrichedData.times?.prep || base.prep_time_minutes,
+            cook_time_minutes: enrichedData.times?.cook || base.cook_time_minutes,
+            difficulty: enrichedData.difficulty_level || base.difficulty,
+
             output_language: langCode, // Track which lang owns the top level
             // Pass rich content at top level too for easier access if needed
             origin_history: trans.qa_metadata?.origin_history,
