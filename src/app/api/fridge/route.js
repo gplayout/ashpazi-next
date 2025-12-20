@@ -157,9 +157,6 @@ ${p.rules.join('\n')}
         const detected = JSON.parse(jsonStr);
 
         const ingredients = detected.ingredients || [];
-
-        // Search Logic (Always searches in English/Translations)
-        // 1. Process Terms
         const rawTerms = detected.search_terms || [];
         const processedTerms = new Set();
         rawTerms.forEach(t => {
@@ -177,18 +174,18 @@ ${p.rules.join('\n')}
         // 2. FIND RELEVANT RECIPE IDs (Using Search Terms)
         let candidateIds = new Set();
 
-        // A: Dish Name Search
+        // A: Dish Name Search (English - High Precision)
         if (detected.detected_dish) {
             const { data } = await supabase
-                .from('recipe_translations') // Search directly in translations table for speed
+                .from('recipe_translations')
                 .select('recipe_id')
-                .eq('language', 'en') // Search English titles
+                .eq('language', 'en')
                 .ilike('title', `%${detected.detected_dish}%`)
                 .limit(4);
             if (data) data.forEach(r => candidateIds.add(r.recipe_id));
         }
 
-        // B: Ingredient Search
+        // B: English Search Terms (Medium Precision)
         if (candidateIds.size < 4) {
             for (const term of searchTerms.slice(0, 4)) {
                 const { data } = await supabase
@@ -201,11 +198,26 @@ ${p.rules.join('\n')}
             }
         }
 
+        // C: FALLBACK - Native Ingredient Search (Low Precision but High Recall for Localized Inputs)
+        // If English search failed OR yielded few results, search the LOCALIZED terms in the TARGET language table.
+        // e.g. Search "Makkaroni" in "de" translations.
+        if (candidateIds.size < 2 && ingredients.length > 0) {
+            // Take top 3 detection ingredients
+            for (const term of ingredients.slice(0, 3)) {
+                if (term.length < 3) continue;
+                const { data } = await supabase
+                    .from('recipe_translations')
+                    .select('recipe_id')
+                    .eq('language', langCode) // Target Language!
+                    .ilike('ingredients', `%${term}%`) // Search ingredients column
+                    .limit(2);
+                if (data) data.forEach(r => candidateIds.add(r.recipe_id));
+            }
+        }
+
         const uniqueIds = Array.from(candidateIds).slice(0, 6);
 
         // 3. FETCH FULL RECIPE DATA (With ALL Translations)
-        // This solves the 'Link is English' bug. We fetch *all* translations so the frontend 
-        // can find the one matching the user's language.
         let finalRecipes = [];
         if (uniqueIds.length > 0) {
             const { data } = await supabase
