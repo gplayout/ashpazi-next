@@ -154,3 +154,21 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Custom Animation for Fridge Scan */
+@keyframes scan {
+  0% {
+      top: -100%;
+      opacity: 0;
+  }
+  20% {
+      opacity: 1;
+  }
+  80% {
+      opacity: 1;
+  }
+  100% {
+      top: 200%;
+      opacity: 0;
+  }
+}
