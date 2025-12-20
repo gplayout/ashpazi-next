@@ -69,7 +69,11 @@ OUTPUT JSON Schema:
     "encouragement": "A motivating closing statement in ${targetLang}"
 }
 
-IMPORTANT: valid JSON output only. Do not wrap in markdown code blocks.
+IMPORTANT: 
+- RESPOND ENTIRELY IN ${targetLang}.
+- The "feedback", "tips", and "encouragement" fields MUST be in ${targetLang}.
+- Do NOT output English unless specifically asked.
+- valid JSON output only. Do not wrap in markdown code blocks.
 `;
 
         const result = await model.generateContent([

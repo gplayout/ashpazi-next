@@ -53,7 +53,9 @@ Rules:
    - IF ingredients only: List GENERIC, SINGLE English words (e.g. "tomato", "macaroni").
    - MAX 5 terms.
 4. "notes": Write in ${targetLang}.
-5. JSON ONLY.
+5. "ingredients": MUST be in ${targetLang}.
+6. JSON ONLY. Do not wrap in markdown code blocks.
+7. CRITICAL: Do NOT use English for value fields (except "search_terms" which MUST be English).
 `;
 
         const result = await model.generateContent([systemPrompt, imagePart]);
