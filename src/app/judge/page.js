@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { Camera, Upload, Star, Loader2, ChefHat, ArrowLeft } from 'lucide-react';
+import { Camera, Upload, Star, Loader2, ChefHat, ArrowLeft, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import Link from 'next/link';
