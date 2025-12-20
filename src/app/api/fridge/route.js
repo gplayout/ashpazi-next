@@ -41,27 +41,28 @@ export async function POST(request) {
         };
 
         // Step 1: Detect ingredients using Vision API
-        const systemPrompt = `You are an ingredient detection AI for Zaffaron cooking app.
-Analyze the fridge/ingredients image.
+        const systemPrompt = `You are an expert Chef and Ingredient Detector for Zaffaron.
+Analyze the image.
 
 Target Language: ${targetLang}
 
 OUTPUT JSON Schema:
 {
+    "detected_dish": "Name of the dish if it's a cooked meal (e.g. 'Macaroni Salad', 'Pizza') or null if raw ingredients",
     "ingredients": ["localized_name1", "localized_name2"],
-    "search_terms": ["english_name1", "english_name2"],
-    "notes": "Optional observation in ${targetLang}"
+    "search_terms": ["english_term1", "english_term2"],
+    "notes": "Brief, polite observation in ${targetLang}"
 }
 
 Rules:
-1. "ingredients": List items in ${targetLang}.
-2. "search_terms": List corresponding items in ENGLISH.
-   - IMPORTANT: Use GENERIC, SINGLE WORDS only.
-   - Bad: "fresh organic tomato", "chicken breast"
-   - Good: "tomato", "chicken", "egg", "onion"
-   - This is for a database search, so be broad.
-3. "notes": Write in ${targetLang}. Use a polite tone.
-4. JSON ONLY. Do not wrap in markdown code blocks.
+1. "detected_dish": If you see a finished meal, name it (English). If it's just a pile of ingredients/fridge, null.
+2. "ingredients": List visible items in ${targetLang}.
+3. "search_terms": 
+   - IF "detected_dish" is found: Put the Dish Name as term #1. Then key ingredients.
+   - IF ingredients only: List GENERIC, SINGLE English words (e.g. "tomato", "chicken").
+   - MAX 5 terms.
+4. "notes": Write in ${targetLang}.
+5. JSON ONLY.
 `;
 
         const result = await model.generateContent([
@@ -88,26 +89,43 @@ Rules:
             });
         }
 
-        // Step 2: Search for matching recipes
+        // Step 2: Search Logic (Smart Query)
         let recipes = [];
 
-        // Build a search query
-        for (const term of searchTerms.slice(0, 5)) {
-            const { data, error } = await supabase
+        // STRATEGY A: If Dish Name detected, search for it specifically first
+        if (detected.detected_dish) {
+            const { data: dishData } = await supabase
                 .from('recipes')
                 .select('*, recipe_translations(*)')
-                .or(`ingredients.cs.{${term}},name.ilike.%${term}%`)
-                .limit(2);
+                .ilike('name', `%${detected.detected_dish}%`)
+                .limit(4);
 
-            if (data && data.length > 0) {
-                recipes.push(...data);
+            if (dishData && dishData.length > 0) {
+                recipes.push(...dishData);
+            }
+        }
+
+        // STRATEGY B: Ingredient Match (Fallback or Supplementary)
+        // Only run if we need more recipes (less than 4 found)
+        if (recipes.length < 4) {
+            for (const term of searchTerms.slice(0, 3)) { // Limit to top 3 terms
+                // Logic: Match if ingredient list contains term OR name contains term
+                const { data, error } = await supabase
+                    .from('recipes')
+                    .select('*, recipe_translations(*)')
+                    .or(`ingredients.cs.{${term}},name.ilike.%${term}%`)
+                    .limit(2);  // Fetch 2 per term
+
+                if (data && data.length > 0) {
+                    recipes.push(...data);
+                }
             }
         }
 
         // Deduplicate by ID
         const uniqueRecipes = Array.from(
             new Map(recipes.map(r => [r.id, r])).values()
-        ).slice(0, 6); // Max 6 recipes
+        ).slice(0, 6); // Max 6 recipes (Strict cap)
 
         return NextResponse.json({
             ingredients,
