@@ -1,0 +1,8 @@
+LOCKED_DATE=2025-12-20
+RECIPE_COUNT=1542
+STATUS=VERIFIED_PERFECT
+HASH=ZAFFARON_GERMAN_v1
+
+DO NOT MODIFY GERMAN CONTENT.
+This file serves as a lock signal for AI agents.
+Any script attempting to batch-update German translations MUST check for this file and ABORT if present.
