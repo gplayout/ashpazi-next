@@ -57,6 +57,27 @@ export function useNutrition(recipe, overrideLang) {
             }
         }
 
+        // FAILSAFE FALLBACK: If language-specific data is missing, try English
+        // This ensures the Bento Box / Layout structure still renders even if translation is partial.
+        if (recipe.nutrition_info?.en && language !== 'en') {
+            console.log("Creating fallback nutrition data from EN source...");
+            const fallbackData = recipe.nutrition_info.en;
+
+            // Normalize again for fallback
+            if (fallbackData.nutrition) {
+                fallbackData.calories = fallbackData.nutrition.calories;
+                fallbackData.category = fallbackData.category;
+                fallbackData.macros = {
+                    protein: fallbackData.nutrition.protein,
+                    carbs: fallbackData.nutrition.carbs,
+                    fat: fallbackData.nutrition.fat
+                };
+            }
+            setNutritionData(fallbackData);
+            setLoading(false);
+            return;
+        }
+
         // If no local data, we just stop loading. 
         // We do NOT fall back to API anymore (Logic Removed per User Request).
         console.log("No rich content found in DB for lang:", language);
