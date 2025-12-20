@@ -180,7 +180,7 @@ export default function JudgePage() {
                                 <div className="h-px w-32 bg-gradient-to-r from-transparent via-white/30 to-transparent mx-auto my-6" />
 
                                 {/* Tips */}
-                                {result.tips && result.tips.length > 0 && (
+                                {result.tips && Array.isArray(result.tips) && result.tips.length > 0 && (
                                     <div className="text-left bg-black/20 p-6 rounded-2xl border border-white/5">
                                         <h4 className="font-bold text-amber-400 mb-3 flex items-center gap-2">
                                             <Sparkles size={16} />
