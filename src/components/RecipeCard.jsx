@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Clock, ChefHat, Flame } from 'lucide-react';
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import RecipeHeart from './RecipeHeart';
 import RecipeShoppingBtn from './RecipeShoppingBtn';
@@ -25,8 +25,85 @@ const RecipeCard = ({ recipe }) => {
 
     // Localized fields
     const displayName = t(recipe, 'name');
-    const instructions = t(recipe, 'instructions') || [];
-    const displayInstructions = instructions[0] || '';
+    // --- Description Resolution Logic (Safe & Smart) ---
+    const translations = recipe.recipe_translations || [];
+
+    // Helper: Detect Farsi
+    const isMostlyFarsi = (text) => {
+        if (!text) return false;
+        const farsiMatches = text.match(/[\u0600-\u06FF]/g);
+        const count = farsiMatches ? farsiMatches.length : 0;
+        return count > (text.length * 0.4);
+    };
+
+    // Helper: Extract Text
+    const extractText = (field) => {
+        if (!field) return [];
+        let raw = field;
+        if (typeof raw === 'string') {
+            try { raw = JSON.parse(raw); } catch { raw = [raw]; }
+        }
+        if (!Array.isArray(raw) && typeof raw === 'object') raw = [raw];
+        if (!Array.isArray(raw)) return [];
+        return raw.map(step => (typeof step === 'object' && step?.text) ? step.text : step)
+            .filter(s => typeof s === 'string' && s.trim().length > 5);
+    };
+
+    // 1. Target Language Content
+    const targetTr = translations.find(t => t.language_code === language);
+    let finalDescription = targetTr?.qa_metadata?.marketing_description ||
+        targetTr?.qa_metadata?.seo_meta_description ||
+        targetTr?.seo_meta_description ||
+        targetTr?.description;
+
+    if (!finalDescription && targetTr) {
+        finalDescription = extractText(targetTr.instructions)[0];
+    }
+
+    // 2. English Fallback (Only if we are NOT in Farsi mode)
+    // We assume explicit English translations are safe.
+    if (!finalDescription && language !== 'fa') {
+        const enTr = translations.find(t => t.language_code === 'en');
+        if (enTr) {
+            finalDescription = enTr.qa_metadata?.marketing_description ||
+                enTr.qa_metadata?.seo_meta_description ||
+                enTr.description ||
+                extractText(enTr.instructions)[0];
+        }
+    }
+
+    // 3. Legacy Fallback (The DANGEROUS ONE)
+    // We only use Legacy if:
+    // a) We are in Farsi mode (Legacy is assumed Farsi)
+    // OR
+    // b) The Legacy text is DETECTED as English (Not Farsi)
+    if (!finalDescription) {
+        const legacyText = extractText(recipe.instructions)[0];
+
+        if (legacyText) {
+            if (language === 'fa') {
+                finalDescription = legacyText;
+            } else {
+                // English Mode: Check if legacy is Farsi
+                if (!isMostlyFarsi(legacyText)) {
+                    finalDescription = legacyText;
+                }
+                // If it IS Farsi, we silently skip it and fall to Default
+            }
+        }
+    }
+
+    // 4. Default
+    if (!finalDescription || finalDescription.startsWith('TEST_')) {
+        finalDescription = getUiLabel('default_description', language);
+    }
+
+    // Cleanup
+    if (finalDescription && finalDescription.startsWith('Step 1:')) {
+        finalDescription = finalDescription.replace('Step 1:', '').trim();
+    }
+
+
 
     const prepTime = recipe.prep_time_minutes || 30;
     const displayTime = language === 'fa' ? toPersianDigits(prepTime) : prepTime;
@@ -71,14 +148,14 @@ const RecipeCard = ({ recipe }) => {
 
                     {/* Content */}
                     <CardHeader className="p-4 pb-2">
-                        <h3 className={`font-bold text-lg leading-tight line-clamp-2 group-hover:text-amber-600 transition-colors ${language === 'fa' ? 'text-right' : 'text-left'}`}>
+                        <CardTitle className={`text-lg font-bold leading-tight line-clamp-2group-hover:text-primary transition-colors ${language === 'fa' ? 'font-vazirmatn text-right' : 'font-outfit text-left'}`}>
                             {displayName}
-                        </h3>
+                        </CardTitle>
                     </CardHeader>
 
                     <CardContent className="p-4 pt-1 flex-grow">
                         <p className={`text-sm text-muted-foreground line-clamp-2 ${language === 'fa' ? 'text-right' : 'text-left'}`}>
-                            {displayInstructions ? displayInstructions.slice(0, 80) + '...' : (language === 'fa' ? 'دستور پخت خوشمزه...' : 'A delicious recipe...')}
+                            {finalDescription}
                         </p>
                     </CardContent>
 
