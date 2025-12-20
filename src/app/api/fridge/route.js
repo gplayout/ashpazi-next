@@ -81,7 +81,7 @@ Rules:
         // Search ingredients (English)
         const searchTerms = detected.search_terms || ingredients;
 
-        if (ingredients.length === 0) {
+        if (ingredients.length === 0 && !detected.detected_dish) {
             return NextResponse.json({
                 ingredients: [],
                 recipes: [],
@@ -96,8 +96,9 @@ Rules:
         if (detected.detected_dish) {
             const { data: dishData } = await supabase
                 .from('recipes')
-                .select('*, recipe_translations(*)')
-                .ilike('name', `%${detected.detected_dish}%`)
+                .select('*, recipe_translations!inner(*)')
+                .eq('recipe_translations.language', 'en')
+                .ilike('recipe_translations.title', `%${detected.detected_dish}%`)
                 .limit(4);
 
             if (dishData && dishData.length > 0) {
@@ -106,14 +107,14 @@ Rules:
         }
 
         // STRATEGY B: Ingredient Match (Fallback or Supplementary)
-        // Only run if we need more recipes (less than 4 found)
         if (recipes.length < 4) {
             for (const term of searchTerms.slice(0, 3)) { // Limit to top 3 terms
-                // Logic: Match if ingredient list contains term OR name contains term
+                // Search English Translation TITLE for the term
                 const { data, error } = await supabase
                     .from('recipes')
-                    .select('*, recipe_translations(*)')
-                    .or(`ingredients.cs.{${term}},name.ilike.%${term}%`)
+                    .select('*, recipe_translations!inner(*)')
+                    .eq('recipe_translations.language', 'en')
+                    .ilike('recipe_translations.title', `%${term}%`)
                     .limit(2);  // Fetch 2 per term
 
                 if (data && data.length > 0) {
