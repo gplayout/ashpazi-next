@@ -22,25 +22,16 @@ export async function POST(request) {
 
         const { image, language = 'en' } = await request.json();
 
+        // 1. Image Conversion
+        if (!image) return NextResponse.json({ error: 'No image' }, { status: 400 });
+        const base64Data = image.split(',')[1];
+        const mimeType = image.split(';')[0].split(':')[1];
+        const imagePart = { inlineData: { data: base64Data, mimeType } };
+
         const langMap = { fa: 'Persian (Farsi)', es: 'Spanish', en: 'English' };
         const targetLang = langMap[language] || 'English';
 
-        if (!image) {
-            return NextResponse.json({ error: 'No image provided' }, { status: 400 });
-        }
-
-        // Convert base64 data URL to Part object for Gemini
-        const base64Data = image.split(',')[1];
-        const mimeType = image.split(';')[0].split(':')[1];
-
-        const imagePart = {
-            inlineData: {
-                data: base64Data,
-                mimeType: mimeType
-            },
-        };
-
-        // Step 1: Detect ingredients using Vision API
+        // 2. Vision API Detection
         const systemPrompt = `You are an expert Chef and Ingredient Detector for Zaffaron.
 Analyze the image.
 
@@ -59,40 +50,41 @@ Rules:
 2. "ingredients": List visible items in ${targetLang}.
 3. "search_terms": 
    - IF "detected_dish" is found: Put the Dish Name as term #1. Then key ingredients.
-   - IF ingredients only: List GENERIC, SINGLE English words (e.g. "tomato", "chicken").
+   - IF ingredients only: List GENERIC, SINGLE English words (e.g. "tomato", "macaroni").
    - MAX 5 terms.
 4. "notes": Write in ${targetLang}.
 5. JSON ONLY.
 `;
 
-        const result = await model.generateContent([
-            systemPrompt,
-            imagePart
-        ]);
-
+        const result = await model.generateContent([systemPrompt, imagePart]);
         const responseText = result.response.text();
-
-        // Clean markdown if present
         const jsonStr = responseText.replace(/```json/g, '').replace(/```/g, '').trim();
         const detected = JSON.parse(jsonStr);
 
-        // Display ingredients (Localized)
         const ingredients = detected.ingredients || [];
-        // Search ingredients (English)
-        const searchTerms = detected.search_terms || ingredients;
+        // Processing Search Terms (Split multi-word ingredients to ensure matches)
+        const rawTerms = detected.search_terms || [];
+        const processedTerms = new Set();
+
+        rawTerms.forEach(term => {
+            processedTerms.add(term.toLowerCase());
+            // Split "elbow macaroni" -> add "macaroni"
+            const words = term.split(' ');
+            if (words.length > 1) {
+                words.forEach(w => {
+                    if (w.length > 3) processedTerms.add(w.toLowerCase()); // Skip "red", "of" etc.
+                });
+            }
+        });
+        const searchTerms = Array.from(processedTerms);
 
         if (ingredients.length === 0 && !detected.detected_dish) {
-            return NextResponse.json({
-                ingredients: [],
-                recipes: [],
-                message: "No ingredients detected"
-            });
+            return NextResponse.json({ ingredients: [], recipes: [], message: "No ingredients detected" });
         }
 
-        // Step 2: Search Logic (Smart Query)
         let recipes = [];
 
-        // STRATEGY A: If Dish Name detected, search for it specifically first
+        // STRATEGY A: Dish Name Search
         if (detected.detected_dish) {
             const { data: dishData } = await supabase
                 .from('recipes')
@@ -101,32 +93,32 @@ Rules:
                 .ilike('recipe_translations.title', `%${detected.detected_dish}%`)
                 .limit(4);
 
-            if (dishData && dishData.length > 0) {
-                recipes.push(...dishData);
-            }
+            if (dishData) recipes.push(...dishData);
         }
 
-        // STRATEGY B: Ingredient Match (Fallback or Supplementary)
+        // STRATEGY B: Ingredient/Title Match (English Translations)
         if (recipes.length < 4) {
-            for (const term of searchTerms.slice(0, 3)) { // Limit to top 3 terms
-                // Search English Translation TITLE for the term
+            for (const term of searchTerms.slice(0, 4)) {
+                // Search Title OR Ingredients column (casting JSON/Array to text for simple matching)
+                // Note: We use .or() with the foreign table filter syntax if possible, 
+                // but supabase-js flat .or() works on the result set if not careful.
+                // Correct deep filtering:
+
                 const { data, error } = await supabase
                     .from('recipes')
                     .select('*, recipe_translations!inner(*)')
                     .eq('recipe_translations.language', 'en')
-                    .ilike('recipe_translations.title', `%${term}%`)
-                    .limit(2);  // Fetch 2 per term
+                    // Search if Title has term OR Ingredients text has term
+                    // Syntax: column.operator.value, column.operator.value
+                    .or(`title.ilike.%${term}%, ingredients.ilike.%${term}%`, { foreignTable: 'recipe_translations' })
+                    .limit(2);
 
-                if (data && data.length > 0) {
-                    recipes.push(...data);
-                }
+                if (data) recipes.push(...data);
             }
         }
 
-        // Deduplicate by ID
-        const uniqueRecipes = Array.from(
-            new Map(recipes.map(r => [r.id, r])).values()
-        ).slice(0, 6); // Max 6 recipes (Strict cap)
+        // Deduplicate
+        const uniqueRecipes = Array.from(new Map(recipes.map(r => [r.id, r])).values()).slice(0, 6);
 
         return NextResponse.json({
             ingredients,
@@ -135,10 +127,7 @@ Rules:
         });
 
     } catch (error) {
-        console.error('Fridge API (Gemini) error:', error);
-        return NextResponse.json(
-            { error: 'Failed to analyze image', details: error.message },
-            { status: 500 }
-        );
+        console.error('Fridge API error:', error);
+        return NextResponse.json({ error: 'Failed' }, { status: 500 });
     }
 }
