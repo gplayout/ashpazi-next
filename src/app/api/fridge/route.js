@@ -1,4 +1,4 @@
-import OpenAI from 'openai';
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
@@ -7,15 +7,18 @@ export const dynamic = 'force-dynamic';
 
 export async function POST(request) {
     try {
-        const apiKey = process.env.OPENAI_API_KEY || process.env.VITE_OPENAI_API_KEY;
+        const apiKey = process.env.GOOGLE_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
         if (!apiKey) {
-            return NextResponse.json({ error: 'OpenAI API key not configured' }, { status: 500 });
+            return NextResponse.json({ error: 'Gemini API key not configured' }, { status: 500 });
         }
 
         const supabase = createClient(
             process.env.NEXT_PUBLIC_SUPABASE_URL,
             process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
         );
+
+        const genAI = new GoogleGenerativeAI(apiKey);
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
         const { image, language = 'en' } = await request.json();
 
@@ -26,11 +29,16 @@ export async function POST(request) {
             return NextResponse.json({ error: 'No image provided' }, { status: 400 });
         }
 
-        // OpenAI: Accepts Data URL directly usually, but let's pass the URL if it's base64 data uri is fine in content
-        // We will pass: { type: "image_url", image_url: { url: image } }
+        // Convert base64 data URL to Part object for Gemini
+        const base64Data = image.split(',')[1];
+        const mimeType = image.split(';')[0].split(':')[1];
 
-        // Init OpenAI
-        const openai = new OpenAI({ apiKey });
+        const imagePart = {
+            inlineData: {
+                data: base64Data,
+                mimeType: mimeType
+            },
+        };
 
         // Step 1: Detect ingredients using Vision API
         const systemPrompt = `You are an ingredient detection AI for Zaffaron cooking app.
@@ -48,31 +56,24 @@ OUTPUT JSON Schema:
 Rules:
 1. "ingredients": List items in ${targetLang}.
 2. "search_terms": List corresponding items in ENGLISH.
-   - IMPOTANT: Use GENERIC, SINGLE WORDS only.
+   - IMPORTANT: Use GENERIC, SINGLE WORDS only.
    - Bad: "fresh organic tomato", "chicken breast"
    - Good: "tomato", "chicken", "egg", "onion"
    - This is for a database search, so be broad.
 3. "notes": Write in ${targetLang}. Use a polite tone.
-4. JSON ONLY.
+4. JSON ONLY. Do not wrap in markdown code blocks.
 `;
 
-        const completion = await openai.chat.completions.create({
-            model: "gpt-4o-mini",
-            messages: [
-                { role: "system", content: systemPrompt },
-                {
-                    role: "user",
-                    content: [
-                        { type: "text", text: "Identify these ingredients:" },
-                        { type: "image_url", image_url: { url: image } }
-                    ]
-                }
-            ],
-            response_format: { type: "json_object" },
-            max_tokens: 300
-        });
+        const result = await model.generateContent([
+            systemPrompt,
+            imagePart
+        ]);
 
-        const detected = JSON.parse(completion.choices[0].message.content);
+        const responseText = result.response.text();
+
+        // Clean markdown if present
+        const jsonStr = responseText.replace(/```json/g, '').replace(/```/g, '').trim();
+        const detected = JSON.parse(jsonStr);
 
         // Display ingredients (Localized)
         const ingredients = detected.ingredients || [];
@@ -115,7 +116,7 @@ Rules:
         });
 
     } catch (error) {
-        console.error('Fridge API error:', error);
+        console.error('Fridge API (Gemini) error:', error);
         return NextResponse.json(
             { error: 'Failed to analyze image', details: error.message },
             { status: 500 }

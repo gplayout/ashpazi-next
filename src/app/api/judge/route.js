@@ -1,4 +1,4 @@
-import OpenAI from 'openai';
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextResponse } from 'next/server';
 
 // Force dynamic rendering
@@ -6,10 +6,13 @@ export const dynamic = 'force-dynamic';
 
 export async function POST(request) {
     try {
-        const apiKey = process.env.OPENAI_API_KEY || process.env.VITE_OPENAI_API_KEY;
+        const apiKey = process.env.GOOGLE_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
         if (!apiKey) {
-            return NextResponse.json({ error: 'OpenAI API key not configured' }, { status: 500 });
+            return NextResponse.json({ error: 'Gemini API key not configured' }, { status: 500 });
         }
+
+        const genAI = new GoogleGenerativeAI(apiKey);
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
         const { image, language = 'en' } = await request.json();
 
@@ -20,8 +23,17 @@ export async function POST(request) {
             return NextResponse.json({ error: 'No image provided' }, { status: 400 });
         }
 
-        // Init OpenAI
-        const openai = new OpenAI({ apiKey });
+        // Convert base64 data URL to Part object for Gemini
+        // Image format: "data:image/jpeg;base64,..."
+        const base64Data = image.split(',')[1];
+        const mimeType = image.split(';')[0].split(':')[1];
+
+        const imagePart = {
+            inlineData: {
+                data: base64Data,
+                mimeType: mimeType
+            },
+        };
 
         let promptPersona = "You are Chef Judge, an expert Michelin Star culinary critic for Zaffaron.";
 
@@ -37,7 +49,7 @@ DIALECT RULE: Speak in "Polite Conversational Persian" (Mohavere Mohtaramane).
             promptPersona += `\nDIALECT RULE: Speak in warm, encouraging Mexican Spanish.\n`;
         }
 
-        const systemPrompt = `
+        const prompt = `
 ${promptPersona}
 
 Your task is to rate a user's home-cooked dish photo. Be encouraging but honest.
@@ -56,29 +68,25 @@ OUTPUT JSON Schema:
     "tips": ["tip1", "tip2"] in ${targetLang} or [],
     "encouragement": "A motivating closing statement in ${targetLang}"
 }
+
+IMPORTANT: valid JSON output only. Do not wrap in markdown code blocks.
 `;
 
-        const completion = await openai.chat.completions.create({
-            model: "gpt-4o-mini",
-            messages: [
-                { role: "system", content: systemPrompt },
-                {
-                    role: "user",
-                    content: [
-                        { type: "text", text: "Judge my dish!" },
-                        { type: "image_url", image_url: { url: image } }
-                    ]
-                }
-            ],
-            response_format: { type: "json_object" },
-            max_tokens: 300
-        });
+        const result = await model.generateContent([
+            prompt,
+            imagePart
+        ]);
 
-        const json = JSON.parse(completion.choices[0].message.content);
+        const responseText = result.response.text();
+
+        // Clean markdown if present
+        const jsonStr = responseText.replace(/```json/g, '').replace(/```/g, '').trim();
+        const json = JSON.parse(jsonStr);
+
         return NextResponse.json(json);
 
     } catch (error) {
-        console.error('Judge API error:', error);
+        console.error('Judge API (Gemini) error:', error);
         return NextResponse.json(
             { error: 'Failed to analyze image', details: error.message },
             { status: 500 }

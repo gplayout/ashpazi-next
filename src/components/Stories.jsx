@@ -133,17 +133,28 @@ export default function Stories({ recipes = [] }) {
                             onClick={() => setViewingIndex(idx)}
                             className="flex flex-col items-center gap-2 group cursor-pointer"
                         >
-                            {/* Ring */}
-                            <div className="p-[3px] rounded-full bg-gradient-to-tr from-yellow-400 via-orange-500 to-red-600 group-hover:scale-105 transition-transform duration-300">
-                                <div className="p-[2px] rounded-full bg-background">
-                                    <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden">
-                                        <Image
-                                            src={recipe.image}
-                                            alt={recipe.name_en}
-                                            fill
-                                            className="object-cover"
-                                        />
+                            {/* Ring with Pulse Animation */}
+                            <div className="relative">
+                                {/* Pulse Effect */}
+                                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-yellow-400 via-orange-500 to-red-600 blur opacity-70 animate-pulse"></div>
+
+                                {/* Main Ring */}
+                                <div className="relative p-[3px] rounded-full bg-gradient-to-tr from-yellow-400 via-orange-500 to-red-600 group-hover:scale-105 transition-transform duration-300">
+                                    <div className="p-[2px] rounded-full bg-background">
+                                        <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden">
+                                            <Image
+                                                src={recipe.image}
+                                                alt={recipe.name_en}
+                                                fill
+                                                className="object-cover"
+                                            />
+                                        </div>
                                     </div>
+                                </div>
+
+                                {/* "New" Badge (Optional - can be logic based) */}
+                                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 bg-red-600 text-white text-[9px] font-bold px-2 py-0.5 rounded-full border-2 border-background shadow-sm">
+                                    NEW
                                 </div>
                             </div>
                             {/* Label */}
