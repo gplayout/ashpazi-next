@@ -7,7 +7,15 @@
     "dev:webpack": "next dev --webpack",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "format": "prettier --write \"src/**/*.{js,jsx,mjs}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,mjs}\"",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,mjs}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
@@ -26,11 +34,14 @@
     "framer-motion": "^12.23.26",
     "html-to-image": "^1.11.13",
     "html2canvas": "^1.4.1",
+    "jpeg-js": "^0.4.4",
     "lucide-react": "^0.556.0",
     "next": "16.0.7",
     "next-pwa": "^5.6.0",
     "node-fetch": "^2.7.0",
     "openai": "^6.10.0",
+    "pg": "^8.17.1",
+    "pngjs": "^7.0.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "tailwind-merge": "^3.4.0"
@@ -39,6 +50,9 @@
     "@tailwindcss/postcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "16.0.7",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.8.1",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.4.0"
   }
