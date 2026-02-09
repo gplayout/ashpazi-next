@@ -7,12 +7,14 @@ import Stories from '@/components/Stories';
 
 import { fetchRecipes } from '@/app/actions';
 
-// ISR: Force Dynamic for Debugging (0)
-export const revalidate = 0;
+// ISR: revalidate every 60 seconds
+export const revalidate = 60;
 
-export default async function Home() {
+export default async function Home({ searchParams }) {
+  const params = await searchParams;
+  const lang = params?.lang || 'en';
   // Fetch initial data (Page 1) using the shared logic
-  const recipes = await fetchRecipes(1, 24);
+  const recipes = await fetchRecipes(1, 24, lang);
 
   const error = null; // fetchRecipes handles internal errors errors returns []
 
