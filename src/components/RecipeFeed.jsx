@@ -42,7 +42,7 @@ export default function RecipeFeed({ initialRecipes }) {
     const loadMore = async () => {
         setLoading(true);
         const nextPage = page + 1;
-        const newRecipes = await fetchRecipes(nextPage, 24);
+        const newRecipes = await fetchRecipes(nextPage, 24, language);
 
         if (newRecipes.length === 0) {
             setHasMore(false);
@@ -69,8 +69,8 @@ export default function RecipeFeed({ initialRecipes }) {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {recipes.map((recipe) => (
-                    <RecipeCard key={recipe.id} recipe={recipe} />
+                {recipes.map((recipe, index) => (
+                    <RecipeCard key={recipe.id} recipe={recipe} priority={index < 6} />
                 ))}
                 {/* Show skeleton cards while loading */}
                 {loading && [...Array(4)].map((_, i) => (

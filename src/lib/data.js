@@ -1,14 +1,13 @@
 import { supabase } from './supabase';
 
-
-
-// Helper to find recipe by slug (Server Side)
-// Helper to find recipe by slug (Server Side)
-export async function getRecipeBySlug(slug) {
+/**
+ * Phase 2.5 Data Fetcher
+ * Strategy: Compiled View -> Hard Spine Fallback
+ */
+export async function getRecipeBySlug(slug, lang = 'en') {
     if (!slug) return null;
 
-    // Use Service Role if available to bypass RLS on registry_recipes
-    // This is safe because this function runs on the server (page.js)
+    // Use Service Role if available (Server-side)
     const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
     const client = serviceKey
         ? (await import('@supabase/supabase-js')).createClient(
@@ -17,275 +16,312 @@ export async function getRecipeBySlug(slug) {
         )
         : supabase;
 
+    console.log(`[DataLayer] Lookup: ${slug} (${lang})`);
+
     try {
-        const decoded = decodeURIComponent(slug);
-        const normalized = decoded.replace(/-/g, ' ');
-        console.log(`[getRecipeBySlug] Lookup Slug: "${slug}"`);
-        if (serviceKey) console.log(`[getRecipeBySlug] Using Service Role Client`);
+        // 1. Resolve UUID
+        let uuid = slug;
+        let legacyId = null;
 
-        // Tier 0: Featured Aliases
-        const FEATURED_ALIASES = {
-            'ghormeh-sabzi': 1111,
-            'fesenjan': 1059,
-            'kebab-koobideh': 866,
-            'tahchin': 1029,
-            'zereshk-polo': 1032,
-            'white-pizza': 932
-        };
-
-        // Helper to check for content upgrade (Shared logic)
-        const checkForUpgrade = async (legacyRecipe) => {
-            // Attempt Upgrade
-            try {
-                // HARDENING: Fetch ALL translations, not just EN.
-                // We need to populate nutrition_info.de/fr so the client can switch languages.
-                const { data: upgrade } = await client
-                    .from('registry_recipes')
-                    .select('content_translations(title, instructions, ingredients, qa_metadata, language_code, publish_status)')
-                    .eq('legacy_recipe_id', legacyRecipe.id)
-                    // .eq('content_translations.language_code', 'en') // REMOVED CONSTRAINT
-                    .maybeSingle();
-
-                // Check deeply nested array from join
-                const translations = upgrade?.content_translations;
-
-                if (translations && Array.isArray(translations) && translations.length > 0) {
-                    // console.log(`[getRecipeBySlug] Found ${translations.length} translations for ${legacyRecipe.id}`);
-
-                    let mergedRecipe = { ...legacyRecipe };
-                    let enTrans = null;
-
-                    // 1. First Pass: Populate nutrition_info for ALL languages
-                    translations.forEach(trans => {
-                        if (trans.publish_status !== 'published') return;
-                        mergedRecipe = mergeTranslation(mergedRecipe, trans, false); // false = Don't overwrite top-level yet
-                        if (trans.language_code === 'en') enTrans = trans;
-                    });
-
-                    // 2. Second Pass: If EN exists, set it as top-level default (Golden Path)
-                    if (enTrans) {
-                        mergedRecipe = mergeTranslation(mergedRecipe, enTrans, true);
-                    }
-
-                    return mergedRecipe;
-                }
-            } catch (err) {
-                console.warn("[getRecipeBySlug] Upgrade check failed (non-critical):", err);
-            }
-            return legacyRecipe;
-        };
-
-        if (FEATURED_ALIASES[slug]) {
-            const { data } = await client.from('recipes').select('*, recipe_translations(*)').eq('id', FEATURED_ALIASES[slug]).maybeSingle();
-            if (data) {
-                // FIX: Check for upgrade even for Tier 0
-                return await checkForUpgrade(data);
-            }
-        }
-
-        // Tier 1: ID Lookup
+        // If numeric, it's a legacy ID. Resolve to UUID.
         if (/^\d+$/.test(slug)) {
-            const { data: legacy } = await client.from('recipes').select('*, recipe_translations(*)').eq('id', slug).maybeSingle();
-            if (legacy) {
-                // Check for Golden Translation Upgrade
-                console.log(`[getRecipeBySlug] Checking upgrade for ID: ${slug}`);
-                return await checkForUpgrade(legacy);
-                return legacy;
+            const { data } = await client.from('registry_recipes').select('id').eq('legacy_recipe_id', slug).single();
+            if (data) {
+                uuid = data.id;
+                legacyId = slug;
+            } else {
+                console.warn(`[DataLayer] Legacy ID not found in Registry: ${slug}`);
+                return null;
             }
+        } else if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(slug)) {
+            console.warn(`[DataLayer] Invalid Slug Format (Not UUID/Int): ${slug}`);
+            return null;
         }
 
-        // Monitor for UUID format (Bridge ID or Translation ID)
-        if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(slug)) {
-            console.log(`[getRecipeBySlug] Checking UUID: ${slug}`);
-
-            // A. Check Registry (Bridge ID)
-            const { data: bridge } = await client
-                .from('registry_recipes')
-                .select('legacy_recipe_id')
-                .eq('id', slug)
-                .maybeSingle();
-
-            if (bridge) {
-                console.log(`[getRecipeBySlug] Found Bridge ID -> Legacy: ${bridge.legacy_recipe_id}`);
-                const { data: legacy } = await client.from('recipes').select('*, recipe_translations(*)').eq('id', bridge.legacy_recipe_id).single();
-                if (legacy) return await checkForUpgrade(legacy);
-            }
-
-            // B. Check Content Translation ID directly
-            const { data: trans } = await client
-                .from('content_translations')
-                .select('recipe_id, registry_recipes(legacy_recipe_id)') // Corrected: Check recipe_id (UUID)
-                .eq('recipe_id', slug) // Assuming slug passed IS the recipe_id (which for content_translations is the Registry ID usually)
-                // Wait, typically content_translations.recipe_id points to registry_recipes.id
-                .limit(1)
-                .maybeSingle();
-
-            // Re-evaluating: The ID passed in the URL (e.g. 616b36cb...) IS the recipe_id in content_translations
-            // which maps to registry_recipes.id. 
-            // So if A didn't find it (because maybe registry ID is different?), let's trust content_translations.
-
-            // Actually, for the German ones, the ID I found (616b36cb...) was in the `recipe_id` column of `content_translations`.
-            // So logic A should have caught it IF checking `registry_recipes`.
-            // But wait, `content_translations.recipe_id` IS a FK to `registry_recipes.id`.
-            // So logic A is sufficient IF the slug is indeed the `registry_recipes.id`.
-
-            // Let's safe guard:
-            // If the slug is the *Translation Row ID* (id column of content_translations), we should handle that too?
-            // The query user saw was: ID: 616b36cb... which was recipe_id from content_translations.
-            // So logic A MUST work.
-            // UNLESS... the row exists in content_translations but NOT in registry_recipes? (Which would be a FK violation, unlikely).
-            // OR... RLS is blocking access to registry_recipes? (We are using service role if avail, otherwise public).
-
-            // Let's add a robust check for "Translation ID" just in case user pasted the translation's own PK ID.
-            const { data: transPK } = await client
-                .from('content_translations')
-                .select('recipe_id')
-                .eq('id', slug)
-                .maybeSingle();
-
-            if (transPK) {
-                console.log(`[getRecipeBySlug] Input was Translation PK. Redirecting to Registry ID: ${transPK.recipe_id}`);
-                const { data: legacy } = await client
-                    .from('registry_recipes')
-                    .select('legacy_recipe_id')
-                    .eq('id', transPK.recipe_id)
-                    .single();
-                if (legacy) {
-                    const { data: r } = await client.from('recipes').select('*, recipe_translations(*)').eq('id', legacy.legacy_recipe_id).single();
-                    if (r) return await checkForUpgrade(r);
-                }
-            }
-
-        }
-
-        // Tier 2: Published Translation (Title Match)
-        const { data: trans } = await client
-            .from('content_translations')
-            .select(`
-                title, instructions, ingredients, qa_metadata, language_code, 
-                registry_recipes!inner(legacy_recipe_id)
-            `)
-            .eq('publish_status', 'published')
-            .or(`title.ilike.${normalized},title.eq.${normalized}`)
-            .limit(1)
+        // 2. Tier 1: Fetch Compiled View
+        const { data: compiled } = await client
+            .from('content_translations_compiled')
+            .select('compiled_json')
+            .eq('recipe_id', uuid)
+            .eq('language_code', lang)
             .maybeSingle();
 
-        if (trans && trans.registry_recipes?.legacy_recipe_id) {
-            const { data: legacy } = await supabase.from('recipes').select('*').eq('id', trans.registry_recipes.legacy_recipe_id).single();
-            if (legacy) return mergeTranslation(legacy, trans);
+        if (compiled) {
+            console.log(`[DataLayer] Hit Compiled View for ${uuid} (${lang})`);
+            return normalizeCompiled(compiled.compiled_json, uuid, lang);
         }
 
-        // Tier 3: Legacy Fallback + Hydration
-        // Convert slug-style (dashes) to Name style (wildcards) for flexible lookup
-        // e.g. "Classic-Chinese-Style" -> "Classic%Chinese%Style" matches "Classic Chinese-Style"
-        const nameQuery = slug.split('-').join('%');
-        console.log(`[getRecipeBySlug] Tier 3 Query: "${nameQuery}"`);
+        // 3. Tier 2: Raw Translation Fallback (If Compiled Misses)
+        // If lang is NOT English, try to fetch raw translation explicitly.
+        if (lang !== 'en') {
+            console.log(`[DataLayer] Tier 2: Attempting Raw Translation Fetch for ${uuid} (${lang})`);
 
-        const { data: legacyRecipe, error } = await client
-            .from('recipes')
+            const { data: rawTrans } = await client
+                .from('content_translations')
+                .select('*')
+                .eq('recipe_id', uuid)
+                .eq('language_code', lang)
+                .maybeSingle();
+
+            if (rawTrans) {
+                console.log(`[DataLayer] Hit Raw Translation for ${uuid} (${lang})`);
+
+                // We need the Spine for ingredients/structure anyway, so we fetch spine + overlay translation
+                const { data: spineBase, error: spineErr } = await client
+                    .from('registry_recipes')
+                    .select(`
+                        id,
+                        legacy_recipe_id,
+                        recipe_metadata ( * ),
+                        recipe_ingredients ( * ),
+                        recipe_steps ( * )
+                    `)
+                    .eq('id', uuid)
+                    .order('step_index', { foreignTable: 'recipe_steps', ascending: true })
+                    .single();
+
+                if (!spineErr && spineBase) {
+                    // Normalize Raw JSON to UI Props
+                    const content = rawTrans; // Flattened Table
+
+                    if (content) {
+                        // STRICT NO ENGLISH BLEED
+                        // 1. Ingredients: Do NOT backfill from Spine (EN)
+                        // Content is likely { uuid: { label: "" } }
+                        const ings = content.ingredients
+                            ? Object.values(content.ingredients).map(i => i.label || i.text)
+                            : [];
+
+                        // 2. Instructions: Do NOT backfill from Spine (EN)
+                        // Column is 'instructions' usually holding step map
+                        const steps = content.instructions
+                            ? Object.values(content.instructions)
+                            : (content.steps ? Object.values(content.steps) : []);
+
+                        // Log Partial Data
+                        if (ings.length === 0 || steps.length === 0) {
+                            try { const fs = require('fs'); if (!fs.existsSync('logs')) fs.mkdirSync('logs'); fs.appendFileSync('logs/data_gaps.log', `[${new Date().toISOString()}] PARTIAL_TRANS|${uuid}|${lang}|Ings:${ings.length}|Steps:${steps.length}\n`); } catch (e) { }
+                            console.warn(`[DataLayer] Partial Translation for ${uuid} (${lang}). Rendering empty sections to prevent bleed.`);
+                        }
+
+                        const nutritionInfoRaw = {
+                            [lang]: {
+                                name: content.title || "",
+                                description: content.description || "",
+                                ingredients: ings,
+                                instructions: steps,
+                                times: {
+                                    prep: spineBase.recipe_metadata?.[0]?.prep_time_minutes || 0,
+                                    cook: spineBase.recipe_metadata?.[0]?.cook_time_minutes || 0
+                                },
+                                difficulty_level: spineBase.recipe_metadata?.[0]?.difficulty || 'Medium',
+                                category: spineBase.recipe_metadata?.[0]?.category || 'Global',
+                                nutrition: { calories: 0, protein: "0g", carbs: "0g", fat: "0g" }
+                            }
+                        };
+
+                        return {
+                            id: spineBase.id,
+                            legacy_id: spineBase.legacy_recipe_id,
+                            name: title || "", // No fallback to EN title
+                            description: desc || "",
+                            instructions: steps,
+                            ingredients: ings,
+                            prep_time_minutes: spineBase.recipe_metadata?.[0]?.prep_time_minutes,
+                            cook_time_minutes: spineBase.recipe_metadata?.[0]?.cook_time_minutes,
+                            difficulty: spineBase.recipe_metadata?.[0]?.difficulty,
+                            nutrition_info: nutritionInfoRaw,
+
+                            image: `/recipe-images/${uuid}.jpg`,
+                            _lang: lang,
+                            _source: 'raw_translation_fallback'
+                        };
+                    }
+                }
+            }
+        }
+
+        // 4. Tier 3: Hard Spine Fallback (Live EN)
+        console.log(`[DataLayer] Fallback to Hard Spine for ${uuid}`);
+
+        const { data: spine, error } = await client
+            .from('registry_recipes')
             .select(`
-                *,
-                recipe_translations(
-                    language,
-                    title,
-                    description,
-                    ingredients,
-                    instructions
-                )
+                id,
+                legacy_recipe_id,
+                recipe_metadata ( * ),
+                content_translations ( * ),
+                recipe_ingredients ( * ),
+                recipe_steps ( * )
             `)
-            .ilike('name_en', nameQuery) // Use ilike for case-insensitive matching on Name
-            .maybeSingle(); // Changed to maybeSingle to handle no results gracefully
+            .eq('id', uuid)
+            .order('step_index', { foreignTable: 'recipe_steps', ascending: true })
+            .single();
 
-        if (legacyRecipe) {
-            console.log(`[getRecipeBySlug] Found Legacy: ${legacyRecipe.id}`);
-            return await checkForUpgrade(legacyRecipe);
+        if (error || !spine) {
+            console.error(`[DataLayer] Hard Spine Fetch Fail:`, error);
+            return null;
         }
 
-        return null; // 404
+        // DEBUG: Check for image field
+        if (spine.recipe_metadata && spine.recipe_metadata.length > 0) {
+            // console.log("[DataLayer] Metadata Keys:", Object.keys(spine.recipe_metadata[0]));
+        }
 
-    } catch (error) {
-        console.error(`[getRecipeBySlug] CRITICAL ERROR for "${slug}":`, error);
-        return null; // Return null to trigger 404 instead of 500 crash
+        // Filter for English Title (Source of Truth) because we are in Fallback
+        const enMeta = spine.content_translations?.find(t => t.language_code === 'en') || {};
+
+        // 1. Parse QA Metadata (Rich Content) FIRST
+        const qa = enMeta.qa_metadata || {};
+
+        // Resolve Category (Priority: QA -> DB Meta -> Default)
+        const displayCategory = qa.category || spine.recipe_metadata?.[0]?.cuisine || spine.recipe_metadata?.[0]?.category || 'Global';
+
+        // FORCE LOCAL IMAGE (Governance)
+        const imageSrc = `/recipe-images/${uuid}.jpg`;
+
+        // 2. Construct Nutrition Info Object with Rich Data
+        const nutritionInfo = {
+            en: {
+                name: enMeta.title || "Untitled Recipe",
+                description: enMeta.description || "",
+                ingredients: spine.recipe_ingredients.map(ing => (ing.note_text ? `${ing.label_text || ing.raw_text}, ${ing.note_text}` : ing.label_text || ing.raw_text)),
+                instructions: spine.recipe_steps.map(s => s.instruction_text || s.instruction),
+                times: {
+                    prep: spine.recipe_metadata?.[0]?.prep_time_minutes || 30,
+                    cook: spine.recipe_metadata?.[0]?.cook_time_minutes || 45
+                },
+                difficulty_level: spine.recipe_metadata?.[0]?.difficulty || 'Medium',
+                category: displayCategory,
+                nutrition: { calories: 0, protein: "0g", carbs: "0g", fat: "0g" },
+
+                // EXPOSE CHEF ZAFFARON FIELDS (Rich UI)
+                internal_score: qa.internal_score,
+                chef_swaps: qa.chef_swaps,
+                origin_history: qa.origin_history,
+                marketing_description: qa.marketing_description,
+                flavor_profile: qa.flavor_profile,          // DNA
+                sensory_experience: qa.sensory_experience,  // Sensory Text
+                chef_guide: qa.chef_guide                   // Pro Tips, Mistakes, Storage
+            }
+        };
+
+        // LOGGING PROOF
+        try { const fs = require('fs'); if (!fs.existsSync('logs')) fs.mkdirSync('logs'); fs.appendFileSync('logs/data_access.log', `[${new Date().toISOString()}] FETCH|${slug}|${lang}|${compiled ? 'COMPILED' : 'FALLBACK'}|${uuid}\n`); } catch (e) { }
+
+        // 3. Return Final Prop Object
+        return {
+            id: spine.id,
+            legacy_id: spine.legacy_recipe_id,
+            name: enMeta.title || "Untitled Recipe",
+            description: enMeta.description || "",
+            // Map Metadata
+            prep_time_minutes: spine.recipe_metadata?.[0]?.prep_time_minutes || 30,
+            cook_time_minutes: spine.recipe_metadata?.[0]?.cook_time_minutes || 45,
+            difficulty: spine.recipe_metadata?.[0]?.difficulty || 'Medium',
+            category: displayCategory,
+
+            // Image Logic
+            image: imageSrc,
+
+            // Map Ingredients (Flatten to Strings for UI Compatibility)
+            ingredients: spine.recipe_ingredients.map(ing => {
+                const raw = ing.label_text || ing.raw_text || "";
+                const note = ing.note_text;
+                return note ? `${raw}, ${note}` : raw;
+            }),
+
+            // Map Instructions
+            instructions: spine.recipe_steps.map(s => s.instruction_text || s.instruction),
+
+            nutrition_info: nutritionInfo, // INJECT RICH DATA
+
+            // System Meta
+            _lang: 'en', // Forced EN fallback
+            _source: 'hard_spine_live_v2'
+        };
+
+    } catch (err) {
+        console.error(`[DataLayer] Critical Error:`, err);
+        return null;
     }
 }
 
-// Helper to merge translation data into legacy object
-function mergeTranslation(legacy, trans, overwriteTopLevel = true) {
-    const langCode = trans.language_code || 'en';
+// Helper to normalize compiled JSON to Frontend Props
+function normalizeCompiled(json, id, lang) {
+    const stepsArray = Array.isArray(json.instructions) ? json.instructions : (Array.isArray(json.steps) ? json.steps : []);
+    const ingsArray = Array.isArray(json.ingredients) ? json.ingredients : [];
 
-    // Construct the nutrition info object for this language
-    // This matches what useNutrition hook expects: recipe.nutrition_info[lang]
-    const enrichedData = {
-        name: trans.title,
-        ingredients: trans.ingredients,
-        instructions: trans.instructions,
-        description: trans.qa_metadata?.marketing_description || legacy.description,
-        nutrition: trans.qa_metadata?.nutrition || {},
+    const normInstructions = stepsArray.map(s => {
+        if (typeof s === 'string') {
+            // Check for JSON string "{\"step\":...}"
+            if (s.trim().startsWith('{')) {
+                try {
+                    const parsed = JSON.parse(s);
+                    return parsed.instruction || parsed.text || parsed.step || s;
+                } catch {
+                    return s;
+                }
+            }
+            return s;
+        }
+        // Handle Object
+        if (typeof s === 'object' && s !== null) {
+            return s.instruction || s.text || s.raw_text || "";
+        }
+        return "";
+    }).filter(s => s && s.trim().length > 0);
+    const normIngredients = ingsArray.map(i => {
+        const label = i.label || i.text || "";
+        const note = i.note;
+        return note ? `${label}, ${note}` : label;
+    });
 
-        // Rich Content (Gemini 3.0)
-        origin_history: trans.qa_metadata?.origin_history,
-        why_this_version: trans.qa_metadata?.why_this_version,
-        sensory_experience: trans.qa_metadata?.sensory_experience,
-        chef_guide: trans.qa_metadata?.chef_guide,
-        internal_score: trans.qa_metadata?.internal_score, // Internal Zaffaron Score
-
-        // NEW: Super Schema Data (SEO, Tags, Usage)
-        tags: [
-            ...(trans.qa_metadata?.dietary_tags || []),
-            ...(trans.qa_metadata?.occasion_tags || []),
-            ...(trans.qa_metadata?.seasonality || [])
-        ],
-        dietary_tags: trans.qa_metadata?.dietary_tags,
-        difficulty_level: trans.qa_metadata?.difficulty_level,
-        estimated_cost: trans.qa_metadata?.estimated_cost,
-        seo: {
-            keywords: trans.qa_metadata?.seo_keywords,
-            description: trans.qa_metadata?.seo_meta_description,
-            social_share: trans.qa_metadata?.social_share_copy
-        },
-        usage: {
-            substitutions: trans.qa_metadata?.ingredient_substitutions,
-            equipment: trans.qa_metadata?.equipment_needed,
-            pairings: trans.qa_metadata?.pairings
-        },
-        flavor_profile: trans.qa_metadata?.flavor_profile,
-        pairings: trans.qa_metadata?.pairings, // Explicit
-
-        // Legacy/Fallback Chef Notes
-        chef_notes: trans.qa_metadata?.marketing_description
-            ? `${trans.qa_metadata.marketing_description}\n\n${trans.qa_metadata.internal_score?.reasoning || ''}`
-            : null
-    };
-
-    const base = {
-        ...legacy,
-        nutrition_info: {
-            ...(legacy.nutrition_info || {}),
-            [langCode]: enrichedData
+    const nutritionInfo = {
+        [lang]: {
+            name: json.title,
+            description: json.description,
+            ingredients: normIngredients,
+            instructions: normInstructions,
+            times: {
+                prep: json.metadata?.prep_time || 0,
+                cook: json.metadata?.cook_time || 0
+            },
+            difficulty_level: json.metadata?.difficulty || 'Medium',
+            category: json.category || 'Global',
+            nutrition: {
+                calories: json.metadata?.calories || 0,
+                protein: "0g",
+                carbs: "0g",
+                fat: "0g"
+            },
+            // EXPOSE ALL RICH FIELDS
+            internal_score: json.internal_score,
+            chef_swaps: json.chef_swaps,
+            origin_history: json.origin_history,
+            marketing_description: json.marketing_description,
+            flavor_profile: json.flavor_profile,
+            sensory_experience: json.sensory_experience,
+            chef_guide: json.chef_guide
         }
     };
 
-    // If we want to upgrade the "Default Face" of the recipe (usually EN)
-    if (overwriteTopLevel) {
-        return {
-            ...base,
-            name: trans.title,
-            name_en: trans.title,
-            instructions: trans.instructions,
-            ingredients: trans.ingredients,
-            // FIX: Hydrate top-level integers from Metadata if available
-            prep_time_minutes: enrichedData.times?.prep || base.prep_time_minutes,
-            cook_time_minutes: enrichedData.times?.cook || base.cook_time_minutes,
-            difficulty: enrichedData.difficulty_level || base.difficulty,
+    return {
+        id: id,
+        name: json.title,
+        description: json.description,
+        instructions: normInstructions,
+        ingredients: normIngredients,
+        prep_time_minutes: json.metadata?.prep_time,
+        cook_time_minutes: json.metadata?.cook_time,
+        difficulty: json.metadata?.difficulty,
+        nutrition_info: nutritionInfo,
 
-            output_language: langCode, // Track which lang owns the top level
-            // Pass rich content at top level too for easier access if needed
-            origin_history: trans.qa_metadata?.origin_history,
-            chef_guide: trans.qa_metadata?.chef_guide,
-            _is_translation: true,
-            _lang: langCode
-        };
-    }
+        // Ensure image is passed if available in compiled view
+        // FORCE LOCAL IMAGE (Governance)
+        image: `/recipe-images/${id}.jpg`,
 
-    return base;
+        _lang: lang,
+        _source: 'compiled_view'
+    };
 }

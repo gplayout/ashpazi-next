@@ -13,7 +13,7 @@ import { toPersianDigits, difficultyMap } from '@/utils/farsi';
 // Imports
 import { getUiLabel } from '@/utils/dictionaries';
 
-const RecipeCard = ({ recipe }) => {
+const RecipeCard = ({ recipe, priority = false }) => {
     const { language, t } = useLanguage();
 
     // Fallback if recipe is incomplete
@@ -21,10 +21,14 @@ const RecipeCard = ({ recipe }) => {
 
     // Generate slug: Prefer English name for cleaner URLs, fallback to name
     const slugSource = recipe.name_en || recipe.name;
-    const slug = recipe.slug || slugSource.toLowerCase().replace(/\s+/g, '-');
+    // Generate slug: Use UUID (registry_id) if available for canonical routing
+    // Fallback: Use Legacy ID (supported by backend) to avoid 404s on text slugs
+    // Fallback to text slug only as last resort (though currently unsupported by backend)
+    const slug = recipe.registry_id || recipe.id || recipe.slug || slugSource.toLowerCase().replace(/\s+/g, '-');
 
     // Localized fields
-    const displayName = t(recipe, 'name');
+    // Hard Guard: Fallback to legacy 'name' if translation fails
+    const displayName = t(recipe, 'name') || recipe.name;
     // --- Description Resolution Logic (Safe & Smart) ---
     const translations = recipe.recipe_translations || [];
 
@@ -128,10 +132,13 @@ const RecipeCard = ({ recipe }) => {
                     {/* Image Section */}
                     <div className="relative aspect-[4/3] overflow-hidden w-full bg-muted">
                         {recipe.image ? (
-                            <img
+                            <Image
                                 src={recipe.image}
                                 alt={displayName}
+                                fill
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                 className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                                priority={priority}
                             />
                         ) : (
                             <div className="flex items-center justify-center w-full h-full text-muted-foreground">
@@ -148,7 +155,7 @@ const RecipeCard = ({ recipe }) => {
 
                     {/* Content */}
                     <CardHeader className="p-4 pb-2">
-                        <CardTitle className={`text-lg font-bold leading-tight line-clamp-2group-hover:text-primary transition-colors ${language === 'fa' ? 'font-vazirmatn text-right' : 'font-outfit text-left'}`}>
+                        <CardTitle className={`text-lg font-bold leading-tight line-clamp-2 group-hover:text-primary transition-colors ${language === 'fa' ? 'font-vazirmatn text-right' : 'font-outfit text-left'}`}>
                             {displayName}
                         </CardTitle>
                     </CardHeader>

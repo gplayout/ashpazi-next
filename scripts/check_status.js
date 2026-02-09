@@ -1,27 +1,29 @@
+require('dotenv').config({ path: '.env.local' });
 const { createClient } = require('@supabase/supabase-js');
-const fs = require('fs');
-const path = require('path');
 
-const envPath = path.resolve(__dirname, '../.env.local');
-const envContent = fs.readFileSync(envPath, 'utf-8');
-const parseEnv = (key) => {
-    const match = envContent.match(new RegExp(`${key}=(.*)`));
-    return match ? match[1] : null;
-};
+const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 
-const supabase = createClient(
-    parseEnv('NEXT_PUBLIC_SUPABASE_URL'),
-    parseEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY')
-);
-
-async function check() {
-    const { count, error } = await supabase
-        .from('recipes')
+async function main() {
+    const { data, error } = await supabase.rpc('get_status_breakdown');
+    // Wait, I don't know if RPC exists. Easier to just count grouped by status.
+    // Supabase JS doesn't do group by easily without RPC.
+    // I'll just check PUBLISHED count.
+}
+// simpler approach:
+async function main2() {
+    const { count: published, error } = await supabase
+        .from('app_routes_manifest')
         .select('*', { count: 'exact', head: true })
-        .is('image', null);
+        .eq('status', 'PUBLISHED');
 
-    if (error) console.error(error);
-    else console.log(`Remaining missing images: ${count}`);
+    console.log('PUBLISHED:', published);
+
+    const { count: blocked, error2 } = await supabase
+        .from('app_routes_manifest')
+        .select('*', { count: 'exact', head: true })
+        .eq('status', 'BLOCKED');
+
+    console.log('BLOCKED:', blocked);
 }
 
-check();
+main2();

@@ -1,17 +1,21 @@
-
-require('dotenv').config({ path: '.env.local' });
 const { createClient } = require('@supabase/supabase-js');
+require('dotenv').config({ path: '.env.local' });
 
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
-async function count() {
-    console.log("Checking DB count...");
-    const { count, error } = await supabase.from('recipes').select('*', { count: 'exact', head: true });
-    if (error) console.error(error);
-    else console.log('Total Count in DB:', count);
+async function check() {
+    console.log('🔍 Checking Total Registry Count...');
+    const { count, error } = await supabase
+        .from('registry_recipes')
+        .select('*', { count: 'exact', head: true });
+
+    if (error) {
+        console.error('❌ Error:', error.message);
+    } else {
+        console.log(`✅ Total Recipes in DB: ${count}`);
+    }
 }
 
-count();
+check();

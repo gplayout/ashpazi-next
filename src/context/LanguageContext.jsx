@@ -1,19 +1,19 @@
 'use client';
 import { createContext, useContext, useState, useEffect } from 'react';
 
+import { SUPPORTED_LANG_CODES, RTL_LANGS } from '@/lib/languages';
+
 const LanguageContext = createContext();
 
 export function LanguageProvider({ children }) {
     const [language, setLanguage] = useState('en');
 
     // Load from localStorage on mount
-    // Load from localStorage or Geo-IP on mount
-    // Load from localStorage on mount
     useEffect(() => {
         const stored = localStorage.getItem('language');
 
         // Check for specific valid supported langs
-        const supported = ['fa', 'en', 'es', 'fr', 'de', 'ar', 'zh', 'ja'];
+        const supported = SUPPORTED_LANG_CODES;
 
         if (stored && supported.includes(stored)) {
             setLanguage(stored);
@@ -25,7 +25,7 @@ export function LanguageProvider({ children }) {
         localStorage.setItem('language', language);
         // Dynamic Direction & Language Attribute
         // Add 'ar' to RTL list
-        const isRtl = ['fa', 'ar'].includes(language);
+        const isRtl = RTL_LANGS.includes(language);
         document.documentElement.setAttribute('dir', isRtl ? 'rtl' : 'ltr');
         document.documentElement.setAttribute('lang', language);
 

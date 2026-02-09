@@ -1,18 +1,12 @@
 const { createClient } = require('@supabase/supabase-js');
-const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, '../.env.local') });
+require('dotenv').config({ path: '.env.local' });
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.VITE_SUPABASE_URL;
-const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY;
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 
 async function count() {
-    const { count, error } = await supabase
-        .from('recipes')
-        .select('*', { count: 'exact', head: true });
-
+    // Using head: true to get count only
+    const { count, error } = await supabase.from('registry_recipes').select('*', { count: 'exact', head: true });
     if (error) console.error(error);
-    else console.log(`TOTAL RECIPES: ${count}`);
+    else console.log(`\n📊 EXACT RECIPE COUNT: ${count}\n`);
 }
-
 count();

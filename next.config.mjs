@@ -19,6 +19,10 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'cdn.zaffaron.com',
+      },
+      {
+        protocol: 'https',
         hostname: '**.supabase.co',
       },
       {

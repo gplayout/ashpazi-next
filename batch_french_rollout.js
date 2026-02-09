@@ -80,7 +80,8 @@ async function batchRolloutFrench() {
             }
 
             const json = await res.json();
-            const count = json.summary?.processed_count || 0;
+            const summary = json.summary || {};
+            const count = (summary.success || 0) + (summary.failed || 0) + (summary.skipped || 0);
             totalProcessed += count;
 
             console.log(`   Cycle ${cycle}: Processed ${count} recipes.`);

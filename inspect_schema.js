@@ -8,19 +8,16 @@ const supabase = createClient(
 );
 
 async function inspectTable() {
-    console.log("🔍 Inspecting recipe_pipeline_state...");
-    // Hack: Select a row to see keys
-    const { data, error } = await supabase.from('recipe_pipeline_state').select('*').limit(1);
+    console.log("Steps:");
+    const { data: s, error: se } = await supabase.from('recipe_steps').select('*').limit(1);
+    if (s && s.length) console.log(Object.keys(s[0]));
 
-    if (error) {
-        console.error("Error:", error.message);
-    } else if (data && data.length > 0) {
-        console.log("Columns:", Object.keys(data[0]));
-    } else {
-        console.log("Table empty or no access. Trying to insert dummy to get error...");
-        const { error: insErr } = await supabase.from('recipe_pipeline_state').insert({ legacy_recipe_id: 999999 });
-        if (insErr) console.log("Insert Error (might reveal schema):", insErr.message);
-    }
+    console.log("Translations:");
+    const { data: t, error: te } = await supabase.from('content_translations').select('*').limit(1);
+    if (t && t.length) console.log(Object.keys(t[0]));
+
+    if (se) console.error("Steps Error:", se.message);
+    if (te) console.error("Translations Error:", te.message);
 }
 
 inspectTable();

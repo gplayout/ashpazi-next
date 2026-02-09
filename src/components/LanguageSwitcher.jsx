@@ -9,23 +9,12 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const LANGUAGES = [
-    { code: 'en', label: 'English' },
-    { code: 'fa', label: 'فارسی (Farsi)' },
-    { code: 'es', label: 'Español (Spanish)' },
-    { code: 'fr', label: 'Français (French)' },
-    { code: 'de', label: 'Deutsch (German)' },
-    { code: 'ar', label: 'العربية (Arabic)' },
-    { code: 'zh', label: '中文 (Chinese)' },
-    { code: 'ja', label: '日本語 (Japanese)' },
-    { code: 'hi', label: 'हिन्दी (Hindi)' },
-    { code: 'ko', label: '한국어 (Korean)' },
-];
+import { LANGUAGES } from '@/lib/languages';
 
 export default function LanguageSwitcher() {
     const { language, setLanguage } = useLanguage();
 
-    const currentLabel = LANGUAGES.find(l => l.code === language)?.label || 'Language';
+    const currentLabel = LANGUAGES.find(l => l.code === language)?.name || 'Language';
 
     return (
         <DropdownMenu>
@@ -42,7 +31,7 @@ export default function LanguageSwitcher() {
                         onClick={() => setLanguage(lang.code)}
                         className="flex justify-between items-center cursor-pointer"
                     >
-                        <span>{lang.label}</span>
+                        <span>{lang.name}</span>
                         {language === lang.code && <Check size={14} className="ml-2 text-primary" />}
                     </DropdownMenuItem>
                 ))}

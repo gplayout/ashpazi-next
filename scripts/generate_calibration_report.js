@@ -1,62 +1,63 @@
 
-const { createClient } = require('@supabase/supabase-js');
-require('dotenv').config({ path: '.env.local' });
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env.local' });
+import { createClient } from '@supabase/supabase-js';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
     process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-async function generateReport() {
-    console.log("📊 Generating Calibration Report...");
+const geminiKey = process.env.GOOGLE_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+const genAI = new GoogleGenerativeAI(geminiKey);
+const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
 
-    const { data, error } = await supabase
-        .from('content_translations')
-        .select('id, recipe_id, confidence_score, qa_metadata, publish_status, last_updated')
-        .order('last_updated', { ascending: false });
+const SAMPLE_SIZE = 3;
 
-    if (error) {
-        console.error("Fetch failed:", error.message);
-        return;
+async function runCalibration() {
+    console.log(`⏱️ CALIBRATING SPEED (Sample: ${SAMPLE_SIZE} items)...`);
+
+    // Fetch 1 source recipe for testing
+    const { data: source } = await supabase
+        .from('recipes')
+        .select('name_en, ingredients_en, instructions_en')
+        .limit(1)
+        .single();
+
+    if (!source) { console.error("No source recipe"); process.exit(1); }
+
+    const timings = [];
+
+    for (let i = 0; i < SAMPLE_SIZE; i++) {
+        const start = Date.now();
+
+        // Simulate prompt generation (Chef Zaffaron style)
+        const prompt = `Translate to Turkish (Test). Title: ${source.name_en}. Return JSON.`;
+        const result = await model.generateContent(prompt);
+        await result.response; // Wait for full response
+
+        // Simulate DB write (dummy update to avoid corruption in calibration)
+        // We just do a select to mimic network roundtrip
+        await supabase.from('content_translations_compiled').select('id').limit(1);
+
+        const duration = Date.now() - start;
+        timings.push(duration);
+        console.log(`   Run ${i + 1}: ${duration}ms`);
     }
 
-    if (data.length === 0) {
-        console.log("No translations found.");
-        return;
-    }
+    const avg = timings.reduce((a, b) => a + b, 0) / timings.length;
+    const totalItems = 1547 * 12; // ~18,500
+    const totalHours = (totalItems * avg) / 1000 / 3600;
 
-    console.log(`Found ${data.length} records.\n`);
-    console.log("ID   | Score | Status    | LenRatio | FmtScore | Lang | Glossary | Full Meta");
-    console.log("-----|-------|-----------|----------|----------|------|----------|----------");
+    // Assuming x5 Concurrency
+    const concurrentHours = totalHours / 5;
 
-    data.forEach(row => {
-        const meta = row.qa_metadata || {};
-        const len = meta.length_score?.toFixed(2) || "N/A";
-        const fmt = meta.fmt_score?.toFixed(2) || "N/A";
-        const lang = meta.lang_score || "N/A";
-        // glossary_score might be present or placeholder
-        const glossary = meta.glossary_score?.toFixed(2) || "N/A";
-
-        console.log(
-            `${row.id}`.padEnd(5) + " | " +
-            `${row.confidence_score?.toFixed(2)}`.padEnd(5) + " | " +
-            `${row.publish_status}`.padEnd(9) + " | " +
-            `${len}`.padEnd(8) + " | " +
-            `${fmt}`.padEnd(8) + " | " +
-            `${lang}`.padEnd(4) + " | " +
-            `${glossary}`.padEnd(8) + " | " +
-            JSON.stringify(meta)
-        );
-    });
-
-    // Calc simple stats
-    const scores = data.map(r => r.confidence_score).filter(s => s !== null);
-    if (scores.length > 0) {
-        const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
-        console.log(`\nAverage Confidence Score: ${avg.toFixed(3)}`);
-        console.log(`Total Drafts: ${data.filter(r => r.publish_status === 'draft').length}`);
-        console.log(`Total Published: ${data.filter(r => r.publish_status === 'published').length}`);
-    }
+    console.log("\n--- TIMELINE REPORT ---");
+    console.log(`Avg per Item: ${(avg / 1000).toFixed(2)}s`);
+    console.log(`Total Sequential: ${totalHours.toFixed(1)} hours`);
+    console.log(`Est. Concurrent (x5): ${concurrentHours.toFixed(1)} hours`);
+    console.log(`Real-world Buffer (+30%): ${(concurrentHours * 1.3).toFixed(1)} hours`);
 }
 
-generateReport();
+runCalibration();

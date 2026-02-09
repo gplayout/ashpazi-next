@@ -9,7 +9,10 @@ export const ui = {
         zh: '最新食谱',
         ja: '最新のレシピ',
         hi: 'नवीनतम व्यंजन',
-        ko: '최신 레시피'
+        ko: '최신 레시피',
+        it: 'Ultime Ricette',
+        pt: 'Últimas Receitas',
+        tr: 'Son Tarifler'
     },
     recipes_loaded: {
         fa: 'دستور پخت',
@@ -21,7 +24,10 @@ export const ui = {
         zh: '加载的食谱',
         ja: '読み込まれたレシピ',
         hi: 'व्यंजन लोड किए गए',
-        ko: '레시피 로드됨'
+        ko: '레시피 로드됨',
+        it: 'ricette caricate',
+        pt: 'receitas carregadas',
+        tr: 'tarif yüklendi'
     },
     reached_end: {
         fa: 'به پایان لیست رسیدید!',
@@ -33,7 +39,10 @@ export const ui = {
         zh: "你已经到了尽头！",
         ja: "最後です！",
         hi: "आप अंत तक पहुँच गए हैं!",
-        ko: "마지막에 도달했습니다!"
+        ko: '마지막에 도달했습니다!',
+        it: 'Hai raggiunto la fine!',
+        pt: 'Você chegou ao fim!',
+        tr: 'Sonuna ulaştınız!'
     },
     prep_time: {
         fa: 'آماده‌سازی:',
@@ -45,7 +54,10 @@ export const ui = {
         zh: '准备:',
         ja: '準備:',
         hi: 'तैयारी:',
-        ko: '준비:'
+        ko: '준비:',
+        it: 'Prep:',
+        pt: 'Prep:',
+        tr: 'Hazırlık:'
     },
     cook_time: {
         fa: 'پخت:',
@@ -57,7 +69,10 @@ export const ui = {
         zh: '烹饪:',
         ja: '調理:',
         hi: 'पकाना:',
-        ko: '요리:'
+        ko: '요리:',
+        it: 'Cottura:',
+        pt: 'Cozinhar:',
+        tr: 'Pişirme:'
     },
     minutes: {
         fa: 'دقیقه',
@@ -69,7 +84,10 @@ export const ui = {
         zh: '分钟',
         ja: '分',
         hi: 'मिनट',
-        ko: '분'
+        ko: '분',
+        it: 'min',
+        pt: 'min',
+        tr: 'dk'
     },
     ingredients: {
         fa: 'مواد لازم',
@@ -81,7 +99,10 @@ export const ui = {
         zh: '配料',
         ja: '材料',
         hi: 'सामग्री',
-        ko: '재료'
+        ko: '재료',
+        it: 'Ingredienti',
+        pt: 'Ingredientes',
+        tr: 'Malzemeler'
     },
     instructions: {
         fa: 'دستور پخت',
@@ -93,7 +114,10 @@ export const ui = {
         zh: '说明',
         ja: '作り方',
         hi: 'निर्देश',
-        ko: '지침'
+        ko: '지침',
+        it: 'Istruzioni',
+        pt: 'Instruções',
+        tr: 'Talimatlar'
     },
     start_cooking: {
         fa: 'شروع آشپزی',
@@ -105,7 +129,10 @@ export const ui = {
         zh: '烹饪模式',
         ja: '料理モード',
         hi: 'कुकिंग मोड शुरू करें',
-        ko: '요리 모드 시작'
+        ko: '요리 모드 시작',
+        it: 'Modalità Cucina',
+        pt: 'Modo Cozinha',
+        tr: 'Pişirme Modu'
     },
     no_instructions: {
         fa: 'دستور پخت موجود نیست.',
@@ -117,7 +144,10 @@ export const ui = {
         zh: '没有可用说明。',
         ja: '説明はありません。',
         hi: 'कोई निर्देश उपलब्ध नहीं है।',
-        ko: '사용 가능한 지침이 없습니다.'
+        ko: '사용 가능한 지침이 없습니다.',
+        it: 'Nessuna istruzione disponibile.',
+        pt: 'Nenhuma instrução disponível.',
+        tr: 'Talimat mevcut değil.'
     },
     ingredients_embedded: {
         fa: 'مواد لازم در دستور پخت ذکر شده است.',
@@ -129,7 +159,10 @@ export const ui = {
         zh: '配料包含在说明中。',
         ja: '材料は説明に含まれています。',
         hi: 'सामग्री निर्देशों में शामिल हैं।',
-        ko: '재료가 지침에 포함되어 있습니다.'
+        ko: '재료가 지침에 포함되어 있습니다.',
+        it: 'Gli ingredienti sono integrati nelle istruzioni.',
+        pt: 'Os ingredientes estão integrados nas instruções.',
+        tr: 'Malzemeler talimatlara dahil edilmiştir.'
     },
     search_placeholder: {
         fa: 'جستجو...',
@@ -141,7 +174,10 @@ export const ui = {
         zh: '搜索...',
         ja: '検索...',
         hi: 'खोजें...',
-        ko: '검색...'
+        ko: '검색...',
+        it: 'Cerca...',
+        pt: 'Pesquisar...',
+        tr: 'Ara...'
     },
     hero_title_start: {
         fa: 'آشپزی با',
@@ -153,7 +189,10 @@ export const ui = {
         zh: '用心',
         ja: '愛を込めて',
         hi: 'के साथ पकाना',
-        ko: '요리하기'
+        ko: '요리하기',
+        it: 'Cucina con',
+        pt: 'Cozinhar com',
+        tr: 'İle pişir'
     },
     hero_title_highlight: {
         fa: 'عشق',
@@ -165,7 +204,10 @@ export const ui = {
         zh: '烹饪',
         ja: '料理する',
         hi: 'प्यार',
-        ko: '사랑'
+        ko: '사랑',
+        it: 'Amore',
+        pt: 'Amor',
+        tr: 'Aşk'
     },
     hero_subtitle: {
         fa: 'بهترین دستور پخت‌های ایرانی و فرنگی را در زعفران پیدا کنید.\nطعم‌هایی که خاطره می‌سازند.',
@@ -177,7 +219,10 @@ export const ui = {
         zh: '在 Zaffaron 寻找最好的波斯和国际食谱。\n创造回忆的味道。',
         ja: 'Zaffaronで最高のペルシャ料理と各国料理のレシピを見つけましょう。\n思い出を作る味。',
         hi: 'Zaffaron में सर्वश्रेष्ठ फारसी और अंतर्राष्ट्रीय व्यंजन खोजें।\nस्वाद जो यादें बनाते हैं।',
-        ko: 'Zaffaron에서 최고의 페르시아 및 세계 각국의 레시피를 찾으세요.\n추억을 만드는 맛.'
+        ko: 'Zaffaron에서 최고의 페르시아 및 세계 각국의 레시피를 찾으세요.\n추억을 만드는 맛.',
+        it: 'Trova le migliori ricette persiane e internazionali su Zaffaron.\nSapori che creano ricordi.',
+        pt: 'Encontre as melhores receitas persas e internacionais no Zaffaron.\nSabores que criam memórias.',
+        tr: "Zaffaron'da en iyi İran ve Uluslararası tarifleri bulun.\nAnılar yaratan lezzetler."
     },
     Easy: {
         fa: 'آسان',
@@ -189,7 +234,10 @@ export const ui = {
         zh: '简单',
         ja: '簡単',
         hi: 'आसान',
-        ko: '쉬움'
+        ko: '쉬움',
+        it: 'Facile',
+        pt: 'Fácil',
+        tr: 'Kolay'
     },
     todays_pick: {
         fa: 'پیشنهاد امروز',
@@ -201,7 +249,10 @@ export const ui = {
         zh: '今日精选',
         ja: '今日のピックアップ',
         hi: 'आज की पसंद',
-        ko: '오늘의 추천'
+        ko: '오늘의 추천',
+        it: "Scelta di oggi",
+        pt: "Escolha de hoje",
+        tr: "Günün Seçimi"
     },
     view_recipe: {
         fa: 'مشاهده دستور',
@@ -213,7 +264,10 @@ export const ui = {
         zh: '查看食谱',
         ja: 'レシピを見る',
         hi: 'व्यंजन देखें',
-        ko: '레시피 보기'
+        ko: '레시피 보기',
+        it: 'Vedi Ricetta',
+        pt: 'Ver Receita',
+        tr: 'Tarifi Görüntüle'
     },
     Medium: {
         fa: 'متوسط',
@@ -225,7 +279,10 @@ export const ui = {
         zh: '中等',
         ja: '普通',
         hi: 'मध्यम',
-        ko: '중간'
+        ko: '중간',
+        it: 'Medio',
+        pt: 'Médio',
+        tr: 'Orta'
     },
     Hard: {
         fa: 'سخت',
@@ -237,7 +294,10 @@ export const ui = {
         zh: '困难',
         ja: '難しい',
         hi: 'कठिन',
-        ko: '어려움'
+        ko: '어려움',
+        it: 'Difficile',
+        pt: 'Difícil',
+        tr: 'Zor'
     },
     // Search page
     difficulty: {
@@ -250,7 +310,10 @@ export const ui = {
         zh: '难度',
         ja: '難易度',
         hi: 'कठिनाई',
-        ko: '난이도'
+        ko: '난이도',
+        it: 'Difficoltà',
+        pt: 'Dificuldade',
+        tr: 'Zorluk'
     },
     cooking_time: {
         fa: 'زمان پخت',
@@ -262,7 +325,10 @@ export const ui = {
         zh: '烹饪时间',
         ja: '調理時間',
         hi: 'पकाने का समय',
-        ko: '요리 시간'
+        ko: '요리 시간',
+        it: 'Tempo di cottura',
+        pt: 'Tempo de cozimento',
+        tr: 'Pişirme Süresi'
     },
     // Fridge
     fridge_title: {
@@ -275,7 +341,10 @@ export const ui = {
         zh: '冰箱视界',
         ja: '冷蔵庫ビジョン',
         hi: 'फ्रिज विजन',
-        ko: '냉장고 비전'
+        ko: '냉장고 비전',
+        it: 'Frigo Vision',
+        pt: 'Visão da Geladeira',
+        tr: 'Buzdolabı Vizyonu'
     },
     fridge_subtitle: {
         fa: 'از یخچال عکس بگیرید، دستور پخت بگیرید',
@@ -287,7 +356,10 @@ export const ui = {
         zh: '拍一张冰箱的照片，发现你可以做什么菜！',
         ja: '冷蔵庫の写真を撮って、作れる料理を見つけましょう！',
         hi: 'अपने फ्रिज की फोटो लें और जानें कि आप क्या बना सकते हैं!',
-        ko: '냉장고 사진을 찍고 어떤 요리를 할 수 있는지 알아보세요!'
+        ko: '냉장고 사진을 찍고 어떤 요리를 할 수 있는지 알아보세요!',
+        it: 'Scatta una foto del tuo frigo e scopri cosa puoi cucinare!',
+        pt: 'Tire uma foto da sua geladeira e descubra o que você pode cozinhar!',
+        tr: 'Buzdolabınızın fotoğrafını çekin ve neler pişirebileceğinizi keşfedin!'
     },
     upload_fridge: {
         fa: 'آپلود عکس یخچال یا مواد غذایی',
@@ -299,7 +371,10 @@ export const ui = {
         zh: '上传冰箱或食材的照片',
         ja: '冷蔵庫または食材の写真をアップロード',
         hi: 'अपने फ्रिज या सामग्री की फोटो अपलोड करें',
-        ko: '냉장고 또는 재료 사진 업로드'
+        ko: '냉장고 또는 재료 사진 업로드',
+        it: 'Carica una foto del tuo frigo o degli ingredienti',
+        pt: 'Carregue uma foto da sua geladeira ou ingredientes',
+        tr: 'Buzdolabınızın veya malzemelerinizin fotoğrafını yükleyin'
     },
     find_recipes: {
         fa: 'یافتن دستور پخت',
@@ -311,7 +386,10 @@ export const ui = {
         zh: '寻找食谱',
         ja: 'レシピを探す',
         hi: 'व्यंजन खोजें',
-        ko: '레시피 찾기'
+        ko: '레시피 찾기',
+        it: 'Trova Ricette',
+        pt: 'Encontrar Receitas',
+        tr: 'Tarif Bul'
     },
     scanning: {
         fa: 'در حال اسکن...',
@@ -323,7 +401,10 @@ export const ui = {
         zh: '正在扫描食材...',
         ja: '食材をスキャン中...',
         hi: 'सामग्री स्कैन की जा रही है...',
-        ko: '재료 스캔 중...'
+        ko: '재료 스캔 중...',
+        it: 'Scansione ingredienti...',
+        pt: 'Escaneando ingredientes...',
+        tr: 'Malzemeler taranıyor...'
     },
     detected_ingredients: {
         fa: 'مواد اولیه شناسایی شده',
@@ -335,7 +416,10 @@ export const ui = {
         zh: '检测到的食材',
         ja: '検出された食材',
         hi: 'पहचानी गई सामग्री',
-        ko: '감지된 재료'
+        ko: '감지된 재료',
+        it: 'Ingredienti rilevati',
+        pt: 'Ingredientes detectados',
+        tr: 'Algılanan Malzemeler'
     },
     recipes_you_can_make: {
         fa: 'دستور پخت‌های پیشنهادی',
@@ -347,7 +431,10 @@ export const ui = {
         zh: '你可以做的食谱',
         ja: '作れるレシピ',
         hi: 'व्यंजन जो आप बना सकते हैं',
-        ko: '만들 수 있는 레시피'
+        ko: '만들 수 있는 레시피',
+        it: 'Ricette che puoi preparare',
+        pt: 'Receitas que você pode fazer',
+        tr: 'Yapabileceğiniz Tarifler'
     },
     no_matches: {
         fa: 'تطابق دقیقی پیدا نشد، اما مواد خوبی دارید!',
@@ -359,7 +446,10 @@ export const ui = {
         zh: '未找到完全匹配，但你的食材很棒！',
         ja: '完全な一致は見つかりませんでしたが、素晴らしい食材をお持ちです！',
         hi: 'कोई सटीक मिलान नहीं मिला, लेकिन आपके पास बेहतरीन सामग्री है!',
-        ko: '정확히 일치하는 항목을 찾을 수 없지만, 훌륭한 재료가 있습니다!'
+        ko: '정확히 일치하는 항목을 찾을 수 없지만, 훌륭한 재료가 있습니다!',
+        it: 'Nessuna corrispondenza esatta, ma hai ottimi ingredienti!',
+        pt: 'Nenhuma correspondência exata, mas você tem ótimos ingredientes!',
+        tr: 'Tam eşleşme bulunamadı, ama harika malzemeleriniz var!'
     },
 
     chef_pick_label: {
@@ -372,7 +462,10 @@ export const ui = {
         zh: "Zaffaron 厨师精选",
         ja: "シェフ・ザファロンの選択",
         hi: "शेफ ज़फ़रॉन की पसंद",
-        ko: "셰프 자파론의 선택"
+        ko: "셰프 자파론의 선택",
+        it: "Scelta dello Chef Zaffaron",
+        pt: "Escolha do Chef Zaffaron",
+        tr: "Şef Zaffaron'un Seçimi"
     },
     default_description: {
         fa: 'دستور پخت خوشمزه...',
@@ -384,7 +477,10 @@ export const ui = {
         zh: '美味的食谱...',
         ja: 'おいしいレシピ...',
         hi: 'एक स्वादिष्ट व्यंजन...',
-        ko: '맛있는 레시피...'
+        ko: '맛있는 레시피...',
+        it: 'Una ricetta deliziosa...',
+        pt: 'Uma receita deliciosa...',
+        tr: 'Lezzetli bir tarif...'
     },
 
     // Judge
@@ -398,7 +494,10 @@ export const ui = {
         zh: 'AI评委',
         ja: 'AI審査員',
         hi: 'AI विज़ुअल जज',
-        ko: 'AI 비주얼 심사위원'
+        ko: 'AI 비주얼 심사위원',
+        it: 'Giudice Visivo AI',
+        pt: 'Juiz Visual IA',
+        tr: 'Yapay Zeka Görsel Hakem'
     },
     judge_subtitle: {
         fa: 'عکس غذا را آپلود کنید تا داور ما امتیاز دهد',
@@ -410,7 +509,10 @@ export const ui = {
         zh: '上传您的菜肴照片，让我们的 AI 厨师为您的烹饪评分！',
         ja: '料理の写真をアップロードして、AIシェフに評価してもらいましょう！',
         hi: 'अपने पकवान की फोटो अपलोड करें और हमारे AI शेफ को आपकी कुकिंग को रेट करने दें!',
-        ko: '요리 사진을 업로드하고 AI 셰프가 요리를 평가하게 하세요!'
+        ko: '요리 사진을 업로드하고 AI 셰프가 요리를 평가하게 하세요!',
+        it: 'Carica una foto del tuo piatto e lascia che il nostro chef IA valuti la tua cucina!',
+        pt: 'Carregue uma foto do seu prato e deixe nosso chef IA avaliar sua culinária!',
+        tr: 'Yemeğinizin bir fotoğrafını yükleyin ve yapay zeka şefimizin yemeğinizi değerlendirmesine izin verin!'
     },
     rate_my_dish: {
         fa: 'امتیاز بده',
@@ -422,7 +524,10 @@ export const ui = {
         zh: '给我的菜评分',
         ja: '料理を評価',
         hi: 'मेरी डिश को रेट करें',
-        ko: '내 요리 평가'
+        ko: '내 요리 평가',
+        it: 'Vota il mio piatto',
+        pt: 'Avalie meu prato',
+        tr: 'Yemeğimi Değerlendir'
     },
     analyzing: {
         fa: 'در حال بررسی...',
@@ -434,7 +539,10 @@ export const ui = {
         zh: '正在分析...',
         ja: '分析中...',
         hi: 'विश्लेषण कर रहा है...',
-        ko: '분석 중...'
+        ko: '분석 중...',
+        it: 'Analisi in corso...',
+        pt: 'Analisando...',
+        tr: 'Analiz ediliyor...'
     },
     chefs_feedback: {
         fa: 'نظر سرآشپز',
@@ -446,7 +554,10 @@ export const ui = {
         zh: "厨师反馈",
         ja: "シェフのフィードバック",
         hi: "शेफ की प्रतिक्रिया",
-        ko: "셰프의 피드백"
+        ko: "셰프의 피드백",
+        it: "Feedback dello Chef",
+        pt: "Feedback do Chef",
+        tr: "Şefin Geri Bildirimi"
     },
     tips_improvement: {
         fa: 'نکات برای بهبود',
@@ -458,7 +569,10 @@ export const ui = {
         zh: '改进建议',
         ja: '改善のためのヒント',
         hi: 'सुधार के लिए सुझाव',
-        ko: '개선을 위한 팁'
+        ko: '개선을 위한 팁',
+        it: 'Consigli per migliorare',
+        pt: 'Dicas para melhorar',
+        tr: 'Geliştirme İpuçları'
     },
     click_upload: {
         fa: 'برای آپلود کلیک کنید',
@@ -470,7 +584,10 @@ export const ui = {
         zh: '点击上传或拖放',
         ja: 'クリックしてアップロード、またはドラッグ＆ドロップ',
         hi: 'अपलोड करने के लिए क्लिक करें या खींचें और छोड़ें',
-        ko: '클릭하여 업로드하거나 드래그 앤 드롭'
+        ko: '클릭하여 업로드하거나 드래그 앤 드롭',
+        it: 'Clicca per caricare o trascina',
+        pt: 'Clique para carregar ou arraste e solte',
+        tr: 'Yüklemek için tıklayın veya sürükleyip bırakın'
     },
     clear: {
         fa: 'پاک کردن',
@@ -482,7 +599,10 @@ export const ui = {
         zh: '清除',
         ja: 'クリア',
         hi: 'साफ़ करें',
-        ko: '지우기'
+        ko: '지우기',
+        it: 'Cancella',
+        pt: 'Limpar',
+        tr: 'Temizle'
     },
     // Assistant
     assistant_listening: {
@@ -495,7 +615,10 @@ export const ui = {
         zh: '正在听...',
         ja: '聞いています...',
         hi: 'सुन रहा हूँ...',
-        ko: '듣고 있습니다...'
+        ko: '듣고 있습니다...',
+        it: 'Ascolto...',
+        pt: 'Ouvindo...',
+        tr: 'Dinliyorum...'
     },
     assistant_processing: {
         fa: 'در حال فکر کردن...',
@@ -507,7 +630,10 @@ export const ui = {
         zh: '正在思考...',
         ja: '考えています...',
         hi: 'सोच रहा हूँ...',
-        ko: '생각 중...'
+        ko: '생각 중...',
+        it: 'Pensando...',
+        pt: 'Pensando...',
+        tr: 'Düşünüyorum...'
     },
     assistant_speaking: {
         fa: 'پاسخ سرآشپز',
@@ -519,7 +645,10 @@ export const ui = {
         zh: '厨师说话',
         ja: 'シェフが話しています',
         hi: 'शेफ बोल रहा है',
-        ko: '셰프가 말하고 있습니다'
+        ko: '셰프가 말하고 있습니다',
+        it: 'Lo Chef Parla',
+        pt: 'O Chef Fala',
+        tr: 'Şef Konuşuyor'
     },
     // Nutrition
     nutrition_facts: {
@@ -532,7 +661,10 @@ export const ui = {
         zh: '营养与健康',
         ja: '栄養と健康',
         hi: 'पोषण और स्वास्थ्य',
-        ko: '영양 및 건강'
+        ko: '영양 및 건강',
+        it: 'Nutrizione e Salute',
+        pt: 'Nutrição e Saúde',
+        tr: 'Beslenme ve Sağlık'
     },
     calories: {
         fa: 'کالری',
@@ -544,7 +676,10 @@ export const ui = {
         zh: '卡路里',
         ja: 'カロリー',
         hi: 'कैलोरी',
-        ko: '칼로리'
+        ko: '칼로리',
+        it: 'Calorie',
+        pt: 'Calorias',
+        tr: 'Kalori'
     },
     protein: {
         fa: 'پروتئین',
@@ -556,7 +691,10 @@ export const ui = {
         zh: '蛋白质',
         ja: 'タンパク質',
         hi: 'प्रोटीन',
-        ko: '단백질'
+        ko: '단백질',
+        it: 'Proteine',
+        pt: 'Proteína',
+        tr: 'Protein'
     },
     carbs: {
         fa: 'کربوهیدرات',
@@ -568,7 +706,10 @@ export const ui = {
         zh: '碳水化合物',
         ja: '炭水化物',
         hi: 'कार्ब्स',
-        ko: '탄수화물'
+        ko: '탄수화물',
+        it: 'Carboidrati',
+        pt: 'Carboidratos',
+        tr: 'Karbonhidrat'
     },
     fat: {
         fa: 'چربی',
@@ -580,7 +721,10 @@ export const ui = {
         zh: '脂肪',
         ja: '脂質',
         hi: 'वसा',
-        ko: '지방'
+        ko: '지방',
+        it: 'Grassi',
+        pt: 'Gordura',
+        tr: 'Yağ'
     },
     chef_insight: {
         fa: 'تحلیل سرآشپز',
@@ -592,7 +736,10 @@ export const ui = {
         zh: "厨师见解",
         ja: "シェフの洞察",
         hi: "शेफ की अंतर्दृष्टि",
-        ko: "셰프의 통찰력"
+        ko: "셰프의 통찰력",
+        it: "Intuizione dello Chef",
+        pt: "Visão do Chef",
+        tr: "Şefin Görüşü"
     },
     chef_notes_title: {
         fa: 'یادداشت سرآشپز',
@@ -604,7 +751,10 @@ export const ui = {
         zh: '厨师笔记',
         ja: 'シェフのメモ',
         hi: "शेफ के नोट्स",
-        ko: "셰프의 노트"
+        ko: "셰프의 노트",
+        it: "Note dello Chef",
+        pt: "Notas do Chef",
+        tr: "Şefin Notları"
     },
     health_benefits: {
         fa: 'فواید سلامتی',
@@ -616,7 +766,10 @@ export const ui = {
         zh: '健康益处',
         ja: '健康上の利点',
         hi: 'स्वास्थ्य लाभ',
-        ko: '건강상의 이점'
+        ko: '건강상의 이점',
+        it: 'Benefici per la salute',
+        pt: 'Benefícios para a saúde',
+        tr: 'Sağlık Faydaları'
     },
     category: {
         fa: 'دسته‌بندی',
@@ -628,7 +781,10 @@ export const ui = {
         zh: '类别',
         ja: 'カテゴリー',
         hi: 'श्रेणी',
-        ko: '카테고리'
+        ko: '카테고리',
+        it: 'Categoria',
+        pt: 'Categoria',
+        tr: 'Kategori'
     },
     clear_filters: {
         fa: 'پاک کردن فیلترها',
@@ -640,7 +796,10 @@ export const ui = {
         zh: '清除筛选',
         ja: 'フィルターをクリア',
         hi: 'फ़िल्टर साफ़ करें',
-        ko: '필터 지우기'
+        ko: '필터 지우기',
+        it: 'Cancella filtri',
+        pt: 'Limpar Filtros',
+        tr: 'Filtreleri Temizle'
     },
     found_recipes: {
         fa: 'دستور پخت پیدا شد',
@@ -652,7 +811,10 @@ export const ui = {
         zh: '找到食谱',
         ja: '見つかったレシピ',
         hi: 'व्यंजन मिले',
-        ko: '레시피 찾음'
+        ko: '레시피 찾음',
+        it: 'ricette trovate',
+        pt: 'receitas encontradas',
+        tr: 'tarif bulundu'
     },
     no_results: {
         fa: 'نتیجه‌ای پیدا نشد. کلمات دیگری امتحان کنید.',
@@ -664,7 +826,10 @@ export const ui = {
         zh: '未找到食谱。尝试不同的关键词或筛选条件。',
         ja: 'レシピが見つかりませんでした。別のキーワードやフィルターを試してください。',
         hi: 'कोई व्यंजन नहीं मिला। विभिन्न कीवर्ड या फ़िल्टर आज़माएं।',
-        ko: '레시피를 찾을 수 없습니다. 다른 키워드나 필터를 시도해보세요.'
+        ko: '레시피를 찾을 수 없습니다. 다른 키워드나 필터를 시도해보세요.',
+        it: 'Nessuna ricetta trovata. Prova parole chiave o filtri diversi.',
+        pt: 'Nenhuma receita encontrada. Tente palavras-chave ou filtros diferentes.',
+        tr: 'Tarif bulunamadı. Farklı anahtar kelimeler veya filtreler deneyin.'
     },
     start_typing: {
         fa: 'برای جستجو تایپ کنید...',
@@ -676,7 +841,10 @@ export const ui = {
         zh: '开始输入搜索食谱...',
         ja: 'レシピを検索するには入力を開始...',
         hi: 'व्यंजन खोजने के लिए टाइप करना शुरू करें...',
-        ko: '레시피를 검색하려면 입력을 시작하세요...'
+        ko: '레시피를 검색하려면 입력을 시작하세요...',
+        it: 'Inizia a digitare per cercare ricette...',
+        pt: 'Comece a digitar para pesquisar receitas...',
+        tr: 'Tarif aramak için yazmaya başlayın...'
     },
     time_quick: {
         fa: 'سریع (کمتر از ۳۰ دقیقه)',
@@ -688,7 +856,10 @@ export const ui = {
         zh: '快速 (< 30 分钟)',
         ja: '早い (< 30 分)',
         hi: 'जल्दी (< 30 मिनट)',
-        ko: '빠른 (< 30분)'
+        ko: '빠른 (< 30분)',
+        it: 'Veloce (< 30 min)',
+        pt: 'Rápido (< 30 min)',
+        tr: 'Hızlı (< 30 dk)'
     },
     time_medium: {
         fa: 'متوسط (۳۰-۶۰ دقیقه)',
@@ -700,7 +871,10 @@ export const ui = {
         zh: '中等 (30-60 分钟)',
         ja: '普通 (30-60 分)',
         hi: 'मध्यम (30-60 मिनट)',
-        ko: '중간 (30-60분)'
+        ko: '중간 (30-60분)',
+        it: 'Medio (30-60 min)',
+        pt: 'Médio (30-60 min)',
+        tr: 'Orta (30-60 dk)'
     },
     time_long: {
         fa: 'طولانی (بیش از ۶۰ دقیقه)',
@@ -712,7 +886,10 @@ export const ui = {
         zh: '长 (> 60 分钟)',
         ja: '長い (> 60 分)',
         hi: 'लंबा (> 60 मिनट)',
-        ko: '긴 (> 60분)'
+        ko: '긴 (> 60분)',
+        it: 'Lungo (> 60 min)',
+        pt: 'Longo (> 60 min)',
+        tr: 'Uzun (> 60 dk)'
     },
     // Categories
     Rice: {
@@ -725,7 +902,10 @@ export const ui = {
         zh: '米饭',
         ja: '米',
         hi: 'चावल',
-        ko: '쌀'
+        ko: '쌀',
+        it: 'Riso',
+        pt: 'Arroz',
+        tr: 'Pirinç'
     },
     'Rice Dish': {
         fa: 'پلو',
@@ -737,7 +917,10 @@ export const ui = {
         zh: '米饭菜肴',
         ja: '米料理',
         hi: 'चावल का व्यंजन',
-        ko: '쌀 요리'
+        ko: '쌀 요리',
+        it: 'Piatto di Riso',
+        pt: 'Prato de Arroz',
+        tr: 'Pirinç Yemeği'
     },
     Pasta: {
         fa: 'پاستا',
@@ -749,7 +932,10 @@ export const ui = {
         zh: '面食',
         ja: 'パスタ',
         hi: 'पास्ता',
-        ko: '파스타'
+        ko: '파스타',
+        it: 'Pasta',
+        pt: 'Massa',
+        tr: 'Makarna'
     },
     'خوراکهای سبزیجات': {
         fa: 'خوراکهای سبزیجات',
@@ -761,7 +947,10 @@ export const ui = {
         zh: '蔬菜菜肴',
         ja: '野菜料理',
         hi: 'सब्जी के व्यंजन',
-        ko: '야채 요리'
+        ko: '야채 요리',
+        it: 'Piatti Vegetali',
+        pt: 'Pratos de Legumes',
+        tr: 'Sebze Yemekleri'
     },
     'Restored Legacy': {
         fa: 'دستور پخت کلاسیک',
@@ -773,7 +962,10 @@ export const ui = {
         zh: '经典食谱',
         ja: 'クラシックレシピ',
         hi: 'क्लासिक रेसिपी',
-        ko: '클래식 레시피'
+        ko: '클래식 레시피',
+        it: 'Ricetta Classica',
+        pt: 'Receita Clássica',
+        tr: 'Klasik Tarif'
     },
     Stew: {
         fa: 'خورش',
@@ -785,7 +977,10 @@ export const ui = {
         zh: '炖菜',
         ja: 'シチュー',
         hi: 'स्टू',
-        ko: '스튜'
+        ko: '스튜',
+        it: 'Stufato',
+        pt: 'Ensopado',
+        tr: 'Güveç'
     },
     Kebab: {
         fa: 'کباب',
@@ -797,7 +992,10 @@ export const ui = {
         zh: '烤肉',
         ja: 'ケバブ',
         hi: 'कबाब',
-        ko: '케밥'
+        ko: '케밥',
+        it: 'Kebab',
+        pt: 'Kebab',
+        tr: 'Kebap'
     },
     Soup: {
         fa: 'سوپ',
@@ -809,7 +1007,10 @@ export const ui = {
         zh: '汤',
         ja: 'スープ',
         hi: 'सूप',
-        ko: '수프'
+        ko: '수프',
+        it: 'Zuppa',
+        pt: 'Sopa',
+        tr: 'Çorba'
     },
     Dessert: {
         fa: 'دسر',
@@ -821,7 +1022,10 @@ export const ui = {
         zh: '甜点',
         ja: 'デザート',
         hi: 'मिठाई',
-        ko: '디저트'
+        ko: '디저트',
+        it: 'Dessert',
+        pt: 'Sobremesa',
+        tr: 'Tatlı'
     },
     Salad: {
         fa: 'سالاد',
@@ -833,7 +1037,10 @@ export const ui = {
         zh: '沙拉',
         ja: 'サラダ',
         hi: 'सलाद',
-        ko: '샐러드'
+        ko: '샐러드',
+        it: 'Insalata',
+        pt: 'Salada',
+        tr: 'Salata'
     },
     Appetizer: {
         fa: 'پیش‌غذا',
@@ -845,7 +1052,10 @@ export const ui = {
         zh: '开胃菜',
         ja: '前菜',
         hi: 'ऐपेटाइज़र',
-        ko: '전채'
+        ko: '전채',
+        it: 'Antipasto',
+        pt: 'Aperitivo',
+        tr: 'Meze'
     },
     'Seafood Stew': {
         fa: 'خوراک دریایی',
@@ -856,53 +1066,56 @@ export const ui = {
         ar: 'يخنة المأكولات البحرية',
         zh: '海鲜炖菜',
         ja: 'シーフードシチュー',
-        hi: 'सीफूड स्टू',
-        ko: '해산물 스튜'
+        hi: 'सीफود स्टू',
+        ko: '해산물 스튜',
+        it: 'Stufato di Pesce',
+        pt: 'Ensopado de Frutos do Mar',
+        tr: 'Deniz Ürünleri Güveci'
     },
     // --- Phase 5: Expanded Category Coverage ---
-    'Burger': { fa: 'برگر', en: 'Burger', de: 'Burger', fr: 'Burger', es: 'Hamburguesa', ar: 'برجر', zh: '汉堡', ja: 'バーガー', hi: 'बर्गर', ko: '버거' },
-    'Sandwich': { fa: 'ساندویچ', en: 'Sandwich', de: 'Sandwich', fr: 'Sandwich', es: 'Sándwich', ar: 'شطيرة', zh: '三明治', ja: 'サンドイッチ', hi: 'सैंडविच', ko: '샌드위치' },
-    'Pizza': { fa: 'پیتزا', en: 'Pizza', de: 'Pizza', fr: 'Pizza', es: 'Pizza', ar: 'بيتزا', zh: '比萨', ja: 'ピザ', hi: 'पिज़्ज़ा', ko: '피자' },
-    'Wrap': { fa: 'رپ (ساندویچ پیچ)', en: 'Wrap', de: 'Wrap', fr: 'Wrap', es: 'Wrap', ar: 'لفافة', zh: '卷饼', ja: 'ラップ', hi: 'रैप', ko: '랩' },
-    'Omelet': { fa: 'املت', en: 'Omelet', de: 'Omelett', fr: 'Omelette', es: 'Tortilla', ar: 'عجة', zh: '煎蛋卷', ja: 'オムレツ', hi: 'आमलेट', ko: '오믈렛' },
-    'Omelette': { fa: 'املت', en: 'Omelette', de: 'Omelett', fr: 'Omelette', es: 'Tortilla', ar: 'عجة', zh: '煎蛋卷', ja: 'オムレツ', hi: 'आमलेट', ko: '오믈렛' },
-    'Frittata': { fa: 'فریتاتا', en: 'Frittata', de: 'Frittata', fr: 'Frittata', es: 'Frittata', ar: 'فريتاتا', zh: '意式烘蛋', ja: 'フリッタータ', hi: 'फ्रिटाटा', ko: '프리타타' },
-    'Main Dish': { fa: 'غذای اصلی', en: 'Main Dish', de: 'Hauptgericht', fr: 'Plat Principal', es: 'Plato Principal', ar: 'طبق رئيسي', zh: '主菜', ja: 'メインディッシュ', hi: 'मुख्य व्यंजन', ko: '메인 요리' },
-    'Main Course': { fa: 'غذای اصلی', en: 'Main Course', de: 'Hauptgang', fr: 'Plat Principal', es: 'Plato Principal', ar: 'طبق رئيسي', zh: '主菜', ja: 'メインコース', hi: 'मुख्य पाठ्यक्रम', ko: '메인 코스' },
-    'Side Dish': { fa: 'پیش‌غذا / دورچین', en: 'Side Dish', de: 'Beilage', fr: 'Accompagnement', es: 'Acompañamiento', ar: 'طبق جانبي', zh: '配菜', ja: 'サイドディッシュ', hi: 'साइड डिश', ko: '사이드 요리' },
-    'Chicken Dish': { fa: 'خوراک مرغ', en: 'Chicken Dish', de: 'Hühnchengericht', fr: 'Plat de Poulet', es: 'Plato de Pollo', ar: 'طبق دجاج', zh: '鸡肉菜肴', ja: '鶏肉料理', hi: 'चिकन डिश', ko: '닭요리' },
-    'Meat Dish': { fa: 'خوراک گوشت', en: 'Meat Dish', de: 'Fleischgericht', fr: 'Plat de Viande', es: 'Plato de Carne', ar: 'طبق لحم', zh: '肉类菜肴', ja: '肉料理', hi: 'माँस का व्यंजन', ko: '고기 요리' },
-    'Vegetable Dish': { fa: 'خوراک سبزیجات', en: 'Vegetable Dish', de: 'Gemüsegericht', fr: 'Plat de Légumes', es: 'Plato de Verduras', ar: 'طبق خضار', zh: '蔬菜菜肴', ja: '野菜料理', hi: 'सब्जी का व्यंजन', ko: '야채 요리' },
-    'Vegetarian Dish': { fa: 'غذای گیاهی', en: 'Vegetarian Dish', de: 'Vegetarisches Gericht', fr: 'Plat Végétarien', es: 'Plato Vegetariano', ar: 'طبق نباتي', zh: '素食菜肴', ja: 'ベジタリアン料理', hi: 'शाकाहारी व्यंजन', ko: '채식 요리' },
-    'Vegetarian Main': { fa: 'غذای اصلی گیاهی', en: 'Vegetarian Main', de: 'Vegetarisches Hauptgericht', fr: 'Plat Principal Végétarien', es: 'Plato Principal Vegetariano', ar: 'طبق رئيسي نباتي', zh: '素食主菜', ja: 'ベジタリアンメイン', hi: 'शाकाहारी मुख्य', ko: '채식 메인' },
-    'Stir-fry': { fa: 'تفت‌داده (وک)', en: 'Stir-fry', de: 'Pfannengericht', fr: 'Sauté', es: 'Salteado', ar: 'مقلي', zh: '炒菜', ja: '炒め物', hi: 'स्टिर-फ्राई', ko: '볶음' },
-    'Casserole': { fa: 'کاسرول', en: 'Casserole', de: 'Auflauf', fr: 'Casserole', es: 'Cazuela', ar: 'طاجن', zh: '砂锅菜', ja: 'キャセロール', hi: 'कैसरोल', ko: '캐서롤' },
-    'Bake': { fa: 'خوراک تنوری', en: 'Bake', de: 'Auflauf', fr: 'Gratin', es: 'Horneado', ar: 'مخبوز', zh: '烘焙食品', ja: '焼き物', hi: 'बेक', ko: '구이' },
-    'Grill': { fa: 'گریل', en: 'Grill', de: 'Grillgericht', fr: 'Grillade', es: 'Parrillada', ar: 'مشوي', zh: '烧烤', ja: 'グリル', hi: 'ग्रिल', ko: '그릴' },
-    'Bread': { fa: 'نان', en: 'Bread', de: 'Brot', fr: 'Pain', es: 'Pan', ar: 'خبز', zh: '面包', ja: 'パン', hi: 'ब्रेड', ko: '빵' },
-    'Breakfast': { fa: 'صبحانه', en: 'Breakfast', de: 'Frühstück', fr: 'Petit Déjeuner', es: 'Desayuno', ar: 'إفطار', zh: '早餐', ja: '朝食', hi: 'नाश्ता', ko: '아침 식사' },
-    'Brunch': { fa: 'برانچ', en: 'Brunch', de: 'Brunch', fr: 'Brunch', es: 'Brunch', ar: 'فطور متأخر', zh: '早午餐', ja: 'ブランチ', hi: 'ब्रंच', ko: '브런치' },
-    'Snack': { fa: 'میان‌وعده', en: 'Snack', de: 'Snack', fr: 'Collation', es: 'Merienda', ar: 'وجبة خفيفة', zh: '零食', ja: 'スナック', hi: 'स्नैक', ko: '간식' },
+    'Burger': { fa: 'برگر', en: 'Burger', de: 'Burger', fr: 'Burger', es: 'Hamburguesa', ar: 'برجر', zh: '汉堡', ja: 'バーガー', hi: 'बर्गर', ko: '버거', it: 'Hamburger', pt: 'Hambúrguer', tr: 'Burger' },
+    'Sandwich': { fa: 'ساندویچ', en: 'Sandwich', de: 'Sandwich', fr: 'Sandwich', es: 'Sándwich', ar: 'شطيرة', zh: '三明治', ja: 'サンドイッチ', hi: 'सैंडविच', ko: '샌드위치', it: 'Panino', pt: 'Sanduíche', tr: 'Sandviç' },
+    'Pizza': { fa: 'پیتزا', en: 'Pizza', de: 'Pizza', fr: 'Pizza', es: 'Pizza', ar: 'بيتزا', zh: '比萨', ja: 'ピザ', hi: 'पिज़्ज़ा', ko: '피자', it: 'Pizza', pt: 'Pizza', tr: 'Pizza' },
+    'Wrap': { fa: 'رپ (ساندویچ پیچ)', en: 'Wrap', de: 'Wrap', fr: 'Wrap', es: 'Wrap', ar: 'لفافة', zh: '卷饼', ja: 'ラップ', hi: 'रैप', ko: '랩', it: 'Wrap', pt: 'Wrap', tr: 'Dürüm' },
+    'Omelet': { fa: 'املت', en: 'Omelet', de: 'Omelett', fr: 'Omelette', es: 'Tortilla', ar: 'عجة', zh: '煎蛋卷', ja: 'オムレツ', hi: 'आमलेट', ko: '오믈렛', it: 'Omelette', pt: 'Omelete', tr: 'Omlet' },
+    'Omelette': { fa: 'املت', en: 'Omelette', de: 'Omelett', fr: 'Omelette', es: 'Tortilla', ar: 'عجة', zh: '煎蛋卷', ja: 'オムレツ', hi: 'आमलेट', ko: '오믈렛', it: 'Omelette', pt: 'Omelete', tr: 'Omlet' },
+    'Frittata': { fa: 'فریتاتا', en: 'Frittata', de: 'Frittata', fr: 'Frittata', es: 'Frittata', ar: 'فريتاتا', zh: '意式烘蛋', ja: 'フリッタータ', hi: 'फ्रिटाटा', ko: '프리타타', it: 'Frittata', pt: 'Frittata', tr: 'Frittata' },
+    'Main Dish': { fa: 'غذای اصلی', en: 'Main Dish', de: 'Hauptgericht', fr: 'Plat Principal', es: 'Plato Principal', ar: 'طبق رئيسي', zh: '主菜', ja: 'メインディッシュ', hi: 'मुख्य व्यंजन', ko: '메인 요리', it: 'Piatto Principale', pt: 'Prato Principal', tr: 'Ana Yemek' },
+    'Main Course': { fa: 'غذای اصلی', en: 'Main Course', de: 'Hauptgang', fr: 'Plat Principal', es: 'Plato Principal', ar: 'طبق رئيسي', zh: '主菜', ja: 'メインコース', hi: 'मुख्य पाठ्यक्रम', ko: '메인 코스', it: 'Piatto Principale', pt: 'Prato Principal', tr: 'Ana Yemek' },
+    'Side Dish': { fa: 'پیش‌غذا / دورچین', en: 'Side Dish', de: 'Beilage', fr: 'Accompagnement', es: 'Acompañamiento', ar: 'طبق جانبي', zh: '配菜', ja: 'サイドディッシュ', hi: 'साइड डिश', ko: '사이드 요리', it: 'Contorno', pt: 'Acompanhamento', tr: 'Yan Yemek' },
+    'Chicken Dish': { fa: 'خوراک مرغ', en: 'Chicken Dish', de: 'Hühnchengericht', fr: 'Plat de Poulet', es: 'Plato de Pollo', ar: 'طبق دجاج', zh: '鸡肉菜肴', ja: '鶏肉料理', hi: 'चिकन डिश', ko: '닭요리', it: 'Piatto di Pollo', pt: 'Prato de Frango', tr: 'Tavuk Yemeği' },
+    'Meat Dish': { fa: 'خوراک گوشت', en: 'Meat Dish', de: 'Fleischgericht', fr: 'Plat de Viande', es: 'Plato de Carne', ar: 'طبق لحم', zh: '肉类菜肴', ja: '肉料理', hi: 'माँस का व्यंजन', ko: '고기 요리', it: 'Piatto di Carne', pt: 'Prato de Carne', tr: 'Et Yemeği' },
+    'Vegetable Dish': { fa: 'خوراک سبزیجات', en: 'Vegetable Dish', de: 'Gemüsegericht', fr: 'Plat de Légumes', es: 'Plato de Verduras', ar: 'طبق خضار', zh: '蔬菜菜肴', ja: '野菜料理', hi: 'सब्जी का व्यंजन', ko: '야채 요리', it: 'Piatto di Verdure', pt: 'Prato de Vegetais', tr: 'Sebze Yemeği' },
+    'Vegetarian Dish': { fa: 'غذای گیاهی', en: 'Vegetarian Dish', de: 'Vegetarisches Gericht', fr: 'Plat Végétarien', es: 'Plato Vegetariano', ar: 'طبق نباتي', zh: '素食菜肴', ja: 'ベジタリアン料理', hi: 'शाकाहारी व्यंजन', ko: '채식 요리', it: 'Piatto Vegetariano', pt: 'Prato Vegetariano', tr: 'Vejetaryen Yemek' },
+    'Vegetarian Main': { fa: 'غذای اصلی گیاهی', en: 'Vegetarian Main', de: 'Vegetarisches Hauptgericht', fr: 'Plat Principal Végétarien', es: 'Plato Principal Vegetariano', ar: 'طبق رئيسي نباتي', zh: '素食主菜', ja: 'ベジタリアンメイン', hi: 'शाकाहारी मुख्य', ko: '채식 메인', it: 'Piatto Principale Vegetariano', pt: 'Prato Principal Vegetariano', tr: 'Vejetaryen Ana Yemek' },
+    'Stir-fry': { fa: 'تفت‌داده (وک)', en: 'Stir-fry', de: 'Pfannengericht', fr: 'Sauté', es: 'Salteado', ar: 'مقلي', zh: '炒菜', ja: '炒め物', hi: 'स्टिर-फ्राई', ko: '볶음', it: 'Saltato in Padella', pt: 'Salteado', tr: 'Sote' },
+    'Casserole': { fa: 'کاسرول', en: 'Casserole', de: 'Auflauf', fr: 'Casserole', es: 'Cazuela', ar: 'طاجن', zh: '砂锅菜', ja: 'キャセロール', hi: 'कैसरोल', ko: '캐서롤', it: 'Casseruola', pt: 'Caçarola', tr: 'Güveç' },
+    'Bake': { fa: 'خوراک تنوری', en: 'Bake', de: 'Auflauf', fr: 'Gratin', es: 'Horneado', ar: 'مخبوز', zh: '烘焙食品', ja: '焼き物', hi: 'बेक', ko: '구이', it: 'Al Forno', pt: 'Assado', tr: 'Fırın' },
+    'Grill': { fa: 'گریل', en: 'Grill', de: 'Grillgericht', fr: 'Grillade', es: 'Parrillada', ar: 'مشوي', zh: '烧烤', ja: 'グリル', hi: 'ग्रिल', ko: '그릴', it: 'Griglia', pt: 'Grelhado', tr: 'Izgara' },
+    'Bread': { fa: 'نان', en: 'Bread', de: 'Brot', fr: 'Pain', es: 'Pan', ar: 'خبز', zh: '面包', ja: 'パン', hi: 'ब्रेड', ko: '빵', it: 'Pane', pt: 'Pão', tr: 'Ekmek' },
+    'Breakfast': { fa: 'صبحانه', en: 'Breakfast', de: 'Frühstück', fr: 'Petit Déjeuner', es: 'Desayuno', ar: 'إفطار', zh: '早餐', ja: '朝食', hi: 'नाश्ता', ko: '아침 식사', it: 'Colazione', pt: 'Café da Manhã', tr: 'Kahvaltı' },
+    'Brunch': { fa: 'برانچ', en: 'Brunch', de: 'Brunch', fr: 'Brunch', es: 'Brunch', ar: 'فطور متأخر', zh: '早午餐', ja: 'ブランチ', hi: 'ब्रंच', ko: '브런치', it: 'Brunch', pt: 'Brunch', tr: 'Brunch' },
+    'Snack': { fa: 'میان‌وعده', en: 'Snack', de: 'Snack', fr: 'Collation', es: 'Merienda', ar: 'وجبة خفيفة', zh: '零食', ja: 'スナック', hi: 'स्नैक', ko: '간식', it: 'Spuntino', pt: 'Lanche', tr: 'Atıştırmalık' },
     // -------------------------------------
     // Flavor DNA
-    sour: { fa: 'ترش', en: 'Sour', es: 'Agrio', fr: 'Acide', de: 'Sauer', ar: 'حامض', zh: '酸', ja: '酸味', hi: 'खट्टा', ko: '신맛' },
-    salty: { fa: 'شور', en: 'Salty', es: 'Salado', fr: 'Salé', de: 'Salzig', ar: 'مالح', zh: '咸', ja: '塩味', hi: 'नमकीन', ko: '짠맛' },
-    spicy: { fa: 'تند', en: 'Spicy', es: 'Picante', fr: 'Épicé', de: 'Scharf', ar: 'توابل', zh: '辣', ja: '辛味', hi: 'मसालेदार', ko: '매운맛' },
-    sweet: { fa: 'شیرین', en: 'Sweet', es: 'Dulce', fr: 'Sucré', de: 'Süß', ar: 'حلو', zh: '甜', ja: '甘味', hi: 'मीठा', ko: '단맛' },
-    bitter: { fa: 'تلخ', en: 'Bitter', es: 'Amargo', fr: 'Amer', de: 'Bitter', ar: 'مر', zh: '苦', ja: '苦味', hi: 'कड़वा', ko: '쓴맛' },
-    savory: { fa: 'اومامی', en: 'Savory', es: 'Sabroso', fr: 'Savoureux', de: 'Herzhaft', ar: 'لذيذ', zh: '鲜', ja: '旨味', hi: 'स्वादिष्ट', ko: '감칠맛' },
+    sour: { fa: 'ترش', en: 'Sour', es: 'Agrio', fr: 'Acide', de: 'Sauer', ar: 'حامض', zh: '酸', ja: '酸味', hi: 'खट्टा', ko: '신맛', it: 'Acido', pt: 'Azedo', tr: 'Ekşi' },
+    salty: { fa: 'شور', en: 'Salty', es: 'Salado', fr: 'Salé', de: 'Salzig', ar: 'مالح', zh: '咸', ja: '塩味', hi: 'नमकीन', ko: '짠맛', it: 'Salato', pt: 'Salgado', tr: 'Tuzlu' },
+    spicy: { fa: 'تند', en: 'Spicy', es: 'Picante', fr: 'Épicé', de: 'Scharf', ar: 'توابل', zh: '辣', ja: '辛味', hi: 'मसालेदार', ko: '매운맛', it: 'Piccante', pt: 'Picante', tr: 'Acı' },
+    sweet: { fa: 'شیرین', en: 'Sweet', es: 'Dulce', fr: 'Sucré', de: 'Süß', ar: 'حلو', zh: '甜', ja: '甘味', hi: 'मीठा', ko: '단맛', it: 'Dolce', pt: 'Doce', tr: 'Tatlı' },
+    bitter: { fa: 'تلخ', en: 'Bitter', es: 'Amargo', fr: 'Amer', de: 'Bitter', ar: 'مر', zh: '苦', ja: '苦味', hi: 'कड़वा', ko: '쓴맛', it: 'Amaro', pt: 'Amargo', tr: 'Acı' },
+    savory: { fa: 'اومامی', en: 'Savory', es: 'Sabroso', fr: 'Savoureux', de: 'Herzhaft', ar: 'لذيذ', zh: '鲜', ja: '旨味', hi: 'स्वादिष्ट', ko: '감칠맛', it: 'Saporito', pt: 'Saboroso', tr: 'Lezzetli' },
 
-    'Vegan': { fa: 'وگان', en: 'Vegan', es: 'Vegano', fr: 'Végétalien', de: 'Vegan', ar: 'نباتي صرف', zh: '纯素', ja: 'ヴィーガン', hi: 'वेगन', ko: '비건' },
-    'Vegetarian': { fa: 'گیاهخواری', en: 'Vegetarian', es: 'Vegetariano', fr: 'Végétarien', de: 'Vegetarisch', ar: 'نباتي', zh: '素食', ja: 'ベジタリアン', hi: 'शाकाहारी', ko: '채식' },
+    'Vegan': { fa: 'وگان', en: 'Vegan', es: 'Vegano', fr: 'Végétalien', de: 'Vegan', ar: 'نباتي صرف', zh: '纯素', ja: 'ヴィーガン', hi: 'वेगन', ko: '비건', it: 'Vegano', pt: 'Vegano', tr: 'Vegan' },
+    'Vegetarian': { fa: 'گیاهخواری', en: 'Vegetarian', es: 'Vegetariano', fr: 'Végétarien', de: 'Vegetarisch', ar: 'نباتي', zh: '素食', ja: 'ベジタリアン', hi: 'शाकाहारी', ko: '채식', it: 'Vegetariano', pt: 'Vegetariano', tr: 'Vejetaryen' },
     // Tags
-    'Gluten-Free': { fa: 'بدون گلوتن', en: 'Gluten-Free', es: 'Sin Gluten', fr: 'Sans Gluten', de: 'Glutenfrei', ar: 'خالي من الغلوتين', zh: '无麸质', ja: 'グルテンフリー', hi: 'ग्लूटेन-मुक्त', ko: '글루텐 프리' },
-    'Low-Carb': { fa: 'کم کربوهیدرات', en: 'Low-Carb', es: 'Bajo en Carb', fr: 'Faible en Glucides', de: 'Low-Carb', ar: 'قليل الكربوهيدرات', zh: '低碳水', ja: '低糖質', hi: 'कम कार्ब', ko: '저탄수화물' },
-    'Halal': { fa: 'حلال', en: 'Halal', es: 'Halal', fr: 'Halal', de: 'Halal', ar: 'حلال', zh: '清真', ja: 'ハラル', hi: 'हलाल', ko: '할랄' },
-    'Nut-Free': { fa: 'بدون آجیل', en: 'Nut-Free', es: 'Sin Frutos Secos', fr: 'Sans Noix', de: 'Nussfrei', ar: 'خالي من المكسرات', zh: '无坚果', ja: 'ナッツフリー', hi: 'नट-मुक्त', ko: '견과류 없음' },
-    'Dairy-Free': { fa: 'بدون لبنیات', en: 'Dairy-Free', es: 'Sin Lácteos', fr: 'Sans Produits Laitiers', de: 'Laktosefrei', ar: 'خالي من منتجات الألبان', zh: '无乳制品', ja: '乳製品不使用', hi: 'डेयरी-मुक्त', ko: '유제품 없음' },
-    'High-Protein': { fa: 'پروتئین بالا', en: 'High-Protein', es: 'Alto en Proteína', fr: 'Riche en Protéines', de: 'Proteinreich', ar: 'عالي البروتين', zh: '高蛋白', ja: '高タンパク質', hi: 'उच्च प्रोटीन', ko: '고단백' },
-    'Intermediate': { fa: 'متوسط', en: 'Intermediate', es: 'Intermedio', fr: 'Intermédiaire', de: 'Mittel', ar: 'متوسط', zh: '中级', ja: '中級', hi: 'मध्यवर्ती', ko: '중급' },
-    'Beginner': { fa: 'مبتدی', en: 'Beginner', es: 'Principiante', fr: 'Débutant', de: 'Anfänger', ar: 'مبتدئ', zh: '初学者', ja: '初心者', hi: 'शुरुआती', ko: '초급' },
+    'Gluten-Free': { fa: 'بدون گلوتن', en: 'Gluten-Free', es: 'Sin Gluten', fr: 'Sans Gluten', de: 'Glutenfrei', ar: 'خالي من الغلوتين', zh: '无麸质', ja: 'グルテンフリー', hi: 'ग्लूटेन-मुक्त', ko: '글루텐 프리', it: 'Senza Glutine', pt: 'Sem Glúten', tr: 'Glutensiz' },
+    'Low-Carb': { fa: 'کم کربوهیدرات', en: 'Low-Carb', es: 'Bajo en Carb', fr: 'Faible en Glucides', de: 'Low-Carb', ar: 'قليل الكربوهيدرات', zh: '低碳水', ja: '低糖質', hi: 'कम कार्ब', ko: '저탄수화물', it: 'Basso Contenuto di Carboidrati', pt: 'Baixo Carboidrato', tr: 'Düşük Karbonhidrat' },
+    'Halal': { fa: 'حلال', en: 'Halal', es: 'Halal', fr: 'Halal', de: 'Halal', ar: 'حلال', zh: '清真', ja: 'ハラル', hi: 'हलाल', ko: '할랄', it: 'Halal', pt: 'Halal', tr: 'Helal' },
+    'Nut-Free': { fa: 'بدون آجیل', en: 'Nut-Free', es: 'Sin Frutos Secos', fr: 'Sans Noix', de: 'Nussfrei', ar: 'خالي من المكسرات', zh: '无坚果', ja: 'ナッツフリー', hi: 'नट-मुक्त', ko: '견과류 없음', it: 'Senza Noci', pt: 'Sem Nozes', tr: 'Fındıksız' },
+    'Dairy-Free': { fa: 'بدون لبنیات', en: 'Dairy-Free', es: 'Sin Lácteos', fr: 'Sans Produits Laitiers', de: 'Laktosefrei', ar: 'خالي من منتجات الألبان', zh: '无乳制品', ja: '乳製品不使用', hi: 'डेयरी-मुक्त', ko: '유제품 없음', it: 'Senza Latticini', pt: 'Sem Laticínios', tr: 'Süt Ürünü İçermez' },
+    'High-Protein': { fa: 'پروتئین بالا', en: 'High-Protein', es: 'Alto en Proteína', fr: 'Riche en Protéines', de: 'Proteinreich', ar: 'عالي البروتين', zh: '高蛋白', ja: '高タンパク質', hi: 'उच्च प्रोटीन', ko: '고단백', it: 'Alto Contenuto Proteico', pt: 'Alto Teor de Proteína', tr: 'Yüksek Protein' },
+    'Intermediate': { fa: 'متوسط', en: 'Intermediate', es: 'Intermedio', fr: 'Intermédiaire', de: 'Mittel', ar: 'متوسط', zh: '中级', ja: '中級', hi: 'मध्यवर्ती', ko: '중급', it: 'Intermedio', pt: 'Intermediário', tr: 'Orta Seviye' },
+    'Beginner': { fa: 'مبتدی', en: 'Beginner', es: 'Principiante', fr: 'Débutant', de: 'Anfänger', ar: 'مبتدئ', zh: '初学者', ja: '初心者', hi: 'शुरुआती', ko: '초급', it: 'Principiante', pt: 'Iniciante', tr: 'Başlangıç' },
     // New Phase 3 UI Keys
     story_title: {
         fa: 'داستان غذا',
@@ -914,7 +1127,10 @@ export const ui = {
         zh: '故事',
         ja: '物語',
         hi: 'कहानी',
-        ko: '이야기'
+        ko: '이야기',
+        it: 'La Storia',
+        pt: 'A História',
+        tr: 'Hikaye'
     },
     flavor_dna: {
         fa: 'شناسنامه طعم',
@@ -926,7 +1142,10 @@ export const ui = {
         zh: '风味DNA',
         ja: '味のDNA',
         hi: 'स्वाद डीएनए',
-        ko: '맛 DNA'
+        ko: '맛 DNA',
+        it: 'DNA del Sapore',
+        pt: 'DNA do Sabor',
+        tr: 'Lezzet DNA\'sı'
     },
     sensory_profile: {
         fa: 'پروفایل حسی',
@@ -938,7 +1157,10 @@ export const ui = {
         zh: '感官特征',
         ja: '感覚プロファイル',
         hi: 'संवेदी प्रोफ़ाइल',
-        ko: '감각 프로필'
+        ko: '감각 프로필',
+        it: 'Profilo Sensoriale',
+        pt: 'Perfil Sensorial',
+        tr: 'Duyusal Profil'
     },
     chef_mastery: {
         fa: 'مهارت سرآشپز',
@@ -950,7 +1172,10 @@ export const ui = {
         zh: '厨师精通',
         ja: 'シェフの技',
         hi: 'शेफ की महारत',
-        ko: '셰프의 숙련도'
+        ko: '셰프의 숙련도',
+        it: 'Maestria dello Chef',
+        pt: 'Maestria do Chef',
+        tr: 'Şefin Ustalığı'
     },
     tip_secret: {
         fa: 'فوت کوزه‌گری',
@@ -962,7 +1187,10 @@ export const ui = {
         zh: '秘诀',
         ja: '秘密',
         hi: 'रहस्य',
-        ko: '비밀'
+        ko: '비밀',
+        it: 'Il Segreto',
+        pt: 'O Segredo',
+        tr: 'Sır'
     },
     tip_avoid: {
         fa: 'نبایدها',
@@ -974,7 +1202,10 @@ export const ui = {
         zh: '避免这个',
         ja: '避けるべきこと',
         hi: 'इससे बचें',
-        ko: '피해야 할 것'
+        ko: '피해야 할 것',
+        it: 'Evita Questo',
+        pt: 'Evite Isso',
+        tr: 'Bundan Kaçının'
     },
     storage: {
         fa: 'نگهداری',
@@ -986,7 +1217,10 @@ export const ui = {
         zh: '储存',
         ja: '保存',
         hi: 'भंडारण',
-        ko: '보관'
+        ko: '보관',
+        it: 'Conservazione',
+        pt: 'Armazenamento',
+        tr: 'Depolama'
     },
     chef_swaps: {
         fa: 'جایگزین‌های سرآشپز',
@@ -998,7 +1232,25 @@ export const ui = {
         zh: '厨师替换',
         ja: 'シェフの代替案',
         hi: 'शेफ के स्वैप',
-        ko: '셰프의 교체'
+        ko: '셰프의 교체',
+        it: 'Sostituzioni dello Chef',
+        pt: 'Trocas do Chef',
+        tr: 'Şefin Değişimleri'
+    },
+    pairing_suggestions: {
+        fa: 'پیشنهادات نوشیدنی',
+        en: 'Perfect Pairings',
+        es: 'Maridajes Perfectos',
+        fr: 'Accords Mets-Vins',
+        de: 'Getränkeempfehlungen',
+        ar: 'اقتراحات التقديم',
+        zh: '搭配建议',
+        ja: 'ペアリング提案',
+        hi: 'सही जोड़ी',
+        ko: '완벽한 페어링',
+        it: 'Abbinamenti Perfetti',
+        pt: 'Combinações Perfeitas',
+        tr: 'Mükemmel Eşleşmeler'
     },
     bento_health: {
         fa: 'سلامت',
@@ -1010,7 +1262,10 @@ export const ui = {
         zh: '健康',
         ja: '健康',
         hi: 'स्वास्थ्य',
-        ko: '건강'
+        ko: '건강',
+        it: 'Salute',
+        pt: 'Saúde',
+        tr: 'Sağlık'
     },
     bento_taste: {
         fa: 'طعم',
@@ -1022,7 +1277,10 @@ export const ui = {
         zh: '味道',
         ja: '味',
         hi: 'स्वाद',
-        ko: '맛'
+        ko: '맛',
+        it: 'Sapore',
+        pt: 'Sabor',
+        tr: 'Lezzet'
     },
     bento_joy: {
         fa: 'لذت',
@@ -1034,7 +1292,10 @@ export const ui = {
         zh: '乐趣',
         ja: '喜び',
         hi: 'आनंद',
-        ko: '기쁨'
+        ko: '기쁨',
+        it: 'Gioia',
+        pt: 'Alegria',
+        tr: 'Neşe'
     },
     bento_difficulty: {
         fa: 'سختی',
@@ -1046,7 +1307,10 @@ export const ui = {
         zh: '难度',
         ja: '難易度',
         hi: 'कठिनाई',
-        ko: '난이도'
+        ko: '난이도',
+        it: 'Difficoltà',
+        pt: 'Dificuldade',
+        tr: 'Zorluk'
     },
     chef_mastery_guide: {
         fa: 'راهنمای استادانه سرآشپز',
@@ -1058,7 +1322,10 @@ export const ui = {
         zh: "厨师精通指南",
         ja: "シェフのマスターガイド",
         hi: "शेफ की महारत गाइड",
-        ko: "셰프의 마스터리 가이드"
+        ko: "셰프의 마스터리 가이드",
+        it: 'Guida dello Chef',
+        pt: 'Guia do Chef',
+        tr: 'Şef Kılavuzu'
     },
     // Monetization / Premium
     hire_chef: {
@@ -1071,7 +1338,10 @@ export const ui = {
         zh: '聘请厨师 (VIP)',
         ja: 'シェフを雇う (VIP)',
         hi: 'शेफ ज़फ़रॉन को किराए पर लें (VIP)',
-        ko: '셰프 자파론 고용 (VIP)'
+        ko: '셰프 자파론 고용 (VIP)',
+        it: 'Assumi Chef Zaffaron (VIP)',
+        pt: 'Contratar Chef Zaffaron (VIP)',
+        tr: 'Şef Zaffaron\'u İşe Al (VIP)'
     },
     verified_badge: {
         fa: 'نشان تایید',
@@ -1083,23 +1353,26 @@ export const ui = {
         zh: '获得认证',
         ja: '認証を取得',
         hi: 'सत्यापित हो जाओ',
-        ko: '인증 받기'
+        ko: '인증 받기',
+        it: 'Ottieni Verificato',
+        pt: 'Obter Verificado',
+        tr: 'Doğrulanmış Ol'
     },
     // Reverse Mappings for Farsi DB Data
-    'برنج': { fa: 'برنج', en: 'Rice', es: 'Arroz', fr: 'Riz', de: 'Reis', ar: 'أرز', zh: '米饭', ja: '米', hi: 'चावल', ko: '쌀' },
-    'خورش': { fa: 'خورش', en: 'Stew', es: 'Guiso', fr: 'Ragoût', de: 'Eintopf', ar: 'حساء', zh: '炖菜', ja: 'シチュー', hi: 'स्टू', ko: '스튜' },
-    'کباب': { fa: 'کباب', en: 'Kebab', es: 'Kebab', fr: 'Kebab', de: 'Kebab', ar: 'كباب', zh: '烤肉', ja: 'ケバブ', hi: 'कबाब', ko: '케밥' },
-    'سوپ': { fa: 'سوپ', en: 'Soup', es: 'Sopa', fr: 'Soupe', de: 'Suppe', ar: 'شوربة', zh: '汤', ja: 'スープ', hi: 'सूप', ko: '수프' },
-    'دسر': { fa: 'دسر', en: 'Dessert', es: 'Postre', fr: 'Dessert', de: 'Dessert', ar: 'حلوى', zh: '甜点', ja: 'デザート', hi: 'मिठाई', ko: '디저트' },
-    'سالاد': { fa: 'سالاد', en: 'Salad', es: 'Ensalada', fr: 'Salade', de: 'Salat', ar: 'سلطة', zh: '沙拉', ja: 'サラダ', hi: 'सलाद', ko: '샐러드' },
-    'پیش‌غذا': { fa: 'پیش‌غذا', en: 'Appetizer', es: 'Aperitivo', fr: 'Apéritif', de: 'Vorspeise', ar: 'مقبلات', zh: '开胃菜', ja: '前菜', hi: 'ऐपेटाइज़र', ko: '전채' },
-    'غذاهای ساده': { fa: 'غذاهای ساده', en: 'Simple Dishes', es: 'Platos Sencillos', fr: 'Plats simples', de: 'Einfache Gerichte', ar: 'أطباق بسيطة', zh: '简单菜肴', ja: '簡単な料理', hi: 'साधारण व्यंजन', ko: '간단한 요리' },
-    'غذاهای سنتی': { fa: 'غذاهای سنتی', en: 'Traditional Dishes', es: 'Platos Tradicionales', fr: 'Plats traditionnels', de: 'Traditionelle Gerichte', ar: 'أطباق تقليدية', zh: '传统菜肴', ja: '伝統料理', hi: 'पारंपरिक व्यंजन', ko: '전통 요리' },
-    'غذاهای دریایی': { fa: 'غذاهای دریایی', en: 'Seafood', es: 'Mariscos', fr: 'Fruits de mer', de: 'Meeresfrüchte', ar: 'مأكولات بحرية', zh: '海鲜', ja: 'シーフード', hi: 'समुद्री भोजन', ko: '해산물' },
-    'فست فود': { fa: 'فست فود', en: 'Fast Food', es: 'Comida Rápida', fr: 'Restauration rapide', de: 'Fast Food', ar: 'وجبات سريعة', zh: '快餐', ja: 'ファーストフード', hi: 'फास्ट फूड', ko: '패스트 푸드' },
-    'نوشیدنی': { fa: 'نوشیدنی', en: 'Drinks', es: 'Bebidas', fr: 'Boissons', de: 'Getränke', ar: 'مشروبات', zh: '饮料', ja: '飲み物', hi: 'पेय', ko: '음료' },
-    'نان': { fa: 'نان', en: 'Bread', es: 'Pan', fr: 'Pain', de: 'Brot', ar: 'خبز', zh: '面包', ja: 'パン', hi: 'ब्रेड', ko: '빵' },
-    'صبحانه': { fa: 'صبحانه', en: 'Breakfast', es: 'Desayuno', fr: 'Petit déjeuner', de: 'Frühstück', ar: 'فطور', zh: '早餐', ja: '朝食', hi: 'नाश्ता', ko: '아침 식사' },
+    'برنج': { fa: 'برنج', en: 'Rice', es: 'Arroz', fr: 'Riz', de: 'Reis', ar: 'أرز', zh: '米饭', ja: '米', hi: 'चावल', ko: '쌀', it: 'Riso', pt: 'Arroz', tr: 'Pirinç' },
+    'خورش': { fa: 'خورش', en: 'Stew', es: 'Guiso', fr: 'Ragoût', de: 'Eintopf', ar: 'حساء', zh: '炖菜', ja: 'シチュー', hi: 'स्टू', ko: '스튜', it: 'Stufato', pt: 'Ensopado', tr: 'Güveç' },
+    'کباب': { fa: 'کباب', en: 'Kebab', es: 'Kebab', fr: 'Kebab', de: 'Kebab', ar: 'كباب', zh: '烤肉', ja: 'ケバブ', hi: 'कबाब', ko: '케밥', it: 'Kebab', pt: 'Kebab', tr: 'Kebap' },
+    'سوپ': { fa: 'سوپ', en: 'Soup', es: 'Sopa', fr: 'Soupe', de: 'Suppe', ar: 'شوربة', zh: '汤', ja: 'スープ', hi: 'सूप', ko: '수프', it: 'Zuppa', pt: 'Sopa', tr: 'Çorba' },
+    'دسر': { fa: 'دسر', en: 'Dessert', es: 'Postre', fr: 'Dessert', de: 'Dessert', ar: 'حلوى', zh: '甜点', ja: 'デザート', hi: 'मिठाई', ko: '디저트', it: 'Dessert', pt: 'Sobremesa', tr: 'Tatlı' },
+    'سالاد': { fa: 'سالاد', en: 'Salad', es: 'Ensalada', fr: 'Salade', de: 'Salat', ar: 'سلطة', zh: '沙拉', ja: 'サラダ', hi: 'सलाद', ko: '샐러드', it: 'Insalata', pt: 'Salada', tr: 'Salata' },
+    'پیش‌غذا': { fa: 'پیش‌غذا', en: 'Appetizer', es: 'Aperitivo', fr: 'Apéritif', de: 'Vorspeise', ar: 'مقبلات', zh: '开胃菜', ja: '前菜', hi: 'ऐपेटाइज़र', ko: '전채', it: 'Antipasto', pt: 'Aperitivo', tr: 'Meze' },
+    'غذاهای ساده': { fa: 'غذاهای ساده', en: 'Simple Dishes', es: 'Platos Sencillos', fr: 'Plats simples', de: 'Einfache Gerichte', ar: 'أطباق بسيطة', zh: '简单菜肴', ja: '簡単な料理', hi: 'साधारण व्यंजन', ko: '간단한 요리', it: 'Piatti Semplici', pt: 'Pratos Simples', tr: 'Basit Yemekler' },
+    'غذاهای سنتی': { fa: 'غذاهای سنتی', en: 'Traditional Dishes', es: 'Platos Tradicionales', fr: 'Plats traditionnels', de: 'Traditionelle Gerichte', ar: 'أطباق تقليدية', zh: '传统菜肴', ja: '伝統料理', hi: 'पारंपरिक व्यंजन', ko: '전통 요리', it: 'Piatti Tradizionali', pt: 'Pratos Tradicionais', tr: 'Geleneksel Yemekler' },
+    'غذاهای دریایی': { fa: 'غذاهای دریایی', en: 'Seafood', es: 'Mariscos', fr: 'Fruits de mer', de: 'Meeresfrüchte', ar: 'مأكولات بحرية', zh: '海鲜', ja: 'シーフード', hi: 'समुद्री भोजन', ko: '해산물', it: 'Frutti di Mare', pt: 'Frutos do Mar', tr: 'Deniz Ürünleri' },
+    'فست فود': { fa: 'فست فود', en: 'Fast Food', es: 'Comida Rápida', fr: 'Restauration rapide', de: 'Fast Food', ar: 'وجبات سريعة', zh: '快餐', ja: 'ファーストフード', hi: 'फास्ट फूड', ko: '패스트 푸드', it: 'Fast Food', pt: 'Fast Food', tr: 'Fast Food' },
+    'نوشیدنی': { fa: 'نوشیدنی', en: 'Drinks', es: 'Bebidas', fr: 'Boissons', de: 'Getränke', ar: 'مشروبات', zh: '饮料', ja: '飲み物', hi: 'पेय', ko: '음료', it: 'Bevande', pt: 'Bebidas', tr: 'İçecekler' },
+    'نان': { fa: 'نان', en: 'Bread', es: 'Pan', fr: 'Pain', de: 'Brot', ar: 'خبز', zh: '面包', ja: 'パン', hi: 'ब्रेड', ko: '빵', it: 'Pane', pt: 'Pão', tr: 'Ekmek' },
+    'صبحانه': { fa: 'صبحانه', en: 'Breakfast', es: 'Desayuno', fr: 'Petit déjeuner', de: 'Frühstück', ar: 'فطور', zh: '早餐', ja: '朝食', hi: 'नाश्ना', ko: '아침 식사', it: 'Colazione', pt: 'Café da Manhã', tr: 'Kahvaltı' },
     ai_judge: {
         fa: 'داور هوشمند',
         en: 'AI Visual Judge',
@@ -1110,7 +1383,10 @@ export const ui = {
         zh: 'AI评委',
         ja: 'AI審査員',
         hi: 'AI विज़ुअल जज',
-        ko: 'AI 비주얼 심사위원'
+        ko: 'AI 비주얼 심사위원',
+        it: 'Giudice Visivo AI',
+        pt: 'Juiz Visual IA',
+        tr: 'Yapay Zeka Görsel Hakem'
     },
     fridge_vision: {
         fa: 'یخچال هوشمند',
@@ -1122,14 +1398,17 @@ export const ui = {
         zh: '冰箱视界',
         ja: '冷蔵庫ビジョン',
         hi: 'फ्रिज विजन',
-        ko: '냉장고 비전'
+        ko: '냉장고 비전',
+        it: 'Frigo Vision',
+        pt: 'Visão da Geladeira',
+        tr: 'Buzdolabı Vizyonu'
     },
     // Difficulty Reverse Mappings
-    'آسان': { fa: 'آسان', en: 'Easy', es: 'Fácil', fr: 'Facile', de: 'Leicht', ar: 'سهل', zh: '简单', ja: '簡単', hi: 'आसान', ko: '쉬움' },
-    'متوسط': { fa: 'متوسط', en: 'Medium', es: 'Medio', fr: 'Moyen', de: 'Mittel', ar: 'متوسط', zh: '中等', ja: '普通', hi: 'मध्यम', ko: '중간' },
-    'سخت': { fa: 'سخت', en: 'Hard', es: 'Difícil', fr: 'Difficile', de: 'Schwer', ar: 'صعب', zh: '困难', ja: '難しい', hi: 'कठिनाई', ko: '어려움' },
-    'حرفه‌ای': { fa: 'حرفه‌ای', en: 'Expert', es: 'Experto', fr: 'Expert', de: 'Experte', ar: 'خبير', zh: '专家', ja: 'エキスパート', hi: 'विशेषज्ञ', ko: '전문가' },
-    'ساده': { fa: 'ساده', en: 'Simple', es: 'Simple', fr: 'Simple', de: 'Einfach', ar: 'بسيط', zh: '简单', ja: 'シンプル', hi: 'सरल', ko: '간단한' }
+    'آسان': { fa: 'آسان', en: 'Easy', es: 'Fácil', fr: 'Facile', de: 'Leicht', ar: 'سهل', zh: '简单', ja: '簡単', hi: 'आसान', ko: '쉬움', it: 'Facile', pt: 'Fácil', tr: 'Kolay' },
+    'متوسط': { fa: 'متوسط', en: 'Medium', es: 'Medio', fr: 'Moyen', de: 'Mittel', ar: 'متوسط', zh: '中等', ja: '普通', hi: 'मध्यम', ko: '중간', it: 'Medio', pt: 'Médio', tr: 'Orta' },
+    'سخت': { fa: 'سخت', en: 'Hard', es: 'Difícil', fr: 'Difficile', de: 'Schwer', ar: 'صعب', zh: '困难', ja: '難しい', hi: 'कठिनाई', ko: '어려움', it: 'Difficile', pt: 'Difícil', tr: 'Zor' },
+    'حرفه‌ای': { fa: 'حرفه‌ای', en: 'Expert', es: 'Experto', fr: 'Expert', de: 'Experte', ar: 'خبير', zh: '专家', ja: 'エキスパート', hi: 'विशेषज्ञ', ko: '전문가', it: 'Esperto', pt: 'Especialista', tr: 'Uzman' },
+    'ساده': { fa: 'ساده', en: 'Simple', es: 'Simple', fr: 'Simple', de: 'Einfach', ar: 'بسيط', zh: '简单', ja: 'シンプル', hi: 'सरल', ko: '간단한', it: 'Semplice', pt: 'Simples', tr: 'Basit' }
 };
 
 export function getUiLabel(key, lang) {
