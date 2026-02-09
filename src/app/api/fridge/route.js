@@ -1,9 +1,12 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { rateLimit } from '@/lib/rate-limit';
 
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
+
+const limiter = rateLimit({ interval: 60_000, maxRequests: 10 });
 
 // --- Localized Prompts ---
 const PROMPTS = {
@@ -131,6 +134,15 @@ const PROMPTS = {
 };
 
 export async function POST(request) {
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'anonymous';
+    const { allowed, remaining } = limiter.check(ip);
+    if (!allowed) {
+        return NextResponse.json(
+            { error: 'Too many requests. Please wait a moment.' },
+            { status: 429, headers: { 'Retry-After': '60', 'X-RateLimit-Remaining': '0' } }
+        );
+    }
+
     try {
         const apiKey = process.env.GOOGLE_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
         if (!apiKey) return NextResponse.json({ error: 'Configs missing' }, { status: 500 });

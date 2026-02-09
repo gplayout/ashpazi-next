@@ -1,8 +1,11 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
+import { rateLimit } from '@/lib/rate-limit';
 
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
+
+const limiter = rateLimit({ interval: 60_000, maxRequests: 20 });
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 
@@ -29,6 +32,15 @@ You are the AI Assistant for the Zaffaron App.
 `;
 
 export async function POST(req) {
+    const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'anonymous';
+    const { allowed, remaining } = limiter.check(ip);
+    if (!allowed) {
+        return NextResponse.json(
+            { error: 'Too many requests. Please wait a moment.' },
+            { status: 429, headers: { 'Retry-After': '60', 'X-RateLimit-Remaining': '0' } }
+        );
+    }
+
     try {
         const { message, messages, recipeContext, language = 'en' } = await req.json();
 
