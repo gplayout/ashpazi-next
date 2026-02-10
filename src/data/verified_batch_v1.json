@@ -1,0 +1,5950 @@
+[
+  {
+    "legacy_id": 461,
+    "title": "کوکوی بامیه",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1028,
+    "title": "کوفته هلوئی شیرازی (کوفته هلو)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1410,
+    "title": "ذرت مکزیکی گرم با قارچ و کره گیاهی (الهام‌گرفته از زرشک‌پلو)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 806,
+    "title": "املت فلفل دلمه‌ای کبابی و ژامبون",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1412,
+    "title": "دَمی زیره با بادمجان",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1030,
+    "title": "کتلت میگو خانگی (Kotlet Meygoo)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 218,
+    "title": "ماکارونی با پنیر و گردو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1118,
+    "title": "خورش باقلا قاتق گیلانی اصیل",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1411,
+    "title": "اسنک عدس خامه‌ای با پنیر موزارلا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 783,
+    "title": "املت سیب‌زمینی اسپانیایی (تورتیلا اسپانیولا)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 811,
+    "title": "املت گوشت رول‌شده با قارچ و ذرت",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 221,
+    "title": "خوراک تند ماکارونی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1417,
+    "title": "املت تن ماهی و گوجه‌فرنگی فرپزی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 226,
+    "title": "اسپاگتی با تن ماهی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1422,
+    "title": "قارچ خامه‌ای تنوری (قارچ با کرم)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1031,
+    "title": "کوفته سبزی شیرازی با کشمش",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1124,
+    "title": "خورش کاری ماهی با سس نارگیل و تمر هندی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1612,
+    "title": "Authentic Feijoada à la Chef Zaffaron",
+    "valid_langs": []
+  },
+  {
+    "legacy_id": 1423,
+    "title": "چیپس کدو سبز ترد با سس ماست و موسیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1032,
+    "title": "کوفته هارپوت اصیل",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1426,
+    "title": "املت گوجه‌فرنگی خانگی با پیاز",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1613,
+    "title": "Chef Zaffaron’s Authentic Carnival Brigadeiro",
+    "valid_langs": []
+  },
+  {
+    "legacy_id": 817,
+    "title": "کتف مرغ کنجدی ترد",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1035,
+    "title": "کتلت سویا خانگی (Kotlet-e Sooya)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1427,
+    "title": "دلمه فلفل دلمه‌ای گیاهی با بلغور و پنیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1036,
+    "title": "کوفته کرمانی اصیل",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1039,
+    "title": "کوفته باقالی سبز مجلسی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 821,
+    "title": "مرغ درسته بریان‌شده در فر (مرغ دورسته دار فر)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 824,
+    "title": "مرغ اسپایسی سوخاری ترد",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1428,
+    "title": "حمص کلاسیک خامه‌ای با ماست",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1139,
+    "title": "خورش ریحان شیرازی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1041,
+    "title": "کوفته ترخون مجلسی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1433,
+    "title": "پلو لوبیا چشم‌بلبلی با کوفته‌های ریز سویا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 826,
+    "title": "خوراک فیله مرغ با سبزیجات رنگی و لیمو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 829,
+    "title": "مرغ سوخاری فرپز با ماست و ادویه",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1432,
+    "title": "خوراک سیرابی مجلسی با سیب‌زمینی و لوبیا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 830,
+    "title": "رولت مرغ فلورانتین",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1042,
+    "title": "کتلت مرغ پنیری مجلسی (Kotlet-e Morgh ba Panir)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 422,
+    "title": "کوکو دو رنگ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 831,
+    "title": "مرغ سوخاری تایلندی با زعفران",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1045,
+    "title": "شامی ترش شمالی با آبغوره",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 833,
+    "title": "کراکت مرغ خانگی ترد (Karakat-e Morgh)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 424,
+    "title": "دلمه کلم برگ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1434,
+    "title": "قارچ شکم‌پر پنیری با گردو (دلمه قارچ با پنیر)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 834,
+    "title": "کالباس مرغ خانگی با پسته (کالباس مرغ مجلسی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1050,
+    "title": "کتلت سیب‌زمینی خانگی ترد",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 805,
+    "title": "املت شیرین فرنگی (Omelet-e Shirin)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1055,
+    "title": "خورش کاری مرغ ایرانی با گردو و زعفران",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1182,
+    "title": "دنده گوسفندی خانگی با سس زعفرانی (دنده خانگی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1441,
+    "title": "خوراک بامیه سنتی با گوجه‌فرنگی و سیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1439,
+    "title": "توپی‌های برنجی سبزی‌دار با مغز موزارلا (پلو توپی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 397,
+    "title": "چلو خورشت جگر مرغ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 425,
+    "title": "دلمه تخم‌مرغ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 426,
+    "title": "دلمه لواش",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1445,
+    "title": "خوراک سبزیجات مخلوط با سس گوجه و پنیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1070,
+    "title": "خورش بامیه و بادمجان مجلسی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1195,
+    "title": "شنیتسل گوشت با پنیر گودا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1446,
+    "title": "تارت سبزیجات مدیترانه‌ای با پنیر بز",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1059,
+    "title": "خورش لوبیا قرمز با سوسیس",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1192,
+    "title": "کلوچه گوشت خانگی با پنیر گودا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1063,
+    "title": "خورش گزنه محلی (خورش گزنه شمالی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1450,
+    "title": "خوراک رنگارنگ سبزیجات مدیترانه‌ای",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 755,
+    "title": "ساندویچ فرانسوی گرم خانگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 753,
+    "title": "ساندویچ مرغ و سبزیجات کرمی خانگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 843,
+    "title": "مرغ قالبی با قارچ (Morgh Ghalebi ba Gharch)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 844,
+    "title": "خوراک مرغ و قارچ خامه‌ای لیمویی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1449,
+    "title": "خوراک تند لوبیا با گوشت چرخ‌کرده (خوراک تند با لوبیا)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1064,
+    "title": "خورش زرشک با لپه",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1409,
+    "title": "توپک مرغ و پنیر با روکش آجیل شور",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1453,
+    "title": "خورش لوبیا سبز با سس ویژه گوجه و سیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 217,
+    "title": "خوراک ویژه نودلز",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 428,
+    "title": "دلمه کدو ایتالیایی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1454,
+    "title": "خوراک سیب‌زمینی با گردو (خوراک خانگی ایرانی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 850,
+    "title": "خوراک مرغ با سبزیجات رنگارنگ مدیترانه‌ای",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1068,
+    "title": "خورش گل‌کلم مجلسی با گوشت گوسفندی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1071,
+    "title": "خورش آلبالو با مرغ (خورش آلبالوی مجلسی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1456,
+    "title": "کشک بادمجان رژیمی ایرانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 854,
+    "title": "پای مرغ و سبزیجات خانگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1458,
+    "title": "خوراک لوبیا سبز با گردو و سس ترش‌وشیرین",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1078,
+    "title": "خورش جغاله بادام بهاری",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1225,
+    "title": "کالزون مرغ و گوشت خانگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1460,
+    "title": "خوراک فوری سبزیجات با سس مایونز",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1079,
+    "title": "خورش ماست شیرازی با مرغ و زعفران",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 241,
+    "title": "خوراک ماکارونی پیچ با سوسیس و قارچ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1081,
+    "title": "خورش ماهی با لیموعمانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1084,
+    "title": "خورش تره با گوشت گوسفندی و لوبیا سفید",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 859,
+    "title": "مرغ سوخاری شکم‌پر با خردل و پنیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 928,
+    "title": "پیتزای دریایی با میگو و کیلکا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1089,
+    "title": "مرغ ترش و شیرین عسلی در فر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1090,
+    "title": "خورش عدس با آلو خشک",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 863,
+    "title": "خوراک مرغ با جو و قارچ خانگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 432,
+    "title": "کوکو جوانه ماش",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 435,
+    "title": "همبرگر با سویا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1098,
+    "title": "خورش قیمه سنتی با لپه و لیمو عمانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1462,
+    "title": "خوراک اسفناج و کالباس خامه‌ای",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 369,
+    "title": "عدس پلو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 434,
+    "title": "کوکوی اسفناج",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1104,
+    "title": "خورش آلو اسفناج اصیل ایرانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 934,
+    "title": "پیتزای چهار فصل خانگی (پیتزا چهار فصل)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1468,
+    "title": "راگوی بولونز کلاسیک ایتالیایی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1224,
+    "title": "پانزروتی ایتالیایی با سبزیجات و میگو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 864,
+    "title": "خورش بلدرچین با سس پرتقال معطر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1105,
+    "title": "خورش ماست اصفهانی با مرغ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1106,
+    "title": "خورش هویج اصیل ایرانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 452,
+    "title": "دلمه کدو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1107,
+    "title": "خورش نعناع جعفری با گوجه‌سبز",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1470,
+    "title": "پولنتای کلاسیک ایتالیایی با پنیر پارمزان",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 871,
+    "title": "خوراک مرغ با نارنگی معطر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1241,
+    "title": "تورتیلای سیب‌زمینی تنوری با پنیر پارمزان",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1108,
+    "title": "خورش مرغ مکزیکی با فلفل دلمه‌ای رنگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 594,
+    "title": "سوپ کاری مرغ با شیر نارگیل",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1109,
+    "title": "خورش فسنجان اصیل با گردو و انار",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 444,
+    "title": "دلمه مرغ و برنج",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 263,
+    "title": "ماکارونی در سس پنیر و گوجه‌فرنگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1472,
+    "title": "فریتاتای کلاسیک پخته‌شده در فر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 445,
+    "title": "دلمه برگ مو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1484,
+    "title": "دامپلینگ بخارپز گوشت خوک و میگو به سبک آسیایی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1235,
+    "title": "قارچ کرمی در نان بریوش تُست‌شده",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 446,
+    "title": "دلمه آرتیشو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1110,
+    "title": "خورش قیمه سنتی با سیب‌زمینی خلالی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1494,
+    "title": "سوپه‌های مکزیکی سنتی (Sopes)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1238,
+    "title": "رول‌های فانتزی پنیری با سس گوجه",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1496,
+    "title": "سویچه کلاسیک با لیموترش تازه",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1243,
+    "title": "پلو قالبی فرانسوی (پولو غلیبی فرانسوی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1111,
+    "title": "خورش قورمه‌سبزی اصیل ایرانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1498,
+    "title": "انچیلادای کلاسیک مرغ با سس قرمز",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1257,
+    "title": "پیراشکی پیتزایی خانگی ترد",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1501,
+    "title": "چار سیو کلاسیک؛ باربیکیو چینی گوشت",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1502,
+    "title": "وادا پاو بمبئی کلاسیک",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1244,
+    "title": "پاکورا پیازی تند با آرد نخودچی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1112,
+    "title": "خورش خلال بادام کرمانشاهی اصیل",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1245,
+    "title": "پاستا آلفردو مرغ خامه‌ای",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1252,
+    "title": "بال مرغ لعاب‌دار با سس عسل و سویا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1254,
+    "title": "مرغ کیف کلاسیک با کره سیر و ترخون",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 450,
+    "title": "کوکو میگو با گشنیز و جعفری",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1113,
+    "title": "خورش بامیه اصیل ایرانی با گوشت گوسفند",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1256,
+    "title": "پلو رشته سنتی ایرانی (رشته‌پلو)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 711,
+    "title": "سالاد سبزیجات مجلسی با سس خامه‌ای",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1114,
+    "title": "خورش مرغ ترش گیلانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1509,
+    "title": "پونگال کلاسیک جنوب هند با برنج و دال مونگ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1258,
+    "title": "بیف استروگانف کلاسیک با سس خامه‌ای",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1510,
+    "title": "جیائوزی خانگی چینی (دامپلینگ سنتی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1117,
+    "title": "خورش کرفس اصیل ایرانی با گوشت گوسفندی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1260,
+    "title": "کاناپه‌های رول‌شده اسفناج و قارچ با پنیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1269,
+    "title": "مرغ سوخاری کلاسیک خانگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1511,
+    "title": "ماهی ماکرل تنوری با لیمو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1119,
+    "title": "خورش خلال بادام کرمانشاهی با گوشت",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1266,
+    "title": "خوراک میگو به سبک ایتالیایی با سس گوجه و خامه",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1515,
+    "title": "سوپ ایتالیایی پاستا اِ فاژیولی کلاسیک",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 884,
+    "title": "خوراک قارچ و قلوه گوسفندی (غارچ و قلوه)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1121,
+    "title": "خورش گوجه سبز با سبزی تازه",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 887,
+    "title": "خوراک لوبیا سبز با سوسیس و بادام هندی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1274,
+    "title": "سوپ پیاز فرانسوی کرمی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1507,
+    "title": "کوچینیتا پیبیل مکزیکی (گوشت خوک مزه‌دار با آچیوت)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1516,
+    "title": "راوا کسری هندی کلاسیک (Rawa Kesari)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 456,
+    "title": "کوکوی سیب زمینی با تن ماهی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1277,
+    "title": "رولت گوشت فرانسوی با مرغ و زعفران",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1520,
+    "title": "فلوتای مرغ ترد مکزیکی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1126,
+    "title": "خورش میگو ساده خانگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1287,
+    "title": "کوکوی اسپاگتی با قارچ و ژامبون",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1523,
+    "title": "چیلاکیلس کلاسیک مکزیکی با سالسا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 895,
+    "title": "خوراک گوشت و پیاز سنتی ایرانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1128,
+    "title": "خورش آلو با مرغ سنتی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1285,
+    "title": "کالزون خانگی کلاسیک ایتالیایی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1529,
+    "title": "کیچدی سنتی با دال مونگ زرد",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 462,
+    "title": "کوکوی بادمجان کبابی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1072,
+    "title": "خورش کرفس مینیاتوری با مرغ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1282,
+    "title": "اسکالوپ بوقلمون به سبک تایلندی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1534,
+    "title": "مرغ سبز مکزیکی با سس توماتیلو (Chicken Verde)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1130,
+    "title": "خورش سیب و آلبالو (خورش سیب و آلبالو خانگی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1232,
+    "title": "گالت کوچک قارچ با ریحان تازه",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1533,
+    "title": "چات کلاسیک نخود و سیب‌زمینی هندی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1290,
+    "title": "پیتزای ایرانی با خرما، عسل و پنیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1536,
+    "title": "سوپ نودل گوشت آسیایی با بادیان ستاره‌ای",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1298,
+    "title": "خورش بامیه به سبک مدیترانه‌ای با گوجه تازه",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1538,
+    "title": "ماهی وراکروزانا به سبک کلاسیک مکزیکی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1137,
+    "title": "خورش ماتنجن سنتی با گوشت",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1294,
+    "title": "خوراک مرغ ایتالیایی با زیتون",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1537,
+    "title": "کاری ماهی با شیر نارگیل و ادویه‌های گرمسیری",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 466,
+    "title": "ناگت مرغ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1142,
+    "title": "خورش ماست به روش هندی با مرغ و گشنیز",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1539,
+    "title": "گوا بائو تایوانی با گوشت آرام‌پز",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 533,
+    "title": "سوپ نخود فرنگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 906,
+    "title": "پیتزا تست خانگی با قارچ و زیتون",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1540,
+    "title": "پاکالا بهاتا تخمیری (برنج آب‌خورده اُدیایی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1292,
+    "title": "پلو اسپانیایی مرغ و قارچ با سس خامه‌ای",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 469,
+    "title": "کوکو کنجد",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 470,
+    "title": "کوکوی مرغ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1541,
+    "title": "برنج سرخ‌شده کلاسیک با تخم‌مرغ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 679,
+    "title": "برگر سبزیجات خانگی با سیب‌زمینی و هویج",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 908,
+    "title": "پیتزای سیب‌زمینی خامه‌ای خانگی (پیتزا‌ی سیب‌زمینی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 911,
+    "title": "پیتزای اسفناج و تخم‌مرغ مدیترانه‌ای",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1297,
+    "title": "پلو سنتی لیموزین با مرغ، هویج و کشمش",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 478,
+    "title": "فلافل خانگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 910,
+    "title": "آستارایی تاره (نان سبزیجات شمالی با پنیر فتا)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1146,
+    "title": "فیله گوساله پیتزایولا به سبک ایتالیایی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 905,
+    "title": "رول پیتزای خانگی با ژامبون و سبزیجات",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1299,
+    "title": "پلو مکزیکی با برنج دانه‌بلند",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 482,
+    "title": "کوکوی کدو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1147,
+    "title": "رولت گوشت خانگی با زرشک و زعفران",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 483,
+    "title": "دلمه گوجه‌فرنگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 417,
+    "title": "دلمه بادمجان بقچه‌ای",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 311,
+    "title": "استامبولی پلو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1148,
+    "title": "استیک بره با نعناع و لیموترش تازه",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1304,
+    "title": "خوراک بادمجان ایتالیایی با سس گوجه و پنیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1246,
+    "title": "استروگانف کلاسیک گوشت گوساله با قارچ و خامه",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 484,
+    "title": "کوکوی سیب زمینی سه رنگ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1157,
+    "title": "کالباس خانگی گوشت گاو با پسته",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 317,
+    "title": "پلوی زعفرانی کاری",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 487,
+    "title": "دلمه با فیله مرغ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1149,
+    "title": "قلقلی گوشت با سس سفید و پنیر موزارلا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 490,
+    "title": "دلمه کرفس",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1151,
+    "title": "رولت دو رنگ گوشت و مرغ (رولت دورنگ مجلسی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 917,
+    "title": "کاسه پیتزای خانگی با سبزیجات",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 322,
+    "title": "شیر پلو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 654,
+    "title": "کنسومه پنیر گرویر (Cheese Consommé)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1152,
+    "title": "رولت دو‌لایه مرغ و گوشت (رولات مرغ و گوشت)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 925,
+    "title": "خمیر پیتزای خانگی با روغن زیتون (خمیر پیتزا)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 929,
+    "title": "پیتزای سبزیجات با قارچ و فلفل دلمه‌ای",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 932,
+    "title": "پیتزای سفید خانگی با سیر و موزارلا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 492,
+    "title": "دلمه ماهی با سس پنیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 935,
+    "title": "پیتزای سبزیجات خانگی با پنیر کش‌دار",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1310,
+    "title": "خورِک گوشت و قارچ تنوری با کدو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1153,
+    "title": "پای گوشت خانگی با سبزیجات و پنیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 494,
+    "title": "کوکو سبزی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 326,
+    "title": "چلو گوشت سمنانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1154,
+    "title": "استیک فلفلی کلاسیک (Pepper Steak)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1469,
+    "title": "آرانچینی ایتالیایی با برنج آربوریو و پنیر موزارلا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 495,
+    "title": "دلمه فلفل",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1321,
+    "title": "نان گردویی فوری با موز و خرما (پخته‌شده در مایکروویو)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 497,
+    "title": "دلمه با نان لواش",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 500,
+    "title": "کوکوی پیازچه",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 920,
+    "title": "پیتزای لوبیا و گوشت چرخ‌کرده با رویه کدو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1370,
+    "title": "فینگر تن ماهی سوخاری خانگی (تن ماهی انگشتی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1155,
+    "title": "خوراک گوشت قالبی با تخم‌مرغ و سس گوجه",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1164,
+    "title": "کوفته‌های ریز با سبزیجات (گوشت قلقلی با سبزیجات)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1158,
+    "title": "فیله استیک گوشت شکم‌پر با پنیر ذوب‌شونده و سبزیجات",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1463,
+    "title": "خوراک تند لوبیا سفید با مرغ و زیره",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1166,
+    "title": "خوراک رنگین گوشت با برنج",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 942,
+    "title": "پیتزای خانگی ژامبون یا ماهی با گوجه تازه",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 498,
+    "title": "کوکوی خانم جان",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 499,
+    "title": "کوکوی لوبیا سبز",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 941,
+    "title": "پیتزای گوشت ایرانی (پیتزایه گوشت)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1170,
+    "title": "خوراک گوشت مجلسی با میوه‌های خشک و زعفران",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1323,
+    "title": "کباب میگو و فیله گریل‌شده با طعم لیمو و کره",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 502,
+    "title": "دلمه بادمجان ترکی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1162,
+    "title": "ران گوسفند با قارچ و سس گوجه (جیگو قارچ)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 503,
+    "title": "دلمه برگ مو بدون گوشت",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 505,
+    "title": "دلمه پیاز",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 390,
+    "title": "پلو چینی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1332,
+    "title": "شیر برنج خانگی با مایکروویو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1163,
+    "title": "رولت گوشت با پنیر گودا و اسفناج",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1335,
+    "title": "دلمه گوجه‌فرنگی فوری در مایکروویو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 507,
+    "title": "کوکو سیب‌زمینی با سیب‌زمینی نگینی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 946,
+    "title": "پیتزای مکزیکی خانگی با گوشت و لوبیا قرمز",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1172,
+    "title": "حمص گوشت‌دار لبنانی با نخود و ارده",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 508,
+    "title": "کوکوی سیب زمینی با کلم",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 948,
+    "title": "پیتزای گوشت و اسفناج مدیترانه‌ای",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 339,
+    "title": "پلو مکزیکی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1173,
+    "title": "خوراک تاس‌کباب گوشت با نخودفرنگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1177,
+    "title": "رولت استیک گوشت با سبزیجات و پنیر موزارلا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 513,
+    "title": "سوپ کدو تنبل",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 949,
+    "title": "پیتزای سبزیجات تند با هالاپینو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 950,
+    "title": "کباب میگو زعفرانی (Kebab Meygoo)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1178,
+    "title": "ران گوشت به سبک ژیگو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 525,
+    "title": "ویشی سوا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 957,
+    "title": "کباب بالشتکی سنتی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1492,
+    "title": "چاو ماین کلاسیک با سبزیجات ترد",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 526,
+    "title": "سوپ سیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 958,
+    "title": "کباب فلفلی سبز (کباب فلفلی خانگی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1186,
+    "title": "نودل تُن ماهی پنیری تنوری",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1187,
+    "title": "نودل گوشت و سبزیجات فرپز",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1339,
+    "title": "کباب تابه‌ای مایکروویوی با گوجه‌فرنگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1175,
+    "title": "خورش گوشت و سبزیجات خانگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 960,
+    "title": "ران مرغ کبابی با رزماری و سیب‌زمینی تنوری",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 527,
+    "title": "سوپ مینسترونی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1176,
+    "title": "شنسل جگر بره خانگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1189,
+    "title": "خوراک ماهیچه بره مجلسی (Khorak Mahicheh)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 528,
+    "title": "سوپ برش روسی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1340,
+    "title": "همبرگر فوری مایکروویوی خانگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 961,
+    "title": "مرغ کبابی تند با ماست و ادویه (مرغ کبابی تند)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1181,
+    "title": "استیک آبدار تابه‌ای با سماق و گوجه",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1191,
+    "title": "بیف استروگانف کلاسیک با قارچ و شوید",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 962,
+    "title": "فیله مرغ سوخاری تند با سس لیمو و سیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 529,
+    "title": "سوپ کلم و هویج",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1185,
+    "title": "همبرگر استیک کلاسیک به سبک ویمپی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 531,
+    "title": "سوپ تره فرنگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1341,
+    "title": "میگوی مایکروویوی با سس خامه‌ای لطیف",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1194,
+    "title": "استیک گوشت با نعناع تازه (استیکِ نعنا)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 534,
+    "title": "سوپ سوژ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1197,
+    "title": "ران گوساله تنوری کلاسیک (زیغوغو)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 536,
+    "title": "سوپ ریحان و گوجه‌فرنگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 538,
+    "title": "سوپ گوشت و سیب زمینی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1201,
+    "title": "سوفله موز یخچالی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 42,
+    "title": "رولت اسفناج و پنیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 543,
+    "title": "سوپ سبزیجات تند و معطر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 539,
+    "title": "سوپ ذرت با مرغ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 972,
+    "title": "کباب برگ اصیل ایرانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1203,
+    "title": "سوفله پنیر کلاسیک فرانسوی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1205,
+    "title": "سوفله بادمجان با پنیر پارمزان (سوفله بادمجان کلاسیک)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 542,
+    "title": "سوپ شیر و عدس",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1208,
+    "title": "سوفله سیب‌زمینی کلاسیک",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 359,
+    "title": "والک پلو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 975,
+    "title": "کباب گوشت با پنیر (کباب با پنیر نینیا و چدار)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1346,
+    "title": "سس گوجه‌فرنگی فوری با مایکروویو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 544,
+    "title": "سوپ کرمی مرغ و بروکلی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 439,
+    "title": "دلمه فلفل و بادمجان",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 552,
+    "title": "سوپ قارچ و کوفته گوشت",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 351,
+    "title": "اسفناج پلو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1347,
+    "title": "سس سفید فوری با مایکروویو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 556,
+    "title": "سوپ پیاز ایرانی سنتی (Soup Piaz)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 368,
+    "title": "لوبیا پلو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1210,
+    "title": "سوفله اسفناج و ژامبون",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 559,
+    "title": "سوپ کدو حلوایی مخملی با تره‌فرنگی و زنجبیل",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1349,
+    "title": "چلو ساده مایکروویوی (Chelow-e Sadeh)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 984,
+    "title": "کباب چهار نوع (چلوکباب چهارگانه ایرانی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1214,
+    "title": "فوندو بورگینیون کلاسیک (Fondue Bourguignonne)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 562,
+    "title": "سوپ ذرت خامه‌ای با فلفل دلمه‌ای کبابی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1356,
+    "title": "املت قارچ مایکروویوی سریع",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 985,
+    "title": "کباب قارچ صدفی سوخاری (کباب قارچ)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1532,
+    "title": "کرسیا سوتیله ایتالیایی (Crescia Sottile)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 563,
+    "title": "سوپ لوبیا چیتی سنتی با کروتان سیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1216,
+    "title": "سوفله میوه‌ای کلاسیک با پودینگ وانیلی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1355,
+    "title": "کوکو سبزی فوری در مایکروویو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 565,
+    "title": "سوپ گوجه‌فرنگی با پاستای مارپیچی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1200,
+    "title": "تارت قارچ و پیاز کلاسیک",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1217,
+    "title": "سوفله کدو و بادمجان با سس سفید",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 567,
+    "title": "سوپ سفید ایرانی با مرغ و قارچ (سوپ سفید)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 571,
+    "title": "سوپ خامه‌ای اسفناج کلاسیک",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 85,
+    "title": "ماکارونی با سس باقلا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 989,
+    "title": "جوجه کباب بدون استخوان زعفرانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 572,
+    "title": "سوپ فلفل تند با نخود و پنیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1364,
+    "title": "استانبولی پلو فوری با مایکروویو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 573,
+    "title": "سوپ سبزیجات و نخود با پارمزان",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 18,
+    "title": "ماکارونی گوشت گوساله",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 990,
+    "title": "کباب تازه تابه‌ای با سماق",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1368,
+    "title": "املت کدو ورقه‌ای خانگی (Kadoo Varaqe’i Omelet)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 574,
+    "title": "سوپ خامه‌ای قارچ و سیب‌زمینی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1519,
+    "title": "بیسی بله بث اصیل کارناتاکا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1369,
+    "title": "نان سیب‌زمینی پنیری تنوری",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 575,
+    "title": "سوپ عدس قرمز ایرانی (Soup-e Adas-e Ghermez)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 994,
+    "title": "کباب کبک کامل زعفرانی (کباب کبک درسته)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 21,
+    "title": "اسپاگتی آاماتریچیانا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 24,
+    "title": "لازانیا نان تست",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 992,
+    "title": "کباب حسینی سنتی با گوشت گوسفندی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 579,
+    "title": "سوپ عدس با گوشت و سبزیجات",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 393,
+    "title": "چلوی ساده",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1058,
+    "title": "خورش میگو با گوجه و سبزیجات معطر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 30,
+    "title": "ماکارونی سرد با پنیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 50,
+    "title": "ماکارونی با پنیر و گردو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 580,
+    "title": "سوپ خامه‌ای پیاز و تره‌فرنگی به سبک ایرانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 31,
+    "title": "ماکارونی با گوشت و سس مخصوص",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1002,
+    "title": "استیک پارمیجانا با پنیر موزارلا و پارمزان",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1049,
+    "title": "کتلت با گرد غوره (کتلت گِردِ غوره)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 584,
+    "title": "سوپ قارچ خامه‌ای کلاسیک ایرانی (سوپ قارچ)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 606,
+    "title": "سوپ بره مراکشی به سبک مراکش (بارِه مراکشی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 585,
+    "title": "سوپ گوجه‌فرنگی ایرانی (Soup-e Gojeh Farangi)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1206,
+    "title": "سوفله مرغ یا ماهی کلاسیک (سوفله مرق یا ماهی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 34,
+    "title": "ماکارونی با سس ویژه",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 399,
+    "title": "کته قالبی با مرغ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 587,
+    "title": "سوپ اسفناج و خامه سنتی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1378,
+    "title": "کدو سبز شکم‌پر خانگی با پنیر کشدار",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 612,
+    "title": "نان سوپی شویددار (نان سوپ)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1385,
+    "title": "نودل تُن ماهی به سبک خانگی (Tah‑Mahi ba Reshteh)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1207,
+    "title": "سوفله قارچ کلاسیک با سس بشامل",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 590,
+    "title": "سوپ خیار و نعناع ایرانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 41,
+    "title": "پاستای گوجه فرنگی و کدو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1010,
+    "title": "مرغ بریان مرکباتی به سبک جوجه کباب",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 46,
+    "title": "اسپاگتی پنیر ایتالیایی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 602,
+    "title": "سوپ ماکارونی خامه‌ای با نخودفرنگی و گوشت گوساله",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1387,
+    "title": "سوپ نودل ساده با گوجه و پیاز",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 33,
+    "title": "ماکارونی پنیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 53,
+    "title": "خوراک تند ماکارونی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1388,
+    "title": "کاغینه کالباس خانگی (املت ایرانی با سوسیس)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 609,
+    "title": "سوپ سنتی مرغ و برنج ایرانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 404,
+    "title": "کاری پلو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 611,
+    "title": "سوپ رشته فرنگی به سبک ایرانی (سوپ رشته فرنگی ملایم)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 631,
+    "title": "سوپ سنتی گوشت و سبزیجات خانگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 615,
+    "title": "سوپ خامه‌ای سیب‌زمینی و پنیر چدار",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 55,
+    "title": "ماکارونی با آناناس",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1276,
+    "title": "راتاتویی کلاسیک فرانسوی برای دو نفر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 36,
+    "title": "ماکارونی با تن ماهی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 622,
+    "title": "آماده‌سازی عصاره ماهی شفاف (عصاره ماهی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 629,
+    "title": "سوپ بادام‌زمینی ایرانی (سوپِ بادام زمینی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1391,
+    "title": "خوراک لوبیا چشم‌بلبلی با سوسیس",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 56,
+    "title": "ماکارونی با ماست و سیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 625,
+    "title": "سوپ هویج و سیب با عطر کاری",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1011,
+    "title": "جوجه‌کباب زعفرانی با سس ماست و خیار",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 414,
+    "title": "بادنجان چینی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1281,
+    "title": "رولت گوشت مجلسی با قارچ و قیسی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 628,
+    "title": "سوپ ژولین کلاسیک با سبزیجات (Sop-e Zhuleyn)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1394,
+    "title": "سینی سبزیجات بخارپز با آلو برغانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 453,
+    "title": "کوکوی سبزیجات",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 634,
+    "title": "سوپ سرد هندی با نارگیل و سیب",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1219,
+    "title": "سوفله کلاسیک فرانسوی با پنیر گرویر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 729,
+    "title": "پیش‌غذای مرغ و بادام کلاسیک",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 57,
+    "title": "ماکارونی قالبی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 637,
+    "title": "پتاژ مخملی قارچ و گوجه‌فرنگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1015,
+    "title": "بره درسته شکم‌پر مجلسی (Barreh Doroste)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 61,
+    "title": "پاستا با سس آلفردو و مرغ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1398,
+    "title": "املت تخم‌مرغ با ذرت شیرین",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1024,
+    "title": "کوفته هویج خانگی با سبزی‌های معطر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1027,
+    "title": "کتلت پنیری گوشت با گوجه و ژامبون",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 29,
+    "title": "اسپاگتی آلا ماتریچیانا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 67,
+    "title": "پاستا با گوشت و سبزیجات",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1399,
+    "title": "کتلت میگو خانگی ترد",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1233,
+    "title": "کرپ اسفناج و پنیر فتا (Karap Esfenaj)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1231,
+    "title": "گراتن سیب‌زمینی و قارچ با پنیر گودا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 32,
+    "title": "ماکارونی رنگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1403,
+    "title": "نان تست کنجدی با مرغ (نان تست با کنجد)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1404,
+    "title": "فلافل خوزستانی اصیل",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 37,
+    "title": "سالاد ماکارونی سرد",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 69,
+    "title": "ماکارونی سبز با گوشت",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1023,
+    "title": "کتلت عربی نخودچی (Kotlet Arabi)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1033,
+    "title": "کوفته ازمیری با سس گوجه و سیب‌زمینی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 78,
+    "title": "اسپاگتی ایتالیایی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1248,
+    "title": "بنیهٔ مرغ، گل‌کلم و پیاز زعفرانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 81,
+    "title": "ماکارونی سبزیجات با سس نعناع و کاری",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1240,
+    "title": "مرغ فرانسوی با سس پرتقال و زعفران",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1311,
+    "title": "پاستا ریگاتونی با سس گوجه‌فرنگی خامه‌ای و سوسیس ایتالیایی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 896,
+    "title": "خوراک لوبیا سبز مجلسی با گوشت",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 638,
+    "title": "پتاژ باقالی سبز سنتی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 27,
+    "title": "اسپاگتی تن ماهی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 640,
+    "title": "پتاژ کلاسیک لوبیای سفید",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1413,
+    "title": "کتلت سویای شامی (شامی سویای ترد)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 639,
+    "title": "پتاژ مارچوبه کلاسیک (Asparagus Potage)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 38,
+    "title": "پاستا بروکلی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1250,
+    "title": "کوکوی پیاز و سیب‌زمینی تابه‌ای",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1415,
+    "title": "استریپس سیب‌زمینی سوخاری با قارچ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 44,
+    "title": "ماکارونی ایرانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 62,
+    "title": "ماکارونی سوسیس",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1263,
+    "title": "بورک گوشت با خمیر یوفکا خانگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1037,
+    "title": "نان گوشتی سرخ‌شده با سس تمرهندی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 84,
+    "title": "پاستای پنیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 747,
+    "title": "نان تخت سبزی و پنیر (گرلمه محلی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1416,
+    "title": "لوبیا پلو با سویا و لوبیا چشم‌بلبلی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 644,
+    "title": "پوتاژ سیب‌زمینی کلاسیک (پوتاژ سیب‌زمینی فرانسوی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 423,
+    "title": "کوکو استامبولی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1270,
+    "title": "مرُوکا مرغ زعفرانی با سس کاری",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 51,
+    "title": "خوراک ماکارونی با ماهی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 89,
+    "title": "لازانیا و کدو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1419,
+    "title": "چیپس سیب‌زمینی با سالامی و پنیر موزارلا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1040,
+    "title": "کوفته کاسه‌ای مجلسی با پوره سیب‌زمینی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 52,
+    "title": "ماکارونی با لوبیا سبز",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 756,
+    "title": "رَپ سریع مرغ با سیب و پنیر چدار در نان لواش",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1043,
+    "title": "شامی لپه مجلسی (کتلت گوشت و لپه)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1125,
+    "title": "خورش چغاله بادام بهاری",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 95,
+    "title": "ماکارونی در سس پنیر و گوجه‌فرنگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1046,
+    "title": "کوفته روسی (کوفته روسیِ مجلسی با سیب‌زمینی و سبزیجات)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 96,
+    "title": "لازانیای سبزیجات",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 473,
+    "title": "کوکوی گردو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 645,
+    "title": "پتاژ برنج کلاسیک (سوپ لطیف برنج و زرده تخم‌مرغ)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 652,
+    "title": "کنسومه قارچ و مرغ سبک",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1082,
+    "title": "خورش مرغ و بامیه خانگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 103,
+    "title": "پخت سریع ماکارونی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1052,
+    "title": "خورش مرغ و بادمجان با غوره",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 48,
+    "title": "ماکارونی با سس فلفل",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 106,
+    "title": "گراتن ماکارونی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 43,
+    "title": "پاستا چیکن آلفردو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 655,
+    "title": "کنسومه برنج با تخم‌مرغ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1271,
+    "title": "کروکت برنج با گوشت و زرشک",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 656,
+    "title": "لازانیای گیاهی با کدو و قارچ",
+    "valid_langs": [
+      "en",
+      "es"
+    ]
+  },
+  {
+    "legacy_id": 1438,
+    "title": "سوپ ماست شیرین (گورِ ماست)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1056,
+    "title": "خورش کاری مرغ با بادام‌زمینی (خورش کاری ایرانی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 58,
+    "title": "اسپاگتی جزیره سیسیل",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 110,
+    "title": "لازانیا نوع دوم",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 112,
+    "title": "کانلونی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1069,
+    "title": "خورش به و آلو شیرازی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 47,
+    "title": "نودل با سویا و فلفل",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1444,
+    "title": "خوراک قالبی سبزیجات خانگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1073,
+    "title": "خورش خلال بادام کرمانشاهی اصیل",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1076,
+    "title": "خورش پرتقال اصیل ایرانی با مرغ یا بره",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 659,
+    "title": "خوراک قارچ با برنج وحشی معطر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 115,
+    "title": "لازانیای بادمجان",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1074,
+    "title": "خورش بادمجان شاهانه (Khoresh Bademjan)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 784,
+    "title": "املت فرپز با ادویه‌های خاص",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 116,
+    "title": "گل کلم پلو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 787,
+    "title": "املت فلفل دلمه‌ای و پیاز کلاسیک",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 117,
+    "title": "ته‌چین آلو اسفناج و مرغ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 261,
+    "title": "اسپاگتی بولونزی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1284,
+    "title": "لازانیا ایتالیایی با سس سفید و سبزیجات",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 788,
+    "title": "املت خامه‌ای با فلفل دلمه‌ای",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1077,
+    "title": "قلیه میگوی جنوبی با تمر هندی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1138,
+    "title": "خورش مرغ مکزیکی با فلفل دلمه‌ای رنگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 976,
+    "title": "شامی ترش با سس انار (شامی تُرش)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 789,
+    "title": "املت سبزیجات خانگی (Omelet-e Sabzijat)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1083,
+    "title": "خورش آلو مسما مجلسی با هویج و زعفران",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 661,
+    "title": "خوراک بادمجان و عدس با رب انار (خوراک با آب انار)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 122,
+    "title": "پلو یونانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1485,
+    "title": "پوزوله روخو مکزیکی با گوشت خوک",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1087,
+    "title": "خورش گوشت چرخ‌کرده با لوبیا قرمز",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 123,
+    "title": "پلو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 795,
+    "title": "اوملت تُست شیرین وانیلی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1085,
+    "title": "خورش نخودفرنگی و مرغ با بادمجان و نعناع خشک",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 63,
+    "title": "پاستا با سس سبز",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 970,
+    "title": "کباب کوبیده اصیل ایرانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 125,
+    "title": "دمی بلغور",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 968,
+    "title": "سبزیجات کبابی به سبک ایرانی (سبزیجات تنوری با سبزی‌های معطر)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1091,
+    "title": "خورش بادمجان و مرغ سنتی ایرانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1096,
+    "title": "خورش کاری هندی با گوشت یا مرغ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 803,
+    "title": "املت سوسیس و ژامبون با گوجه‌فرنگی تازه",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 127,
+    "title": "برنج شیرازی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 129,
+    "title": "دمپختک باقالا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 663,
+    "title": "آبگوشت گیاهی سنتی با سویا و حبوبات",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 669,
+    "title": "قارچ دکمه‌ای مرینیت‌شده به سبک مدیترانه‌ای (مرینیت قارچ)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1293,
+    "title": "خوراک سینی مرغ و سیب‌زمینی به سبک آلمانی با سس پنیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 807,
+    "title": "املت شِکر سنتی (Sugar Omelette)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 64,
+    "title": "لازانیا با قارچ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 66,
+    "title": "ماکارونی با ماهی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 74,
+    "title": "خوراک ماکارونی پیچ با سوسیس و قارچ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 457,
+    "title": "دلمه فلفل",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1476,
+    "title": "مرغ کره‌ای کلاسیک (باتر چیکن اصیل)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 65,
+    "title": "ماکارونی با قارچ و میگو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1542,
+    "title": "دامپلینگ ذرت با قارچ تلاتلوکولوتل",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 71,
+    "title": "ماکارونی های رنگی",
+    "valid_langs": [
+      "en",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 667,
+    "title": "پوره سیب‌زمینی کلاسیک ایرانی (پورهٔ سیب‌زمینی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 130,
+    "title": "پلو نخود فرنگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 73,
+    "title": "ماکارونی پیچی با قارچ و ریحان",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 816,
+    "title": "املت هندی سبزیجات (املت هندی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 79,
+    "title": "تالیاتلی پنیردار با کلم بروکلی و ژامبون",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 134,
+    "title": "کشمش پلو اردبیلی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 88,
+    "title": "نان اسپاگتی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 468,
+    "title": "کوکوی اسفناج و سبزیجات معطر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 135,
+    "title": "پلو و سبزیجات",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 668,
+    "title": "خوراک کدو سبز و سیر تفت‌داده",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1300,
+    "title": "سوپ پینتو بین مکزیکی با کروتان سیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1452,
+    "title": "خوراک کدو سبز با فلفل دلمه‌ای و پنیر چدار",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1459,
+    "title": "سبزیجات بخارپز با عسل طبیعی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1092,
+    "title": "خورش میگو با سیب‌زمینی سرخ‌کرده",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1097,
+    "title": "خورش ریواس سنتی با گوشت",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 818,
+    "title": "شنیتسل شترمرغ زعفرانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 136,
+    "title": "ته‌دیگ ته‌چین",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 142,
+    "title": "استامبولی پلو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1461,
+    "title": "نان سبزیجات معطر خانگی (نان سبزی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 472,
+    "title": "دلمه کلم با گوشت",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1308,
+    "title": "بوریتوی مرغ و برنج خانگی با پنیر چدار",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 471,
+    "title": "کوکوی تره",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 90,
+    "title": "ماکارونی با سس سفید",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 145,
+    "title": "برنج با سبزیجات به روش چینی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1305,
+    "title": "سالاد مرغ و فلفل دلمه‌ای مکزیکی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 99,
+    "title": "ماکارونی با سوسیس و زیتون",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 825,
+    "title": "کیک مرغ مجلسی (کیک مرغ با گردو و زرشک)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 148,
+    "title": "نثار پلو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1466,
+    "title": "تیرامیسوی کلاسیک ایتالیایی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1471,
+    "title": "سالاد کاپریزه کلاسیک ایتالیایی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 475,
+    "title": "کوکو ماست",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 670,
+    "title": "خوراک کدو سبز و آویشن",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 760,
+    "title": "ساندویچ مونت کریستو کلاسیک",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1094,
+    "title": "خورش رنگارنگ با سبزیجات و گوشت",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 109,
+    "title": "لازانیا نوع اول",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1099,
+    "title": "خورش به و آلو بخارا (Khoresh Beh)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 674,
+    "title": "سالاد اسفناج و گلابی با سس لیمویی خامه‌ای",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1120,
+    "title": "مُتَبَّل بادمجان با کشک و طحینه",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1317,
+    "title": "املت کلاسیک فرانسوی ساده",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1473,
+    "title": "تاکو آل پاستور مکزیکی با آناناس گریل‌شده",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 481,
+    "title": "کوکو سیب زمینی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1316,
+    "title": "سالاد روسی با سوسیس مرغ دودی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 677,
+    "title": "خورش کدو حلوایی اصیل ایرانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1475,
+    "title": "اردک پکنی کلاسیک با پوست ترد",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1322,
+    "title": "راتاتویی ایرانی با بادمجان و گوشت (راتاکو)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 111,
+    "title": "راویولی ایرانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1477,
+    "title": "مولِه پوبلانو اصیل مکزیکی با مرغ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 151,
+    "title": "کله پاچه پلو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1334,
+    "title": "لازانیا فوری با مایکروویو (سبک خانگی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1478,
+    "title": "ماپو توفو اصیل سیچوانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 683,
+    "title": "گل‌کلم به سبک یونانی با سس گوجه",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1328,
+    "title": "کمپوت آلبالوی فوری در مایکروویو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1479,
+    "title": "دوسای کلاسیک جنوب هند",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1480,
+    "title": "چیله‌س اِن نوگادا کلاسیک مکزیکی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 485,
+    "title": "دلمه فلفل گیاهی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 685,
+    "title": "فلفل دلمه‌ای تفت‌داده با سس گوجه (فلفل فرنگی با سس)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1100,
+    "title": "خورش مرغ انار‌یجه محلی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 835,
+    "title": "سینه مرغ با سس پرتقال تازه",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 153,
+    "title": "پلو ساردی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1101,
+    "title": "خورش لوبیا سبز و هویج با گوشت گوسفندی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 158,
+    "title": "ته‌چین ساده و اسفناج قالبی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 488,
+    "title": "کوکوی تن ماهی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 922,
+    "title": "لازانیا پیتزایی با گوشت و پنیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 113,
+    "title": "اسپاگتی با تخم مرغ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 809,
+    "title": "املت مربایی خانگی (Omelet-e Morabba)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 686,
+    "title": "سوپ کلم یونانی کلاسیک (Soop Kalom یونانی)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1487,
+    "title": "هات‌پات کلاسیک مخلوط آسیایی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1490,
+    "title": "خوراک خوک ترش و شیرین کلاسیک",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 491,
+    "title": "دلمه برگ مو یونانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1115,
+    "title": "خورش قارچ کرمی با فلفل دلمه‌ای (قورمه قارچ)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 687,
+    "title": "املت اسفناج پنیری با نان",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 160,
+    "title": "تهچین زرشک و گردو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 493,
+    "title": "کوکوی قارچ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 114,
+    "title": "راهنمای تهیه ماکارونی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1505,
+    "title": "راسام کلاسیک جنوب هند",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 695,
+    "title": "رولت اسفناج با سس لیمویی زعفرانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1491,
+    "title": "کارنیتاس گوشت خوک آرام‌پز مکزیکی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1268,
+    "title": "پوره کام‌چوری با سیب‌زمینی و تخم‌مرغ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 697,
+    "title": "اردور تخم‌مرغ رنگین با پوره سبزیجات",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 706,
+    "title": "خورش ماست و تخم‌مرغ به سبک ایرانی (خورش ماستو تخم‌مرغ)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1500,
+    "title": "دال ماخانی اصیل هندی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 118,
+    "title": "کاهو پلو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 161,
+    "title": "ته‌چین آلبالو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 524,
+    "title": "کرم سوپ قارچ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1122,
+    "title": "خورش کدو بادمجان خانگی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1503,
+    "title": "پاستا آلا نورما اصیل سیسیلی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 72,
+    "title": "اسپاگتی انواع سبزی‌ها",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 119,
+    "title": "ته چین سبزی‌پلو ترش",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1497,
+    "title": "پانی پوری هندی کلاسیک (Pani Puri)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 851,
+    "title": "سینه مرغ نارگیلی کرمی با پرتقال و آناناس",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 121,
+    "title": "عدس پلو مخصوص",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 486,
+    "title": "دلمه بادمجان",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 852,
+    "title": "بلدرچین برشته با سس لیمو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 131,
+    "title": "پلوی استانبولی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1482,
+    "title": "تامال خانگی کلاسیک با خمیر ماسا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 77,
+    "title": "اسپاگتی با سس بولونز",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 166,
+    "title": "شوید باقلا پلو با ماهیچه",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1493,
+    "title": "چوله بهاتوره پنجابی (Chole Bhature)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1504,
+    "title": "کاسنی تفت‌داده‌شده با سیر و لیمو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1343,
+    "title": "مرغ زعفرانی ساده در مایکروویو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 511,
+    "title": "کوکوی قارچ و برنج",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1127,
+    "title": "خورش کدو حلوایی سنتی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 167,
+    "title": "برنج رنگی با پنیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 87,
+    "title": "اسپاگتی با پنیر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 173,
+    "title": "باقلا پلو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 133,
+    "title": "لوبیا پلو با فیله مرغ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 512,
+    "title": "سوپ اسفناج",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 28,
+    "title": "ماکارونی با میگو و نان",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 176,
+    "title": "ته‌چین",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 516,
+    "title": "سوپ غلات",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 862,
+    "title": "رول فیله مرغ مجلسی با کشمش و سس پرتقال",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1483,
+    "title": "روگان جاش کلاسیک با گوشت بره",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 514,
+    "title": "مینسترون",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 517,
+    "title": "سوپ شیر با سبزیجات",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 698,
+    "title": "پیراشکی پنیری سرخ‌شده با جعفری",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 520,
+    "title": "سوپ دال عدس",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 138,
+    "title": "دمی یارما",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 182,
+    "title": "پلو لوبیا قرمز",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 521,
+    "title": "سوپ ماکارونی فرمی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 699,
+    "title": "پیتزای سبزیجات خانگی با سس معطر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 94,
+    "title": "ماکارونی با قارچ و ژامبون مرغ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 522,
+    "title": "سوپ بلال",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 703,
+    "title": "دلمه برگ مو گیاهی معطر",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 100,
+    "title": "پاستا با قارچ و سس خامه",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 523,
+    "title": "سوپ عدس و پاستا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 140,
+    "title": "پلو با نخود",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 183,
+    "title": "پلو قبولی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 704,
+    "title": "کباب سبزیجات گریل‌شده با سس بادام‌زمینی و قارچ",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 714,
+    "title": "اردور میگو با چیپس و پنیر چدار",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1506,
+    "title": "نودل‌های دست‌کشِ بیانگ بیانگ (Biang Biang)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 141,
+    "title": "پلو مخلوط",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1522,
+    "title": "ماهی معطر جیانگسو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1350,
+    "title": "خورش قارچ و مرغ زعفرانی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 535,
+    "title": "سوپ لوبیا",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 709,
+    "title": "اردور سیب‌زمینی مخصوص با سیاه‌دانه",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 720,
+    "title": "پیش‌غذای خیار و میگوی سرد با سس مایونز",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 530,
+    "title": "سوپ برنج",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 713,
+    "title": "اردور پنیری گیاهی با گردو و سبزیجات معطر (آردور پنیر)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 196,
+    "title": "ماکارونی با میگو و نان",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1249,
+    "title": "نان شکم‌پر گوشتی مجلسی (بردفیش)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 49,
+    "title": "خوراک ویژه نودلز یا ماکارونی رشته‌ای",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 202,
+    "title": "پاستا با سس انار",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1512,
+    "title": "پوتو سنتی کرالا (آرد برنج و نارگیل بخارپز)",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1351,
+    "title": "فسنجان فوری با مایکروویو",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 124,
+    "title": "رشته پلو با گوشت",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 1513,
+    "title": "هویوس رانچروس کلاسیک مکزیکی",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  },
+  {
+    "legacy_id": 149,
+    "title": "مرغ پلو با سبزیجات",
+    "valid_langs": [
+      "en",
+      "es",
+      "fa"
+    ]
+  }
+]
